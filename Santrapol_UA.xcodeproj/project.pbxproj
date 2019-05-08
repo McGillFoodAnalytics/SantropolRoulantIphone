@@ -7,15 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E911D0C1222DBBDE000B7BB4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911D0C0222DBBDE000B7BB4 /* ProfileViewController.swift */; };
+		E911D0C32232C80D000B7BB4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911D0C22232C80D000B7BB4 /* HomeViewController.swift */; };
+		E911D0E9223965AB000B7BB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911D0E8223965AB000B7BB4 /* ViewController.swift */; };
+		E911D0EC223F0665000B7BB4 /* UrbanAgriculture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911D0EB223F0665000B7BB4 /* UrbanAgriculture.swift */; };
+		E911D0EE224016E5000B7BB4 /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911D0ED224016E5000B7BB4 /* ResetPassword.swift */; };
+		E911D0F02241CBFD000B7BB4 /* VolunteerSignup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911D0EF2241CBFD000B7BB4 /* VolunteerSignup.swift */; };
 		E9138B69220BBF1300C6F1E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9138B68220BBF1300C6F1E0 /* AppDelegate.swift */; };
 		E9138B6B220BBF1300C6F1E0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9138B6A220BBF1300C6F1E0 /* FirstViewController.swift */; };
 		E9138B6D220BBF1300C6F1E0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9138B6C220BBF1300C6F1E0 /* SecondViewController.swift */; };
 		E9138B70220BBF1300C6F1E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9138B6E220BBF1300C6F1E0 /* Main.storyboard */; };
 		E9138B72220BBF1700C6F1E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9138B71220BBF1700C6F1E0 /* Assets.xcassets */; };
 		E9138B75220BBF1700C6F1E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9138B73220BBF1700C6F1E0 /* LaunchScreen.storyboard */; };
+		E9138B7D220BC0EF00C6F1E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9138B7C220BC0EF00C6F1E0 /* GoogleService-Info.plist */; };
+		E97F46282225D552000CC40E /* EventSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F46272225D552000CC40E /* EventSection.swift */; };
+		E97F462A2228C79C000CC40E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F46292228C79C000CC40E /* Model.swift */; };
+		E98F285F224BC5FD00879CBF /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F285E224BC5FD00879CBF /* NavigationBar.swift */; };
+		F0256D4F603062496BC7AEEF /* Pods_Santrapol_UA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8DB101E802B7351B05F275 /* Pods_Santrapol_UA.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Santrapol_UA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA.debug.xcconfig"; sourceTree = "<group>"; };
+		DD8DB101E802B7351B05F275 /* Pods_Santrapol_UA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Santrapol_UA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E46FE4A73F4C825EB35B7D1D /* Pods-Santrapol_UA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Santrapol_UA.release.xcconfig"; path = "Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA.release.xcconfig"; sourceTree = "<group>"; };
+		E911D0C0222DBBDE000B7BB4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E911D0C22232C80D000B7BB4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E911D0E8223965AB000B7BB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E911D0EB223F0665000B7BB4 /* UrbanAgriculture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrbanAgriculture.swift; sourceTree = "<group>"; };
+		E911D0ED224016E5000B7BB4 /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
+		E911D0EF2241CBFD000B7BB4 /* VolunteerSignup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerSignup.swift; sourceTree = "<group>"; };
 		E9138B65220BBF1300C6F1E0 /* Santrapol_UA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Santrapol_UA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9138B68220BBF1300C6F1E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9138B6A220BBF1300C6F1E0 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +44,10 @@
 		E9138B71220BBF1700C6F1E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9138B74220BBF1700C6F1E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9138B76220BBF1700C6F1E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9138B7C220BC0EF00C6F1E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E97F46272225D552000CC40E /* EventSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSection.swift; sourceTree = "<group>"; };
+		E97F46292228C79C000CC40E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E98F285E224BC5FD00879CBF /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +55,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0256D4F603062496BC7AEEF /* Pods_Santrapol_UA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB383893EDAA2A605C05DF9F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */,
+				E46FE4A73F4C825EB35B7D1D /* Pods-Santrapol_UA.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E911D0EA223B207E000B7BB4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E97F46292228C79C000CC40E /* Model.swift */,
+				E98F285E224BC5FD00879CBF /* NavigationBar.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E9138B5C220BBF1300C6F1E0 = {
 			isa = PBXGroup;
 			children = (
 				E9138B67220BBF1300C6F1E0 /* Santrapol_UA */,
 				E9138B66220BBF1300C6F1E0 /* Products */,
+				CB383893EDAA2A605C05DF9F /* Pods */,
+				FFA878B2639567468D28C27F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +101,32 @@
 		E9138B67220BBF1300C6F1E0 /* Santrapol_UA */ = {
 			isa = PBXGroup;
 			children = (
+				E911D0EA223B207E000B7BB4 /* Model */,
+				E9138B7C220BC0EF00C6F1E0 /* GoogleService-Info.plist */,
+				E911D0C0222DBBDE000B7BB4 /* ProfileViewController.swift */,
 				E9138B68220BBF1300C6F1E0 /* AppDelegate.swift */,
 				E9138B6A220BBF1300C6F1E0 /* FirstViewController.swift */,
+				E911D0E8223965AB000B7BB4 /* ViewController.swift */,
 				E9138B6C220BBF1300C6F1E0 /* SecondViewController.swift */,
 				E9138B6E220BBF1300C6F1E0 /* Main.storyboard */,
+				E911D0EF2241CBFD000B7BB4 /* VolunteerSignup.swift */,
+				E911D0ED224016E5000B7BB4 /* ResetPassword.swift */,
+				E911D0EB223F0665000B7BB4 /* UrbanAgriculture.swift */,
+				E911D0C22232C80D000B7BB4 /* HomeViewController.swift */,
+				E97F46272225D552000CC40E /* EventSection.swift */,
 				E9138B71220BBF1700C6F1E0 /* Assets.xcassets */,
 				E9138B73220BBF1700C6F1E0 /* LaunchScreen.storyboard */,
 				E9138B76220BBF1700C6F1E0 /* Info.plist */,
 			);
 			path = Santrapol_UA;
+			sourceTree = "<group>";
+		};
+		FFA878B2639567468D28C27F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD8DB101E802B7351B05F275 /* Pods_Santrapol_UA.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +136,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9138B79220BBF1700C6F1E0 /* Build configuration list for PBXNativeTarget "Santrapol_UA" */;
 			buildPhases = (
+				C2C83E67D5301CDD4D14C42F /* [CP] Check Pods Manifest.lock */,
 				E9138B61220BBF1300C6F1E0 /* Sources */,
 				E9138B62220BBF1300C6F1E0 /* Frameworks */,
 				E9138B63220BBF1300C6F1E0 /* Resources */,
+				4009594ADFF20C5BD58C9AD8 /* [CP] Embed Pods Frameworks */,
+				F912D4248917D69CB1841D92 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,20 +192,147 @@
 			files = (
 				E9138B75220BBF1700C6F1E0 /* LaunchScreen.storyboard in Resources */,
 				E9138B72220BBF1700C6F1E0 /* Assets.xcassets in Resources */,
+				E9138B7D220BC0EF00C6F1E0 /* GoogleService-Info.plist in Resources */,
 				E9138B70220BBF1300C6F1E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4009594ADFF20C5BD58C9AD8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/KDCalendar/KDCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2C83E67D5301CDD4D14C42F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Santrapol_UA-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F912D4248917D69CB1841D92 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseEmailAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAnonymousAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseEmailAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E9138B61220BBF1300C6F1E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E97F462A2228C79C000CC40E /* Model.swift in Sources */,
+				E911D0F02241CBFD000B7BB4 /* VolunteerSignup.swift in Sources */,
 				E9138B6D220BBF1300C6F1E0 /* SecondViewController.swift in Sources */,
+				E911D0E9223965AB000B7BB4 /* ViewController.swift in Sources */,
 				E9138B69220BBF1300C6F1E0 /* AppDelegate.swift in Sources */,
+				E911D0C32232C80D000B7BB4 /* HomeViewController.swift in Sources */,
+				E911D0EE224016E5000B7BB4 /* ResetPassword.swift in Sources */,
+				E911D0EC223F0665000B7BB4 /* UrbanAgriculture.swift in Sources */,
+				E97F46282225D552000CC40E /* EventSection.swift in Sources */,
+				E911D0C1222DBBDE000B7BB4 /* ProfileViewController.swift in Sources */,
 				E9138B6B220BBF1300C6F1E0 /* FirstViewController.swift in Sources */,
+				E98F285F224BC5FD00879CBF /* NavigationBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +476,10 @@
 		};
 		E9138B7A220BBF1700C6F1E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558A742NCM;
 				INFOPLIST_FILE = Santrapol_UA/Info.plist;
@@ -295,6 +489,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Anshul.Santrapol-UA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -302,8 +497,10 @@
 		};
 		E9138B7B220BBF1700C6F1E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E46FE4A73F4C825EB35B7D1D /* Pods-Santrapol_UA.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558A742NCM;
 				INFOPLIST_FILE = Santrapol_UA/Info.plist;
@@ -313,6 +510,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Anshul.Santrapol-UA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
