@@ -30,11 +30,11 @@
 		E97F462A2228C79C000CC40E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F46292228C79C000CC40E /* Model.swift */; };
 		E98F285F224BC5FD00879CBF /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F285E224BC5FD00879CBF /* NavigationBar.swift */; };
 		F0256D4F603062496BC7AEEF /* Pods_Santrapol_UA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8DB101E802B7351B05F275 /* Pods_Santrapol_UA.framework */; };
+		F04071C42319B9D00023E5E2 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071C32319B9D00023E5E2 /* BottomSheetViewController.swift */; };
+		F04071C62319B9E80023E5E2 /* CalenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071C52319B9E80023E5E2 /* CalenderVC.swift */; };
 		F042692D22FBDD9A00A0594F /* ContactPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042692C22FBDD9A00A0594F /* ContactPage.swift */; };
 		F042692F22FBE15800A0594F /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042692E22FBE15800A0594F /* Artwork.swift */; };
 		F097073523184D61002AE653 /* UnlockCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F097073423184D61002AE653 /* UnlockCode.swift */; };
-		F0AC7A402319A49D0014C91C /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC7A3E2319A49D0014C91C /* BottomSheetViewController.swift */; };
-		F0AC7A412319A49D0014C91C /* CalenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC7A3F2319A49D0014C91C /* CalenderVC.swift */; };
 		F0AC7A492319A4A70014C91C /* SimpleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC7A432319A4A70014C91C /* SimpleTableCell.swift */; };
 		F0AC7A4A2319A4A70014C91C /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC7A442319A4A70014C91C /* CalenderView.swift */; };
 		F0AC7A4B2319A4A70014C91C /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC7A452319A4A70014C91C /* MonthView.swift */; };
@@ -75,11 +75,11 @@
 		E97F46272225D552000CC40E /* EventSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSection.swift; sourceTree = "<group>"; };
 		E97F46292228C79C000CC40E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E98F285E224BC5FD00879CBF /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		F04071C32319B9D00023E5E2 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomSheetViewController.swift; path = Santrapol_UA/Controller/BottomSheetViewController.swift; sourceTree = SOURCE_ROOT; };
+		F04071C52319B9E80023E5E2 /* CalenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalenderVC.swift; path = Santrapol_UA/Controller/CalenderVC.swift; sourceTree = SOURCE_ROOT; };
 		F042692C22FBDD9A00A0594F /* ContactPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPage.swift; sourceTree = "<group>"; };
 		F042692E22FBE15800A0594F /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		F097073423184D61002AE653 /* UnlockCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockCode.swift; sourceTree = "<group>"; };
-		F0AC7A3E2319A49D0014C91C /* BottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
-		F0AC7A3F2319A49D0014C91C /* CalenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderVC.swift; sourceTree = "<group>"; };
 		F0AC7A432319A4A70014C91C /* SimpleTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableCell.swift; sourceTree = "<group>"; };
 		F0AC7A442319A4A70014C91C /* CalenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		F0AC7A452319A4A70014C91C /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
@@ -186,11 +186,12 @@
 		F0AC7A3D2319A49D0014C91C /* Calendar Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F0AC7A3E2319A49D0014C91C /* BottomSheetViewController.swift */,
-				F0AC7A3F2319A49D0014C91C /* CalenderVC.swift */,
+				F04071C32319B9D00023E5E2 /* BottomSheetViewController.swift */,
+				F04071C52319B9E80023E5E2 /* CalenderVC.swift */,
 			);
-			path = "Calendar Controllers";
-			sourceTree = "<group>";
+			name = "Calendar Controllers";
+			path = "Santrapol_UA/Calendar Controllers";
+			sourceTree = SOURCE_ROOT;
 		};
 		F0AC7A422319A4A70014C91C /* Calendar Underlying */ = {
 			isa = PBXGroup;
@@ -365,7 +366,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A084301F22C89871004492F5 /* CellNames.swift in Sources */,
-				F0AC7A402319A49D0014C91C /* BottomSheetViewController.swift in Sources */,
 				E97F462A2228C79C000CC40E /* Model.swift in Sources */,
 				F0AC7A4A2319A4A70014C91C /* CalenderView.swift in Sources */,
 				E911D0F02241CBFD000B7BB4 /* VolunteerSignup.swift in Sources */,
@@ -384,12 +384,13 @@
 				E911D0C1222DBBDE000B7BB4 /* ProfileViewController.swift in Sources */,
 				A0E97C3622CEBBA300FFB10D /* HomePage.swift in Sources */,
 				A0E97C3422CEBA1F00FFB10D /* CollectionViewCell.swift in Sources */,
+				F04071C42319B9D00023E5E2 /* BottomSheetViewController.swift in Sources */,
 				F097073523184D61002AE653 /* UnlockCode.swift in Sources */,
 				F042692D22FBDD9A00A0594F /* ContactPage.swift in Sources */,
 				E9138B6B220BBF1300C6F1E0 /* FirstViewController.swift in Sources */,
 				A084301D22C88E48004492F5 /* ListVolunteer.swift in Sources */,
-				F0AC7A412319A49D0014C91C /* CalenderVC.swift in Sources */,
 				F042692F22FBE15800A0594F /* Artwork.swift in Sources */,
+				F04071C62319B9E80023E5E2 /* CalenderVC.swift in Sources */,
 				E98F285F224BC5FD00879CBF /* NavigationBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
