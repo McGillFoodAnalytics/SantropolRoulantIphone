@@ -14,7 +14,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    var useref = Database.database().reference().child("users");
+    var useref = Database.database().reference().child("user");
     
     @IBOutlet weak var FirstName: UITextField!
     
@@ -39,6 +39,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         FirstName.delegate = self
         LastName.delegate = self
@@ -94,17 +95,16 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
             }
                 else
                 {
-                    
-                    let userid = Auth.auth().currentUser!.uid
-                    let user = ["id":userid,"FirstName":self.FirstName.text! as String,"LastName":self.LastName.text! as String,"email":self.Email.text! as String]
+                    let phone_number = 5144187718
+                    let userid = self.LastName.text!.prefix(2).lowercased() + String(phone_number)
+                    let key = Auth.auth().currentUser!.uid
+                    let user = ["first_name":self.FirstName.text! as String,"last_name":self.LastName.text! as String,"phone_number": phone_number, "email":self.Email.text! as String, "key": key as String] as [String : Any]
                     self.useref.child(userid).setValue(user) //add user details in DB
                     //print("User Details are ",user)
                     
                     self.performSegue(withIdentifier: "goToLogin", sender: self)
                 }
             
-        
-        
         
     }
 

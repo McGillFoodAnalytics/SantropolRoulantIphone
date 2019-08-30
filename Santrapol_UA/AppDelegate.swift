@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseUI
+import FirebaseAuth
+import IQKeyboardManagerSwift
+
 
 
 
@@ -16,12 +19,79 @@ import FirebaseUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-
+    var storyboard: UIStoryboard?
+    let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
+        
+  //    UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        
+      UINavigationBar.appearance().barTintColor = UIColor.white
+       UINavigationBar.appearance().tintColor = UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0)
+        
+  //   let newFont = UIFont(name: "Avenir Next", size: 17)
+//        newFont?.fontDescriptor.withSymbolicTraits(.traitBold)
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0), NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 20)!]
+        
+        
+        
+        IQKeyboardManager.shared.enable = true
+        
+                FirebaseApp.configure()
+        
+        Database.database().isPersistenceEnabled = false
+
+     
+
+
+
+        
+        self.storyboard =  UIStoryboard(name: "Main", bundle: Bundle.main)
+        let currentUser = Auth.auth().currentUser
+        if currentUser != nil
+        {
+          /*  self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomePage") */
+            
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "HomePage") as! HomePage
+            let navigationController = UINavigationController(rootViewController: nextViewController)
+            let appdelegate = UIApplication.shared.delegate as! AppDelegate
+            appdelegate.window!.rootViewController = navigationController
+        }
+        else if !defaults.bool(forKey: "codeEntered") {
+            
+            // Access code has not been entered, present the page to enter the code
+            
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UnlockCode") as! UnlockCode
+            let navigationController = UINavigationController(rootViewController: nextViewController)
+            let appdelegate = UIApplication.shared.delegate as! AppDelegate
+            appdelegate.window!.rootViewController = navigationController
+            
+            
+        }
+        
+        else {
+            
+            // Access code has already been entered, present the login environment
+            
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "IntroPage") as! IntroPage
+            let navigationController = UINavigationController(rootViewController: nextViewController)
+            let appdelegate = UIApplication.shared.delegate as! AppDelegate
+            appdelegate.window!.rootViewController = navigationController
+            
+            
+            
+            
+           /* self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginScreen") */
+            
+
+            
+            
+        }
         /*window = UIWindow()
         window?.makeKeyAndVisible()
         let navController = UINavigationController(rootViewController: EventSection())
@@ -61,5 +131,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension UIViewController {
+    open override func awakeFromNib() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
 }
 

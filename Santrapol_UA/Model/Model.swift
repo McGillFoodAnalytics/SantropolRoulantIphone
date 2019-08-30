@@ -7,22 +7,131 @@
 //
 
 class Model {
+    var cap: Int?
     var loc: String?
     var eventdate: String?
     var checked: Bool?
     var availableDate: String?
     var slot: String?
-    init(loc:String?, eventdate:String?, slot:String?) {
+    var usercount: Int?
+    var eventid: String?
+    var driverCap: Int?
+
+    init(cap: Int?, loc:String?, eventdate:String?, slot:String?, usercount: Int?, driverCap: Int?) {
+        self.cap = cap
         self.eventdate = eventdate
         self.loc = loc
         self.slot = slot
+        self.usercount = usercount
+        self.driverCap = driverCap
+    }
+    
+    init(loc:String?, eventdate:String?, slot:String?, eventid: String?) {
+        self.eventdate = eventdate
+        self.loc = loc
+        self.slot = slot
+        self.eventid = eventid
     }
     
     init(availableDate: String?, slot:String?) {
         self.availableDate = availableDate
         self.slot = slot
     }
+    
     init(checked:Bool?){
      self.checked = checked
     }
+    
+    init(eventid: String?){
+        
+        self.eventid = eventid
+    }
+}
+
+
+class Names {
+    var firstName: String?
+    var lastName: String?
+    var uid: String?
+    var driver: Bool?
+    var event_type_user: String?
+    var event_start: String?
+    var event_end: String?
+    var note: String?
+    
+    init(firstName: String?, lastName: String?, uid: String?, driver: Bool?, event_type_user: String?) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.uid = uid
+        self.driver = driver
+        self.event_type_user = event_type_user
+    }
+    
+    init(firstName: String?, lastName: String?, uid: String?, driver: Bool?, event_type_user: String?, event_start: String?, event_end: String?, note: String?) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.uid = uid
+        self.driver = driver
+        self.event_type_user = event_type_user
+        self.event_start = event_start
+        self.event_end = event_end
+        self.note = note
+    }
+    
+}
+
+
+class EventDisplay {
+    var eventdate: String?
+    var event_start: String?
+    var event_end: String?
+    var event_int: Int?
+    var event_type: String?
+    var cap: Int?
+    
+    init(eventdate: String?, event_start: String?, event_end: String?, event_int: Int?, event_type:String?, cap:Int?) {
+        self.eventdate = eventdate
+        self.event_start = event_start
+        self.event_end = event_end
+        self.event_int = event_int
+        self.event_type = event_type
+        self.cap = cap
+    }
+    
+}
+
+
+class UserInformation {
+    var user_first_name: String?
+    var user_last_name: String?
+    var user_key: String?
+    var user_uid: String?
+    var email: String?
+    var phone_number: String?
+    
+    init(user_first_name: String?, user_last_name: String?, user_key: String?, user_uid: String?) {
+        self.user_first_name = user_first_name
+        self.user_last_name = user_last_name
+        self.user_key = user_key
+        self.user_uid = user_uid
+    }
+    
+    init(email: String?, phone_number: String?) {
+        self.email = email
+        self.phone_number = phone_number
+
+    }
+    
+}
+
+
+class DummyArray {
+    var user_id: String?
+    
+    init(user_id: String?){
+        
+        
+        self.user_id = user_id
+    }
+    
 }

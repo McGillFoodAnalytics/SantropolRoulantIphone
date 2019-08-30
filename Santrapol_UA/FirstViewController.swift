@@ -9,15 +9,15 @@
 import UIKit
 import FirebaseAuth  //for User Authentication
 import FirebaseDatabase
-
-import JTAppleCalendar //for calendar setup
+import SVProgressHUD
 
 class FirstViewController: UIViewController {
     
-    
+
 
     @IBOutlet weak var SignUp: UIButton!
     @IBOutlet weak var LogIn: UIButton!
+    
     
     @IBOutlet weak var ForgotPassword: UIButton!
     
@@ -34,23 +34,28 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var UserName: UITextField!
     @IBOutlet weak var Password: UITextField!
     
-    
-    //let formatter = DateFormatter()
-    
-    
-    
-            
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    }
+
     
     
     var isSignIn:Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-     
-        
     }
     
+
+
   
     @IBAction func SignUp(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToRegister", sender: self)
@@ -58,22 +63,43 @@ class FirstViewController: UIViewController {
     }
     
     
-    /*override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "gotoHome"
-        { if UserName.text.isEmpty == true {
-            
-            
-            return false
-        }
-        else {
-            
-            }
-        return true
-    }*/
-    
     @IBAction func LogInButton(_ sender: Any) {
-        if let email = UserName.text, let pass = Password.text {
-            Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
+        
+        SVProgressHUD.setForegroundColor(UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0)) 
+        SVProgressHUD.show()
+        
+        var username: String
+        
+        let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        
+
+
+        
+        if UserName.text == "" {
+            
+            self.ErrorMsg.text = "User doesn't exist"
+            SVProgressHUD.dismiss()// Dummy username to prevent the app from crashing
+            return
+            
+            // Check if username input contains special characters (not supported by Firebase)
+        } else if UserName.text!.rangeOfCharacter(from: characterset.inverted) != nil {
+            
+            self.ErrorMsg.text = "User doesn't exist"
+            SVProgressHUD.dismiss()
+            return
+            
+        }
+            
+            
+
+        
+        Database.database().reference().child("user").child(UserName.text!).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let email1 = snapshot.value
+        
+        
+            if let email = email1, let pass = self.Password.text {
+                Auth.auth().signIn(withEmail: email as? String ?? "invalidemail@hotmail.com", password: pass) { (user, error) in
                 // ...
                 if error != nil
                 {
@@ -81,20 +107,22 @@ class FirstViewController: UIViewController {
              
                         switch errCode {
                         case .invalidEmail:
-                            print("invalid email")
+                            print("Invalid email")
                   self.ErrorMsg.text = "Please enter valid email"
                             
                             
                         case .userDisabled:
-                            print("User is disabled")
-                            self.ErrorMsg.text = "User is Disabled"
+                            print("L'utilisateur est désactivé / User is disabled")
+                            self.ErrorMsg.text = "User is disabled"
                         case .wrongPassword:
                             print("Incorrect Password")
                             self.ErrorMsg.text = "Incorrect Password"
                         default:
                             print("Can't login!")
-                         self.ErrorMsg.text = "User doesn't exist. Please sign up for a new user"
+                         self.ErrorMsg.text = "User doesn't exist"
                         }
+                        
+                        SVProgressHUD.dismiss()
                         
                     }
            
@@ -102,82 +130,31 @@ class FirstViewController: UIViewController {
                 }
                 else {
                     
+
                    
                     let userid = Auth.auth().currentUser!.uid
                         //else {return}
                 print(userid)
                     self.performSegue(withIdentifier: "goToHome", sender: self)
+                    
+                    SVProgressHUD.dismiss()
             }
                 
-    }
-    
-    
+    } // Ends the second if statement
     
    
     
-}
-    } //Closing bracket for Login Button
-   /* let firebaseAuth = Auth.auth()
-    do {
-    try firebaseAuth.signOut()
-    } catch let signOutError as NSError {
-    print ("Error signing out: %@", signOutError)
-    } */
-  
-}
+         } // Ends first if statement
+            
 
-
-
-
-
-extension Date {
-    
-    /// Returns a Date with the specified amount of components added to the one it is called with
-    func add(years: Int = 0, months: Int = 0, days: Int = 0, hours: Int = 0, minutes: Int = 0, seconds: Int = 0) -> Date? {
-        let components = DateComponents(year: years, month: months, day: days, hour: hours, minute: minutes, second: seconds)
-        return Calendar.current.date(byAdding: components, to: self)
-    }
-    
-    /// Returns a Date with the specified amount of components subtracted from the one it is called with
-    func subtract(years: Int = 0, months: Int = 0, days: Int = 0, hours: Int = 0, minutes: Int = 0, seconds: Int = 0) -> Date? {
-        return add(years: -years, months: -months, days: -days, hours: -hours, minutes: -minutes, seconds: -seconds)
-    }
-    
-}
-
-
-/*extension FirstViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
-    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+            
+                                    })
         
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCalendarCell", for: indexPath) as! CustomCalendarCell
-        cell.dateLabel.text = cellState.text
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        formatter.dateFormat = "yyyy MM dd"
-        formatter.timeZone = Calendar.current.timeZone
-        formatter.locale = Calendar.current.locale
-        let startDate = Date()
-        let endDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: 180, to: startDate, options: [])!
+        
+            
+    } // Ends the tap function
+  
+} // Ends the class
 
-        //let endDate = formatter.date(from: "2020 12 31")
-        let parameters = ConfigurationParameters(startDate: startDate , endDate: endDate)
-
-        return parameters
-
-
-
-    }
-    
-}
- */
 
 

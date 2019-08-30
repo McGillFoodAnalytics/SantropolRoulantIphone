@@ -22,3 +22,11 @@ class EventSection: UITableViewCell {
     
     
 }
+
+class AvailableEvents: UITableViewCell{
+    
+    @IBOutlet weak var Date: UILabel!
+    @IBOutlet weak var slot: UILabel!
+    @IBOutlet weak var cap: UILabel!
+    
+}

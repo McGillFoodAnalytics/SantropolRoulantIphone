@@ -26,9 +26,10 @@ class NavigationBar: UIViewController {
     }
     
     @objc func HomeButtonTapped(sender: UIBarButtonItem) {
-        let Home: HomeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Home") as! HomeViewController
+       let Home: HomePage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomePage") as! HomePage
         
-        topMostController().present(Home, animated: true, completion: nil)
+      topMostController().present(Home, animated: true, completion: nil)
+    
     }
     
     @objc func ProfileButtonTapped(sender: UIBarButtonItem)  {
@@ -46,11 +47,11 @@ class NavigationBar: UIViewController {
         PageHeader.title = location
         
         HomeButton.addTarget(self, action: #selector(self.HomeButtonTapped), for: .touchUpInside)
-        PageHeader.leftBarButtonItem = UIBarButtonItem(customView: HomeButton)
+        PageHeader.rightBarButtonItem = UIBarButtonItem(customView: HomeButton)
         let ProfileButton = UIButton(type: .system)
         ProfileButton.setImage(Profile, for: .normal)
         ProfileButton.addTarget(self, action: #selector(ProfileButtonTapped), for: .touchUpInside)
-        PageHeader.rightBarButtonItem = UIBarButtonItem(customView: ProfileButton)
+        //PageHeader.leftBarButtonItem = UIBarButtonItem(customView: ProfileButton)
         
         
     }

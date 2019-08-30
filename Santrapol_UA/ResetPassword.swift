@@ -27,14 +27,14 @@ class ResetPassword: UIViewController {
                 }
                 else {
                     
-                    let userMsg:String = "An email has been sent to \(email ?? "test")"
+                    let userMsg:String = "Un courriel a été envoyé à l'adresse / An email has been sent to \(email ?? "test")"
                     self.displayMessage(userMessage:userMsg)
                 }
                 return
             }
         }
         else {
-            let userMsg = "Please enter valid email address"
+            let userMsg = "Veuillez indiquer une adresse de courriel valide / Please enter valid email address"
             self.displayMessage(userMessage: userMsg)
         }
     }
@@ -42,6 +42,9 @@ class ResetPassword: UIViewController {
 
 override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.navigationItem.title = "Reset Password"
+
     
     // Do any additional setup after loading the view.
 }
@@ -56,7 +59,25 @@ func displayMessage(userMessage:String)
     Alert.addAction(okAction)
     self.present(Alert, animated: true, completion: nil)
 }
+    
+    
 
+    @IBAction func backTapped(_ sender: Any) {
+        
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        
+        
+        let loginScreen: FirstViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScreen") as! FirstViewController
+        
+        present(loginScreen, animated:false, completion: nil)
+        
+        
+    }
     
 
     
