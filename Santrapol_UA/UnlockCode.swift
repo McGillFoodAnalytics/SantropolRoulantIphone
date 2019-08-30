@@ -22,6 +22,8 @@ class UnlockCode: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+     //   print("test")
+        
         codeField.setBottomBorder(withColor: UIColor.white)
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
