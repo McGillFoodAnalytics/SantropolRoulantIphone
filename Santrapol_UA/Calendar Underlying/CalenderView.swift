@@ -56,7 +56,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var todaysDate = 0
     var weekday = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7)
-  
+    
     var bookedSlotDate = [Int]()
     
     override init(frame: CGRect) {
@@ -79,7 +79,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func changeTheme() {
         myCollectionView.reloadData()
-
+        
         
         
         
@@ -114,7 +114,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.dataSource=self
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
         
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -130,7 +130,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             let calcDate = indexPath.row-firstWeekDayOfMonth+2
             cell.isHidden=false
             cell.dateLbl.text="\(calcDate)"
-        
+            
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
@@ -168,24 +168,24 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             // Prints the date in the chosen format (may change for different languages)
             delegate?.didTapDate(date: "\(weekdaysArr[weekday-1]), \(monthsArr[currentMonthIndex-1]) \(calcDate), \(currentYear)", dateInt: "\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))", available: true)
         }
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell=collectionView.cellForItem(at: indexPath)
-       
+        
         
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
         if  bookedSlotDate.contains(calcDate) {
             cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
             lbl.textColor=UIColor.red
-         
+            
         } else {
             cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
             lbl.textColor = Style.activeCellLblColor
-           
+            
         }
     }
     
@@ -279,7 +279,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     
-  
+    
 }
 
 
@@ -293,7 +293,7 @@ class dateCVCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor=UIColor.clear
         layer.cornerRadius = self.frame.height / 2
-
+        
         layer.masksToBounds=true
         
         setupViews()
@@ -306,7 +306,7 @@ class dateCVCell: UICollectionViewCell {
         dateLbl.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
         dateLbl.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
         
-      
+        
     }
     
     let dateLbl: UILabel = {
@@ -315,7 +315,7 @@ class dateCVCell: UICollectionViewCell {
         label.text = "00"
         label.textAlignment = .center
         label.font = UIFont(name: "Avenir Next", size: CGFloat(size))
-     //   label.font=UIFont.systemFont(ofSize: 16)
+        //   label.font=UIFont.systemFont(ofSize: 16)
         label.textColor=Colors.darkGray
         label.translatesAutoresizingMaskIntoConstraints=false
         label.adjustsFontSizeToFitWidth = true
@@ -323,7 +323,7 @@ class dateCVCell: UICollectionViewCell {
         return label
     }()
     
- 
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
