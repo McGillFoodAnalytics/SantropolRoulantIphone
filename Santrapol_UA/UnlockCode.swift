@@ -22,8 +22,6 @@ class UnlockCode: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-     //   print("test")
-    // Will this work?
         
         codeField.setBottomBorder(withColor: UIColor.white)
         
