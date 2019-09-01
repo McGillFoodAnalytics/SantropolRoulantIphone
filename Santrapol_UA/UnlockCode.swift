@@ -62,7 +62,7 @@ class UnlockCode: UIViewController {
             
         codeField.setBottomBorder(withColor: UIColor.red)
             
-            let alert = UIAlertController(title: "Error", message: "The code entered is incorrect. Please try again.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Oops 💩", message: "The code you entered is incorrect. Please try again.", preferredStyle: .alert)
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             

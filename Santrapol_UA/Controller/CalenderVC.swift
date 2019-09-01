@@ -61,8 +61,8 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
              
              alert.addAction(OKAction)
              present(alert, animated: true, completion: nil) */
-            
-            let alert = UIAlertController(title: "Success", message: "Registered successfully! Do you want to register for another shift?", preferredStyle: .alert)
+            //emoji test
+            let alert = UIAlertController(title: "Success ❤️🎉", message: "Registered successfully! Do you want to register for another shift?", preferredStyle: .alert)
             
             let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
                 
@@ -223,7 +223,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
     
     
     fileprivate func showAlert(){
-        let alert = UIAlertController(title: "Unavailable", message: "This slot is already booked.\nPlease choose another date.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Unavailable", message: "This slot is already booked.\nPlease choose another date or time. 😔", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
