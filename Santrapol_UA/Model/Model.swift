@@ -16,6 +16,8 @@ class Model {
     var usercount: Int?
     var eventid: String?
     var driverCap: Int?
+    var event_time_start: String?
+    var event_time_end: String?
 
     init(cap: Int?, loc:String?, eventdate:String?, slot:String?, usercount: Int?, driverCap: Int?) {
         self.cap = cap
@@ -26,10 +28,12 @@ class Model {
         self.driverCap = driverCap
     }
     
-    init(loc:String?, eventdate:String?, slot:String?, eventid: String?) {
-        self.eventdate = eventdate
+    init(loc:String?, eventdate:String?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?) {
         self.loc = loc
+        self.eventdate = eventdate
         self.slot = slot
+        self.event_time_start = event_time_start
+        self.event_time_end = event_time_end
         self.eventid = eventid
     }
     

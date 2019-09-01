@@ -26,17 +26,17 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>&lt;?xml</string>
-				<string>version=&quot;1.0&quot;</string>
-				<string>encoding=&quot;UTF-8&quot;?&gt;
+				<string>version="1.0"</string>
+				<string>encoding="UTF-8"?&gt;
 &lt;!DOCTYPE</string>
 				<string>plist</string>
 				<string>PUBLIC</string>
-				<string>&quot;-//Apple//DTD</string>
+				<string>"-//Apple//DTD</string>
 				<string>PLIST</string>
-				<string>1.0//EN&quot;</string>
-				<string>&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+				<string>1.0//EN"</string>
+				<string>"http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
 &lt;plist</string>
-				<string>version=&quot;1.0&quot;&gt;
+				<string>version="1.0"&gt;
 &lt;string&gt;com.googleusercontent.apps.294633065513-ahleipbjj35emhdrvog5llupkqcgr0e9&lt;/string&gt;
 &lt;/plist&gt;
 </string>

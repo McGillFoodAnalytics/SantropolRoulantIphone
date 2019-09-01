@@ -88,41 +88,67 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
             
             let details = EventList[indexPath.row]
             let eventid = details.eventid ?? nil
+            let eventint = (details.eventid?.prefix(6) ?? nil) ?? ""
+            let eventStart = details.event_time_start
             
-            let deleteRef = Database.database().reference().child("event").child(eventid!)
+            let eventDateTime = eventint + "," + eventStart!
             
-            let childUpdates = [
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "yyMMdd,hh:mm"
             
-                "first_name": "",
-                "last_name": "",
-                "key": "nan",
-                "uid": "nan",
-                "note": "",
-                "first_shift": false
+            let dateEvent = dateFormatterGet.date(from: eventDateTime)
             
-                ] as [String : Any]
+            let dateToday = Date()
             
-            // Performs all the changes simultaneously
-            deleteRef.updateChildValues(childUpdates)
+            print(dateToday)
+            print(dateEvent)
             
-            /* Database.database().reference().child("event").child(eventid!).child("first_name").setValue("")
+            let diffInMinutes = Calendar.current.dateComponents([.minute], from: dateToday, to: dateEvent!).minute
             
-            Database.database().reference().child("event").child(eventid!).child("last_name").setValue("")
+            print(diffInMinutes)
+
             
-            Database.database().reference().child("event").child(eventid!).child("key").setValue("nan")
-            
-            Database.database().reference().child("event").child(eventid!).child("uid").setValue("nan")
-            
-            Database.database().reference().child("event").child(eventid!).child("note").setValue("nan")
-            
-        Database.database().reference().child("event").child(eventid!).child("first_shift").setValue("false") */
-            
-            EventList.remove(at: indexPath.row)
-            
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            
+            if diffInMinutes ?? 0 < 2880 {
+                
+                let alert = UIAlertController(title: "Error", message: "The event is less than 48 hours away. Please call us at (514) 284-9335 in order to cancel", preferredStyle: .alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                
+                alert.addAction(OKAction)
+                
+                self.present(alert, animated: true, completion: nil)
+                
+                return
+                
+                
+            } else {
+                
+                let deleteRef = Database.database().reference().child("event").child(eventid!)
+                
+                let childUpdates = [
+                    
+                    "first_name": "",
+                    "last_name": "",
+                    "key": "nan",
+                    "uid": "nan",
+                    "note": "",
+                    "first_shift": false
+                    
+                    ] as [String : Any]
+                
+                // Performs all the changes simultaneously
+                deleteRef.updateChildValues(childUpdates)
+                
+                
+                EventList.remove(at: indexPath.row)
+                
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                
+            }
             
         }
+        
     }
     
    
@@ -200,7 +226,8 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 let slot = event_time_start! + "-" + event_time_end!
                 
                 
-                let event = Model(loc: type1, eventdate: date, slot: slot, eventid: eventid)
+                let event = Model(loc: type1, eventdate: date, slot: slot, event_time_start: event_time_start, event_time_end: event_time_end, eventid: eventid)
+                
                 self.EventList.append(event)
                 
                 self.tableView.reloadData()
@@ -210,6 +237,8 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
             
         })
         
+      //  tableView.dataSource = self
+    //    tableView.delegate = self
         
      }
     
