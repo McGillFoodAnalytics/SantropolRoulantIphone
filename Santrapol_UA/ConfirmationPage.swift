@@ -11,6 +11,8 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class ConfirmationPage: UIViewController {
+    
+    //TEST
 
     @IBOutlet weak var borderView: UIView!
     
