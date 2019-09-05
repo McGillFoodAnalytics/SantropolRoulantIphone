@@ -98,7 +98,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 let eventDateTime = eventint + "," + eventStart!
                 
                 let dateFormatterGet = DateFormatter()
-                dateFormatterGet.dateFormat = "yyMMdd,hh:mm"
+                dateFormatterGet.dateFormat = "yyMMdd,HH:mm"
                 
                 let dateEvent = dateFormatterGet.date(from: eventDateTime)
                 
