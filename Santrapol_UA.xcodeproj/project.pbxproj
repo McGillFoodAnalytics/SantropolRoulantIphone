@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		516DFA712321D0150056A40B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F04071D52319BB640023E5E2 /* LaunchScreen.storyboard */; };
 		A026ACFF22F029F70099DD30 /* ConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */; };
 		A084301D22C88E48004492F5 /* ListVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084301C22C88E48004492F5 /* ListVolunteer.swift */; };
 		A0A5A43222F270EB00828452 /* LogInEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A5A43122F270EB00828452 /* LogInEnvironment.swift */; };
@@ -30,7 +31,6 @@
 		F04071CF2319BAEC0023E5E2 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071C92319BAEC0023E5E2 /* CalenderView.swift */; };
 		F04071D02319BAEC0023E5E2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071CA2319BAEC0023E5E2 /* MonthView.swift */; };
 		F04071D32319BAEC0023E5E2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071CD2319BAEC0023E5E2 /* WeekdaysView.swift */; };
-		F04071D92319BB640023E5E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F04071D52319BB640023E5E2 /* LaunchScreen.storyboard */; };
 		F04071DA2319BB640023E5E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F04071D72319BB640023E5E2 /* Main.storyboard */; };
 		F04071E32319BD260023E5E2 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071DF2319BD260023E5E2 /* Artwork.swift */; };
 		F04071E42319BD260023E5E2 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04071E02319BD260023E5E2 /* CollectionViewCell.swift */; };
@@ -286,10 +286,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F04071D92319BB640023E5E2 /* LaunchScreen.storyboard in Resources */,
 				F04071DA2319BB640023E5E2 /* Main.storyboard in Resources */,
 				F0DBC1332319B63E0042453E /* next.png in Resources */,
 				F0DBC1362319B63E0042453E /* previous.png in Resources */,
+				516DFA712321D0150056A40B /* LaunchScreen.storyboard in Resources */,
 				F07AB1902319C7CA00BEF434 /* Assets.xcassets in Resources */,
 				A0F6686422C5D65700A54C3B /* GoogleService-Info.plist in Resources */,
 				F0DBC1312319B63E0042453E /* previous@2x.png in Resources */,

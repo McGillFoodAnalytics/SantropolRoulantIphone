@@ -18,18 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Santrapol" translatesAutoresizingMaskIntoConstraints="NO" id="7s9-tb-kch">
-                                <rect key="frame" x="69.5" y="215.5" width="236" height="236"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="7s9-tb-kch">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="santropol_nobackground" translatesAutoresizingMaskIntoConstraints="NO" id="Vog-5G-sZt">
+                                <rect key="frame" x="6" y="26" width="89.5" height="77.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="7s9-tb-kch" secondAttribute="height" multiplier="1:1" id="xqq-q9-WwE"/>
+                                    <constraint firstAttribute="width" secondItem="Vog-5G-sZt" secondAttribute="height" multiplier="82:71" id="Q33-Br-7kn"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7s9-tb-kch" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5bx-cD-xxl"/>
-                            <constraint firstItem="7s9-tb-kch" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.63" id="NDN-xI-A4I"/>
-                            <constraint firstItem="7s9-tb-kch" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Xuf-aI-urw"/>
+                            <constraint firstItem="7s9-tb-kch" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2Zw-rE-7hX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7s9-tb-kch" secondAttribute="bottom" id="6cl-VM-z42"/>
+                            <constraint firstItem="Vog-5G-sZt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="6" id="9Oa-xR-Hkc"/>
+                            <constraint firstItem="Vog-5G-sZt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="J3d-50-xnJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7s9-tb-kch" secondAttribute="trailing" id="N5H-Of-Zfi"/>
+                            <constraint firstItem="7s9-tb-kch" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jXY-nT-IPw"/>
+                            <constraint firstItem="Vog-5G-sZt" firstAttribute="height" secondItem="7s9-tb-kch" secondAttribute="height" multiplier="0.12" id="jmo-hA-lFg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -40,6 +47,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Santrapol" width="333" height="291"/>
+        <image name="launchBackground" width="512" height="341.5"/>
+        <image name="santropol_nobackground" width="82" height="71"/>
     </resources>
 </document>
