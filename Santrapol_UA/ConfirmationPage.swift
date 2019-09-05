@@ -13,6 +13,8 @@ import FirebaseAuth
 class ConfirmationPage: UIViewController {
     
     //TEST
+    
+    // Test # 2
 
     @IBOutlet weak var borderView: UIView!
     
