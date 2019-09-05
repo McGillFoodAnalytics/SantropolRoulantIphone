@@ -14,7 +14,7 @@ class ConfirmationPage: UIViewController {
     
     //TEST
     
-    // Test # 2
+    // Test #2
 
     @IBOutlet weak var borderView: UIView!
     
