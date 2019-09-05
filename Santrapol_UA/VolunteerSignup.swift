@@ -232,7 +232,8 @@ class KitchenChoice: UIViewController {
         
         self.subViewMorning.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        
+        data = "Kitchen AM"
+        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
         
         morningSelected = true
         afternoonSelected = false
@@ -248,13 +249,14 @@ class KitchenChoice: UIViewController {
         
         self.subViewAfternoon.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        
+        data = "Kitchen PM"
+        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
         
         morningSelected = false
         afternoonSelected = true
     }
     
-    @IBAction func nextTapped(_ sender: UIButton) {
+/*    @IBAction func nextTapped(_ sender: UIButton) {
         
         
         if morningSelected == true {
@@ -284,7 +286,7 @@ class KitchenChoice: UIViewController {
         
         
         
-    }
+    }*/
     
 
 }
@@ -364,7 +366,8 @@ class DeliveryChoice: UIViewController {
         
         self.subViewDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        
+        data = "Meal Delivery Driver"
+        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
         
         driverSelected = true
         nonDriverSelected = false
@@ -380,13 +383,14 @@ class DeliveryChoice: UIViewController {
         
         self.subViewNonDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        
+        data = "Meal Delivery Non-Driver"
+        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
         
         driverSelected = false
         nonDriverSelected = true
     }
     
-    @IBAction func nextTapped(_ sender: UIButton) {
+/*    @IBAction func nextTapped(_ sender: UIButton) {
         
         
         if driverSelected == true {
@@ -416,7 +420,7 @@ class DeliveryChoice: UIViewController {
         
         
         
-    }
+    }*/
     
     
 }
