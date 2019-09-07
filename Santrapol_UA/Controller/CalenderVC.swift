@@ -183,7 +183,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             
             print(CalenderVC.bookedSlotDate)
             
-            // This ensures that the view is added AFTER the firebase actions are performed
+            // The next few lines ensure that the view is added AFTER the firebase actions are performed. This allows the important dates to be displayed appropriately as they will ALWAYS be loaded before this view is initiated.
             
             self.view.addSubview(self.calenderView)
             self.calenderView.delegate = self
@@ -193,6 +193,32 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             self.calenderView.heightAnchor.constraint(equalToConstant: 365).isActive=true
             
             self.view.sendSubviewToBack(self.calenderView)
+            
+            
+            // Alert if there are important dates to attract user attention.
+            
+            if CalenderVC.bookedSlotDate.isEmpty {
+                
+                // Do nothing
+                
+            } else if self.registered != "yes" {
+                
+                // Only display this alert if the user doesn't come back from the registration page. This will allow the other alert ("registered successfully") to show up instead.
+                
+                let alert = UIAlertController(title: "⚠️", message: "There are important events highlighted in blue. Prioritize those dates when selecting shifts! 🙂", preferredStyle: .alert)
+                
+                let OKAction = UIAlertAction(title: "Got it!", style: .default, handler: nil)
+                
+                alert.addAction(OKAction)
+                
+                self.present(alert, animated: true, completion: nil)
+                
+                
+            } else {
+                
+                // Do nothing
+            }
+ 
             
             
         })

@@ -149,7 +149,21 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell=collectionView.cellForItem(at: indexPath)
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
-        if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
+        
+        cell?.backgroundColor=Colors.darkRed
+        let lbl = cell?.subviews[1] as! UILabel
+        lbl.textColor=UIColor.white
+        
+        // Compute the corresponding weekday for the selected date
+        let dateComponents = DateComponents(year: currentYear, month: currentMonthIndex, day: calcDate, hour: nil, minute: nil, second: nil)
+        
+        let test = Calendar.current.date(from: dateComponents)
+        let weekday = Calendar.current.component(.weekday, from: test!)
+        
+        // Prints the date in the chosen format (may change for different languages)
+        delegate?.didTapDate(date: "\(weekdaysArr[weekday-1]), \(monthsArr[currentMonthIndex-1]) \(calcDate), \(currentYear)", dateInt: "\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))", available: true)
+        
+   /*     if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
             cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
             lbl.textColor=UIColor.blue
@@ -168,7 +182,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             
             // Prints the date in the chosen format (may change for different languages)
             delegate?.didTapDate(date: "\(weekdaysArr[weekday-1]), \(monthsArr[currentMonthIndex-1]) \(calcDate), \(currentYear)", dateInt: "\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))", available: true)
-        }
+        } */
         
     }
     

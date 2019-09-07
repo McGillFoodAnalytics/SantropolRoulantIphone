@@ -359,7 +359,7 @@ class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableV
         
         // The following block of code prevents a user from registering twice to the same event (disabled for now for development purposes)
         
-        /*     if namesRegisteredArray.contains(userid) {
+             if namesRegisteredArray.contains(userid) {
          
          // Create an alert blocking the user to register for this event
          let alert = UIAlertController(title: "Error", message: "You are already registered to this activity!", preferredStyle: .alert)
@@ -373,7 +373,7 @@ class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableV
          return
          
          
-         } */
+         } 
         
         if number + 1 > namesRegistered.count {
             
