@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 import SVProgressHUD
 
 enum MyTheme {
@@ -29,6 +31,10 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
     var firstWeekDayOfMonth = 0
     
     var containerViewController: BottomSheetViewController?
+    static var bookedSlotDate = [Int]()
+    var location_start_query: String = ""
+    var location_end_query: String = ""
+    var datesImportant = [Model]()
     
     @objc func didTapEditButton(sender: AnyObject) {
         
@@ -121,6 +127,79 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver"  {
+            
+            location_start_query = "deldr"
+            location_end_query = "deliv"
+            
+            
+        } else if typecontroller == "Kitchen AM" {
+            
+            location_start_query = "kitam"
+            location_end_query = "kitas"
+            
+        } else {
+            
+            location_start_query = "kitpm"
+            location_end_query = "kitps"
+            
+        }
+        
+        // Load stuff from the firebase and append to the bookedSlotDate array
+        
+        Database.database().reference().child("event").queryOrdered(byChild: "event_type").queryStarting(atValue: location_start_query).queryEnding(atValue: location_end_query).observe(.value, with: { (snapshot) in
+            
+            self.datesImportant.removeAll()
+            
+            for child in snapshot.children {
+                
+                let childSnapshot = child as? DataSnapshot
+                let dict = childSnapshot?.value as? [String:Any]
+                
+                let is_important_event = dict?["is_important_event"] as? Bool
+                
+                let eventint = dict?["event_date"] as? Int
+                
+                let intEvent = Model(is_important_event: is_important_event, event_date: eventint)
+                
+                
+                
+                self.datesImportant.append(intEvent)
+
+                
+    
+                
+                // Remove duplicates (optional step)
+               // self.verificationArray = self.verificationArray.unique()
+            }
+            
+
+            
+            let interest = self.datesImportant.filter({$0.is_important_event! == true})
+            
+            CalenderVC.bookedSlotDate = interest.map {$0.event_date!}
+            
+            CalenderVC.bookedSlotDate = CalenderVC.bookedSlotDate.unique()
+            
+            print(CalenderVC.bookedSlotDate)
+            
+            // This ensures that the view is added AFTER the firebase actions are performed
+            
+            self.view.addSubview(self.calenderView)
+            self.calenderView.delegate = self
+            self.calenderView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10).isActive=true
+            self.calenderView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -12).isActive=true
+            self.calenderView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 12).isActive=true
+            self.calenderView.heightAnchor.constraint(equalToConstant: 365).isActive=true
+            
+            self.view.sendSubviewToBack(self.calenderView)
+            
+            
+        })
+        
+        
+        
+       // CalenderVC.bookedSlotDate = [200712]
         
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -144,14 +223,14 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Picture2")!)
         
         
-        view.addSubview(calenderView)
+    /*    view.addSubview(calenderView)
         calenderView.delegate = self
         calenderView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive=true
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive=true
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive=true
         calenderView.heightAnchor.constraint(equalToConstant: 365).isActive=true
         
-        self.view.sendSubviewToBack(calenderView)
+        self.view.sendSubviewToBack(calenderView) */
         
         //  self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(rightBarBtnAction))
         

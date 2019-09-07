@@ -57,7 +57,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var weekday = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7)
     
-    var bookedSlotDate = [Int]()
+  //  var bookedSlotDate = [Int]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,6 +102,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //for leap years, make february month of 29 days
         if currentMonthIndex == 2 && currentYear % 4 == 0 {
             numOfDaysInMonth[currentMonthIndex-1] = 29
+            
         }
         //end
         
@@ -134,9 +135,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
-            } else if bookedSlotDate.contains(calcDate){
+            } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
                 cell.isUserInteractionEnabled=true
-                cell.dateLbl.textColor = UIColor.red
+                cell.dateLbl.textColor = UIColor.blue
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor
@@ -148,10 +149,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell=collectionView.cellForItem(at: indexPath)
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
-        if  bookedSlotDate.contains(calcDate) {
+        if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
             cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
-            lbl.textColor=UIColor.red
+            lbl.textColor=UIColor.blue
             
             delegate?.didTapDate(date: "", dateInt: "", available: false)
         } else {
@@ -176,10 +177,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
-        if  bookedSlotDate.contains(calcDate) {
+        if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
             cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
-            lbl.textColor=UIColor.red
+            lbl.textColor=UIColor.blue
             
         } else {
             cell?.backgroundColor=UIColor.clear

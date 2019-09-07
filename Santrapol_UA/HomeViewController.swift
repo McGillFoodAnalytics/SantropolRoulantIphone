@@ -211,7 +211,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
        ref = Database.database().reference().child("attendee")
         
         
-        Database.database().reference().child("event").queryOrdered(byChild: "key").queryEqual(toValue: userid).observe(.value, with: { (snapshot) in
+        Database.database().reference().child("event_type").queryOrdered(byChild: "key").queryEqual(toValue: userid).observe(.value, with: { (snapshot) in
             
             self.EventList.removeAll()
             
