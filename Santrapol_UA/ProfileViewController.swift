@@ -25,12 +25,12 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        profileView.layer.borderWidth = 1
+/*        profileView.layer.borderWidth = 1
         profileView.layer.masksToBounds = false
        // profileView.frame.size.height = screenSize.height * 0.2
         profileView.layer.borderColor = UIColor.gray.cgColor
         profileView.layer.cornerRadius = screenSize.height * 0.15
-        profileView.clipsToBounds = true
+        profileView.clipsToBounds = true */
         
         self.navigationItem.title = ""
         

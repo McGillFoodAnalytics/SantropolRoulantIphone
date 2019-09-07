@@ -22,6 +22,8 @@ class UnlockCode: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        codeField.frame =  CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width)  * 0.5, height: 36)
+        
         
         codeField.setBottomBorder(withColor: UIColor.white)
         

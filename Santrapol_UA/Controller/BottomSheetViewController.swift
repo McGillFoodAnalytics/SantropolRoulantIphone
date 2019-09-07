@@ -373,7 +373,7 @@ class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableV
          return
          
          
-         } 
+         }
         
         if number + 1 > namesRegistered.count {
             
