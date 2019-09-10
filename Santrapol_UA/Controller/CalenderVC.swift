@@ -101,7 +101,10 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             
         }
         
-        if isBeingPresented || isMovingToParent {
+        
+        // These lines of code are unstable
+        
+    /*     if isBeingPresented || isMovingToParent {
             
             firstWeekDayOfMonth = getFirstWeekDay()
             
@@ -114,7 +117,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             
             // This controller is appearing because another was just dismissed
             
-        }
+        } */
     }
     
     
@@ -126,6 +129,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver"  {
             
@@ -193,6 +197,8 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             self.calenderView.heightAnchor.constraint(equalToConstant: 365).isActive=true
             
             self.view.sendSubviewToBack(self.calenderView)
+    
+            
             
             
             // Alert if there are important dates to attract user attention.
@@ -218,6 +224,8 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
                 
                 // Do nothing
             }
+            
+            
  
             
             

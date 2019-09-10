@@ -568,12 +568,12 @@ class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableV
         // Show the notes if
         if indexPath.row < 2 && (typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver") && details.note != "" {
             
-            let model = SimpleTableCellViewModel(image: image, title: "\(indexPath.row + 1). \(details.firstName ?? "") \(details.lastName ?? "") (\(details.note ?? ""))", subtitle: "Subtitle \(indexPath.row)")
+            let model = SimpleTableCellViewModel(image: image, title: "\(indexPath.row + 1). \(details.firstName ?? "") \(details.lastName?.prefix(1) ?? ""). (\(details.note ?? ""))", subtitle: "Subtitle \(indexPath.row)")
             cell.configure(model: model)
             
         } else  {
             
-            let model = SimpleTableCellViewModel(image: image, title: "\(indexPath.row + 1). \(details.firstName ?? "") \(details.lastName ?? "")", subtitle: "Subtitle \(indexPath.row)")
+            let model = SimpleTableCellViewModel(image: image, title: "\(indexPath.row + 1). \(details.firstName ?? "") \(details.lastName?.prefix(1) ?? "").", subtitle: "Subtitle \(indexPath.row)")
             cell.configure(model: model)
             
             
