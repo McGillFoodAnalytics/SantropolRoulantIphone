@@ -70,7 +70,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
              alert.addAction(OKAction)
              present(alert, animated: true, completion: nil) */
             //emoji test
-            let alert = UIAlertController(title: "Success ❤️🎉", message: "Registered successfully! Do you want to register for another shift?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Registration Successfull!", message: "See you soon and remeber to enjoy a nice peice of cake when you come 🍰. \nDo you want to register for another shift?", preferredStyle: .alert)
             
             let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
                 
@@ -211,7 +211,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
                 
                 // Only display this alert if the user doesn't come back from the registration page. This will allow the other alert ("registered successfully") to show up instead.
                 
-                let alert = UIAlertController(title: "⚠️", message: "There are important events highlighted in blue. Prioritize those dates when selecting shifts! 🙂", preferredStyle: .alert)
+                let alert = UIAlertController(title: "", message: "Please try and sign up for the dates in blue as it is when we need volunteers the most! 😉", preferredStyle: .alert)
                 
                 let OKAction = UIAlertAction(title: "Got it!", style: .default, handler: nil)
                 
