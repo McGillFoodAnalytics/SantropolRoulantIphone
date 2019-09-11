@@ -429,7 +429,7 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
   
         
         phone_number = phoneNumberField.text!.digitsOnly()
-        email = emailField.text!
+        email = emailField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         
         performSegue(withIdentifier: "goToPerAdress", sender: self)
@@ -814,6 +814,8 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             //Check error and show error message
 
             let key = Auth.auth().currentUser!.uid
+
+            print(key)
             
             let dictionary: NSDictionary = [
                 "first_name" : self.first_name,
