@@ -117,27 +117,27 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
                 //Labels
-        personalLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+        personalLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
         personalLbl.layer.cornerRadius = 5
         personalLbl.clipsToBounds = true
         
-        birthdayLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+        birthdayLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
         birthdayLbl.layer.cornerRadius = 5
         birthdayLbl.clipsToBounds = true
         
-        contactLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+        contactLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
         contactLbl.layer.cornerRadius = 5
         contactLbl.clipsToBounds = true
         
-        addressLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+        addressLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
         addressLbl.layer.cornerRadius = 5
         addressLbl.clipsToBounds = true
         
-        roulantUsernameLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+        roulantUsernameLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
         roulantUsernameLbl.layer.cornerRadius = 5
         roulantUsernameLbl.clipsToBounds = true
@@ -146,39 +146,39 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         
         
-        firstNameField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        firstNameField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         firstNameField.layer.cornerRadius = 5
         firstNameField.clipsToBounds = true
         
-        lastNameField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        lastNameField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         lastNameField.layer.cornerRadius = 5
         lastNameField.clipsToBounds = true
         
-        dobField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        dobField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         dobField.layer.cornerRadius = 5
         dobField.clipsToBounds = true
         
-        emailField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        emailField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         emailField.layer.cornerRadius = 5
         emailField.clipsToBounds = true
         
-        phoneField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        phoneField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         phoneField.layer.cornerRadius = 5
         phoneField.clipsToBounds = true
         
-        addressField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        addressField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         addressField.layer.cornerRadius = 5
         addressField.clipsToBounds = true
         
-        cityField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        cityField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         cityField.layer.cornerRadius = 5
         cityField.clipsToBounds = true
         
-        postalCodeField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.5)
+        postalCodeField.backgroundColor = UIColor(red: 198/255, green: 94/255, blue: 196/255, alpha: 0.85)
         postalCodeField.layer.cornerRadius = 5
         postalCodeField.clipsToBounds = true
         
-        roulantUserNameField.backgroundColor = UIColor(red: 63/255, green: 128/255, blue: 52/255, alpha: 0.5)
+        roulantUserNameField.backgroundColor = UIColor(red: 63/255, green: 128/255, blue: 52/255, alpha: 0.85)
         roulantUserNameField.layer.cornerRadius = 5
         roulantUserNameField.clipsToBounds = true
         
@@ -262,7 +262,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
                 
                 let placeholder = childSnapshot?.key
                 
-                self.roulantUserNameField.attributedPlaceholder = NSAttributedString(string: placeholder!, attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.5)])
+                self.roulantUserNameField.attributedPlaceholder = NSAttributedString(string: placeholder!, attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.85)])
 
                 
                 self.old_key = childSnapshot?.key
@@ -340,7 +340,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
             
             let text = NSString(string: String(phoneField.text!)).replacingCharacters(in: range, with: string)
             
-            self.roulantUserNameField.attributedPlaceholder = NSAttributedString(string: String(lastNameField.text!.lowercased().prefix(2) + text.digitsOnly().prefix(10)), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.5)])
+            self.roulantUserNameField.attributedPlaceholder = NSAttributedString(string: String(lastNameField.text!.lowercased().prefix(2) + text.digitsOnly().prefix(10)), attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.85)])
 
            return range.location < 14
             
@@ -355,7 +355,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
             let text = NSString(string:             String(lastNameField.text!)).replacingCharacters(in: range, with: string)
             
             
-            self.roulantUserNameField.attributedPlaceholder = NSAttributedString(string: text.lowercased().prefix(2) + (phoneField.text?.digitsOnly())!, attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.5)])
+            self.roulantUserNameField.attributedPlaceholder = NSAttributedString(string: text.lowercased().prefix(2) + (phoneField.text?.digitsOnly())!, attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.85)])
 
             return true
             
