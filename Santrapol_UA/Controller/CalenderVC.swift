@@ -104,7 +104,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
         
         // These lines of code are unstable
         
-    /*     if isBeingPresented || isMovingToParent {
+         if isBeingPresented || isMovingToParent {
             
             firstWeekDayOfMonth = getFirstWeekDay()
             
@@ -117,7 +117,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             
             // This controller is appearing because another was just dismissed
             
-        } */
+        } 
     }
     
     
