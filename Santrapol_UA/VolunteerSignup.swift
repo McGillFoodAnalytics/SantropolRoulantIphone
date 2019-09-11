@@ -54,6 +54,8 @@ class VolunteerSignup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         self.navigationItem.title = ""
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -99,6 +101,8 @@ class VolunteerSignup: UIViewController {
         typeLbl.text = "MEAL DELIVERY"
         descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
         typeImage.image = UIImage(named: "DeliveryPicture")
+        
+        
         
         DeliverySelected = true
         kitchenSelected = false
@@ -300,6 +304,7 @@ class DeliveryChoice: UIViewController {
     @IBOutlet weak var mainViewNonDriver: UIView!
     @IBOutlet weak var subViewNonDriver: UIView!
 
+    @IBOutlet weak var informationDriverLbl: UILabel!
     
     var data: String!
     
@@ -328,6 +333,7 @@ class DeliveryChoice: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        informationDriverLbl.text = " "
         self.navigationItem.title = ""
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -366,8 +372,10 @@ class DeliveryChoice: UIViewController {
         
         self.subViewDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        data = "Meal Delivery Driver"
-        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
+        informationDriverLbl.text = "Pick this option if you intent to serve the route Notre-Dame-de-Grâce (NDG) or Côte-des-Neiges (CDN)."
+        
+     /*   data = "Meal Delivery Driver"
+        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */
         
         driverSelected = true
         nonDriverSelected = false
@@ -383,14 +391,18 @@ class DeliveryChoice: UIViewController {
         
         self.subViewNonDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        data = "Meal Delivery Non-Driver"
-        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
+        
+        informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
+        
+     /*   data = "Meal Delivery Non-Driver"
+        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */
         
         driverSelected = false
         nonDriverSelected = true
     }
     
-/*    @IBAction func nextTapped(_ sender: UIButton) {
+    
+    @IBAction func nextTapped(_ sender: UIButton) {
         
         
         if driverSelected == true {
@@ -420,7 +432,7 @@ class DeliveryChoice: UIViewController {
         
         
         
-    }*/
+    }
     
     
 }
