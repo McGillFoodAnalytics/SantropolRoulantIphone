@@ -54,6 +54,8 @@ class VolunteerSignup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         self.navigationItem.title = ""
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -99,6 +101,8 @@ class VolunteerSignup: UIViewController {
         typeLbl.text = "MEAL DELIVERY"
         descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
         typeImage.image = UIImage(named: "DeliveryPicture")
+        
+        
         
         DeliverySelected = true
         kitchenSelected = false
@@ -329,6 +333,7 @@ class DeliveryChoice: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        informationDriverLbl.text = " "
         self.navigationItem.title = ""
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -396,7 +401,7 @@ class DeliveryChoice: UIViewController {
         nonDriverSelected = true
     }
     
-
+    
     @IBAction func nextTapped(_ sender: UIButton) {
         
         
