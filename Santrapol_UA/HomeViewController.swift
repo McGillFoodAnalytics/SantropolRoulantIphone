@@ -173,6 +173,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     var retrieveEvent = [String]()
     var ref:DatabaseReference?
     var dbHandle:DatabaseHandle?
+    @IBOutlet weak var modifiedImage: UIImageView!
     
     @objc func didTapEditButton(sender: AnyObject) {
         
@@ -193,11 +194,21 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
 
         self.navigationItem.title = ""
         
+        /*
+         var imageView = UIImageView(frame: CGRectMake(100, 150, 150, 150)); // set as you want
+         var image = UIImage(named: "myImage.png");
+         imageView.image = image;
+         self.view.addSubview(imageView);
+        */
+        
+        
+        
         // Sets up the right button of the navigation bar --- Can change the image at any time
-        var image = UIImage(named: "Screen Shot 2019-01-27 at 1.05.03 PM")
+        var image = UIImage(named: "home")
+        
         image = image?.withRenderingMode(.alwaysOriginal)
         
-        let editButton   = UIBarButtonItem(image: image,  style: .plain, target: self, action: #selector(didTapEditButton))
+        let editButton   = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(didTapEditButton))
         
         self.navigationItem.rightBarButtonItem = editButton
         
