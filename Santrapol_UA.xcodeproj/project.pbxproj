@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		516DFA712321D0150056A40B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F04071D52319BB640023E5E2 /* LaunchScreen.storyboard */; };
-		5192753F232B07C50006256D /* VolunteerSignup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192753E232B07C50006256D /* VolunteerSignup.swift */; };
 		A026ACFF22F029F70099DD30 /* ConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */; };
 		A084301D22C88E48004492F5 /* ListVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084301C22C88E48004492F5 /* ListVolunteer.swift */; };
 		A0A5A43222F270EB00828452 /* LogInEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A5A43122F270EB00828452 /* LogInEnvironment.swift */; };
@@ -50,7 +49,6 @@
 
 /* Begin PBXFileReference section */
 		1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Santrapol_UA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA.debug.xcconfig"; sourceTree = "<group>"; };
-		5192753E232B07C50006256D /* VolunteerSignup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VolunteerSignup.swift; path = ../../../Santropol/VolunteerSignup.swift; sourceTree = "<group>"; };
 		A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPage.swift; sourceTree = "<group>"; };
 		A084301C22C88E48004492F5 /* ListVolunteer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListVolunteer.swift; path = "New Group/ListVolunteer.swift"; sourceTree = "<group>"; };
 		A0A5A43122F270EB00828452 /* LogInEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInEnvironment.swift; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				E911D0E8223965AB000B7BB4 /* ViewController.swift */,
 				E9138B6C220BBF1300C6F1E0 /* SecondViewController.swift */,
 				E911D0EF2241CBFD000B7BB4 /* VolunteerSignup.swift */,
-				5192753E232B07C50006256D /* VolunteerSignup.swift */,
 				E911D0ED224016E5000B7BB4 /* ResetPassword.swift */,
 				E911D0C22232C80D000B7BB4 /* HomeViewController.swift */,
 				E97F46272225D552000CC40E /* EventSection.swift */,
@@ -370,7 +367,6 @@
 			files = (
 				F04071E52319BD260023E5E2 /* CellNames.swift in Sources */,
 				E97F462A2228C79C000CC40E /* Model.swift in Sources */,
-				5192753F232B07C50006256D /* VolunteerSignup.swift in Sources */,
 				E911D0F02241CBFD000B7BB4 /* VolunteerSignup.swift in Sources */,
 				F04071CF2319BAEC0023E5E2 /* CalenderView.swift in Sources */,
 				E9138B6D220BBF1300C6F1E0 /* SecondViewController.swift in Sources */,
