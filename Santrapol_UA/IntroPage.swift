@@ -682,7 +682,7 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
 
     
     @IBAction func togglePass(_ sender: UIButton) {
-        
+         
         if passwordLbl.isSecureTextEntry == false {
             
             // The button is showing text and now we want to hide it
