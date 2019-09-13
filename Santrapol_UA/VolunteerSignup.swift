@@ -59,7 +59,7 @@ class VolunteerSignup: UIViewController {
         self.navigationItem.title = ""
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
-        var image = UIImage(named: "Screen Shot 2019-01-27 at 1.05.03 PM")
+        var image = UIImage(named: "home")
         image = image?.withRenderingMode(.alwaysOriginal)
         
         let editButton   = UIBarButtonItem(image: image,  style: .plain, target: self, action: #selector(didTapEditButton))
