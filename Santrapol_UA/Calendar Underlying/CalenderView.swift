@@ -10,7 +10,8 @@ import UIKit
 
 struct Colors {
     static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
-    static var darkRed = #colorLiteral(red: 0.4096803617, green: 0.08934294255, blue: 0.409139501, alpha: 1)
+    static var darkRed = #colorLiteral(red: 0.6980392157, green: 0.4, blue: 1, alpha: 1)
+    static var backgroundImportant = #colorLiteral(red: 0.6980392157, green: 0.4, blue: 1, alpha: 0.3247538527)
 }
 
 struct Style {
@@ -136,8 +137,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
+                cell.backgroundColor = Colors.backgroundImportant
+                
                 cell.isUserInteractionEnabled=true
-                cell.dateLbl.textColor = UIColor.blue
+                cell.dateLbl.textColor = UIColor.white
+                
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor
@@ -192,10 +196,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
         if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
-            cell?.backgroundColor=UIColor.clear
+          //  cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
-            lbl.textColor=UIColor.blue
-            
+            lbl.textColor=UIColor.white
+            cell?.backgroundColor = Colors.backgroundImportant
         } else {
             cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel

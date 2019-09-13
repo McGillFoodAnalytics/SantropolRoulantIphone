@@ -12,6 +12,8 @@ import FirebaseAuth
 
 class UnlockCode: UIViewController {
 
+    @IBOutlet weak var alreadyAccount: UIButton!
+    
     @IBOutlet weak var codeField: UITextField!
     
     var code: String?
@@ -21,6 +23,9 @@ class UnlockCode: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        alreadyAccount.titleLabel?.minimumScaleFactor = 0.5;
+        alreadyAccount.titleLabel?.adjustsFontSizeToFitWidth = true;
         
         codeField.frame =  CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width)  * 0.5, height: 36)
         

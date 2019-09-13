@@ -362,7 +362,7 @@ class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableV
              if namesRegisteredArray.contains(userid) {
          
          // Create an alert blocking the user to register for this event
-         let alert = UIAlertController(title: "Error", message: "You are already registered to this activity!", preferredStyle: .alert)
+         let alert = UIAlertController(title: "Do you have a twin?", message: "... because you have already registered for this activity!", preferredStyle: .alert)
          
          let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
          

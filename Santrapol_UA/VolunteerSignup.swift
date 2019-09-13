@@ -150,7 +150,7 @@ class VolunteerSignup: UIViewController {
         } else {
             
             // Display an alert
-            let alert = UIAlertController(title: "Error", message: "Please select a type of activity!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "", message: "Please select a type of activity!", preferredStyle: .alert)
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
@@ -420,7 +420,7 @@ class DeliveryChoice: UIViewController {
         } else {
             
             // Display an alert
-            let alert = UIAlertController(title: "Error", message: "Please select a time preference!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "", message: "Please select a time preference!", preferredStyle: .alert)
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             

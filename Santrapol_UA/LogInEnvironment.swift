@@ -27,6 +27,8 @@ class LogInEnvironment: UIViewController {
     
   //  @IBOutlet weak var showToggle: UIButton!
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidAppear(_ animated: Bool){
         
       userNameField.becomeFirstResponder()
@@ -159,6 +161,9 @@ class LogInEnvironment: UIViewController {
                         let userid = Auth.auth().currentUser!.uid
                         //else {return}
                         print(userid)
+                        
+                        self.defaults.set(true, forKey: "codeEntered")
+                        
                         self.performSegue(withIdentifier: "goToMainPage", sender: self)
                         
                         SVProgressHUD.dismiss()
