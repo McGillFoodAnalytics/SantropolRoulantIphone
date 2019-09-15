@@ -178,15 +178,11 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             }
             
 
-            
-            let interest = self.datesImportant.filter({$0.is_important_event! == true})
-            
+            let interest = self.datesImportant.filter({$0.is_important_event == true})
             CalenderVC.bookedSlotDate = interest.map {$0.event_date!}
-            
             CalenderVC.bookedSlotDate = CalenderVC.bookedSlotDate.unique()
-            
             print(CalenderVC.bookedSlotDate)
-            
+    
             // The next few lines ensure that the view is added AFTER the firebase actions are performed. This allows the important dates to be displayed appropriately as they will ALWAYS be loaded before this view is initiated.
             
             self.view.addSubview(self.calenderView)

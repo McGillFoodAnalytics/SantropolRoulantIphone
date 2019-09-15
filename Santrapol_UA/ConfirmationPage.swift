@@ -69,6 +69,17 @@ class ConfirmationPage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let background = UIImage(named: "confirmationBackground")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
+        
         print(typecontroller)
         
         var event_type_register: String = ""
