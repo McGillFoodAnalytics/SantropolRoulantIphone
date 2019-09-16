@@ -17,6 +17,9 @@ class ConfirmationPage: UIViewController {
     // Test #2
 
     @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var newView: UIView!
+    @IBOutlet weak var remarksView: UIView!
+    
     
     @IBOutlet weak var imageType: UIImageView!
     @IBOutlet weak var eventDateLbl: UILabel!
