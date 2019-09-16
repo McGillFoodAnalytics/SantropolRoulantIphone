@@ -178,7 +178,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             }
             
 
-            let interest = self.datesImportant.filter({$0.is_important_event == true})
+            let interest = self.datesImportant.filter({$0.is_important_event! == true})
             CalenderVC.bookedSlotDate = interest.map {$0.event_date!}
             CalenderVC.bookedSlotDate = CalenderVC.bookedSlotDate.unique()
             print(CalenderVC.bookedSlotDate)

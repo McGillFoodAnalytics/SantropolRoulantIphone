@@ -69,8 +69,8 @@ class ConfirmationPage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         let background = UIImage(named: "confirmationBackground")
-        
         var imageView : UIImageView!
         imageView = UIImageView(frame: view.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
@@ -79,6 +79,7 @@ class ConfirmationPage: UIViewController {
         imageView.center = view.center
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
+        */
         
         print(typecontroller)
         
@@ -105,7 +106,7 @@ class ConfirmationPage: UIViewController {
         }
         self.eventSlotLbl.text = eventSlot
         
-        var image = UIImage(named: "Screen Shot 2019-01-27 at 1.05.03 PM")
+        var image = UIImage(named: "home")
         image = image?.withRenderingMode(.alwaysOriginal)
         
         let editButton   = UIBarButtonItem(image: image,  style: .plain, target: self, action: #selector(didTapEditButton))
@@ -117,14 +118,14 @@ class ConfirmationPage: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        
+        /*
         if typecontroller != "Meal Delivery" {
             
             switchDriver.isHidden = true
             driverLbl1.isHidden = true
             driverLbl2.isHidden = true
-            
         }
+        */
         
         //additionalNotes.delegate = self
         
