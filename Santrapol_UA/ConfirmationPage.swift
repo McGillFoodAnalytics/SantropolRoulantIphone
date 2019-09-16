@@ -94,7 +94,7 @@ class ConfirmationPage: UIViewController {
         
         additionalNotes.frame =  CGRect(x: 17, y: 0, width: (UIScreen.main.bounds.width - 27 - 20)  * 0.90, height: 30)
         
-        additionalNotes.setBottomBorder(withColor: UIColor.black)
+        additionalNotes.setBottomBorder(withColor: UIColor.white)
         
         self.navigationItem.title = "Confirmation"
         self.eventDateLbl.text = eventDate
