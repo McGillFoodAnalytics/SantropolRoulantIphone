@@ -155,8 +155,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
         
         cell?.backgroundColor=Colors.darkRed
-        let lbl = cell?.subviews[1] as! UILabel
-        lbl.textColor=UIColor.white
+        let lbl = cell?.subviews[1] as? UILabel
+        lbl?.textColor=UIColor.white
         
         // Compute the corresponding weekday for the selected date
         let dateComponents = DateComponents(year: currentYear, month: currentMonthIndex, day: calcDate, hour: nil, minute: nil, second: nil)
