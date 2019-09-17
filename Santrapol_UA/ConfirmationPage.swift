@@ -92,7 +92,7 @@ class ConfirmationPage: UIViewController {
         var user_key: String?
         var user_uid: String?
         
-        additionalNotes.frame =  CGRect(x: 17, y: 0, width: (UIScreen.main.bounds.width - 27 - 20)  * 0.90, height: 30)
+        additionalNotes.frame =  CGRect(x: 30, y: 0, width: (UIScreen.main.bounds.width - 27 - 20 - 10 - 10), height: 30)
         
         additionalNotes.setBottomBorder(withColor: UIColor.white)
         
