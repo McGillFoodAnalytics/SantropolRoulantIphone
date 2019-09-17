@@ -70,7 +70,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
              alert.addAction(OKAction)
              present(alert, animated: true, completion: nil) */
             //emoji test
-            let alert = UIAlertController(title: "Registration Successfull!", message: "See you soon and remeber to enjoy a nice piece of cake when you come 🍰. \nDo you want to register for another shift?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Registration Successfull!", message: "See you soon and remember to enjoy a nice piece of cake when you come 🍰. \nDo you want to register for another shift?", preferredStyle: .alert)
             
             let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
                 
