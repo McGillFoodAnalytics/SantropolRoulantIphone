@@ -22,6 +22,7 @@ class ConfirmationPage: UIViewController {
     
     
     @IBOutlet weak var imageType: UIImageView!
+    
     @IBOutlet weak var eventDateLbl: UILabel!
     @IBOutlet weak var eventTypeLbl: UILabel!
     @IBOutlet weak var eventSlotLbl: UILabel!
@@ -30,7 +31,9 @@ class ConfirmationPage: UIViewController {
     
     @IBOutlet weak var driverLbl1: UILabel!
     @IBOutlet weak var driverLbl2: UILabel!
+    
     @IBOutlet weak var additionalNotes: UITextField!
+    
     @IBOutlet weak var switchNew: UISwitch!
     @IBOutlet weak var switchDriver: UISwitch!
     
