@@ -372,7 +372,7 @@ class DeliveryChoice: UIViewController {
         
         self.subViewDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        informationDriverLbl.text = "Pick this option if you intent to serve the route Notre-Dame-de-Grâce (NDG) or Côte-des-Neiges (CDN)."
+        informationDriverLbl.text = "Pick this option if you intend to serve the route Notre-Dame-de-Grâce (NDG) or Côte-des-Neiges (CDN)."
         
      /*   data = "Meal Delivery Driver"
         performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */

@@ -92,6 +92,9 @@ class LogInEnvironment: UIViewController {
         SVProgressHUD.setForegroundColor(UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0))
         SVProgressHUD.show()
         
+        self.navigationController?.view.isUserInteractionEnabled = false
+
+        
         var username: String
         
         let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -102,6 +105,8 @@ class LogInEnvironment: UIViewController {
         if userNameField.text == "" {
             SVProgressHUD.dismiss()
             showAlert(message: "User doesn't exist")
+            self.navigationController?.view.isUserInteractionEnabled = true
+
 
             return
             
@@ -110,6 +115,7 @@ class LogInEnvironment: UIViewController {
             
             SVProgressHUD.dismiss()
             showAlert(message: "User doesn't exist")
+            self.navigationController?.view.isUserInteractionEnabled = true
 
             return
             
@@ -149,7 +155,7 @@ class LogInEnvironment: UIViewController {
                             }
                             
                             SVProgressHUD.dismiss()
-                            
+                            self.navigationController?.view.isUserInteractionEnabled = true
                         }
                         
                         
@@ -167,6 +173,7 @@ class LogInEnvironment: UIViewController {
                         self.performSegue(withIdentifier: "goToMainPage", sender: self)
                         
                         SVProgressHUD.dismiss()
+                        self.navigationController?.view.isUserInteractionEnabled = true
                     }
                     
                 } // Ends the second if statement
