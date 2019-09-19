@@ -93,6 +93,17 @@ class LogInEnvironment: UIViewController {
         SVProgressHUD.show()
         
         self.navigationController?.view.isUserInteractionEnabled = false
+        
+        // testing system language detection
+        /*
+        if Locale.current.languageCode == "fr"{
+            print("Your system language is French")
+        }
+        else{
+            print("Your system langauge is English")
+        }
+        */
+       
 
         
         var username: String

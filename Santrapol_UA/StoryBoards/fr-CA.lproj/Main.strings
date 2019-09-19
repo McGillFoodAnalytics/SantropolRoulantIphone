@@ -1,0 +1,399 @@
+
+/* Class = "UILabel"; text = "PASSWORD"; ObjectID = "0Fg-OG-2RA"; */
+"0Fg-OG-2RA.text" = "PASSWORD";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0VE-yd-Z0V"; */
+"0VE-yd-Z0V.text" = "Label";
+
+/* Class = "UILabel"; text = "Wednesday, September 30, 2019"; ObjectID = "1f2-au-kK0"; */
+"1f2-au-kK0.text" = "Wednesday, September 30, 2019";
+
+/* Class = "UILabel"; text = "EMAIL ADDRESS"; ObjectID = "2h4-PJ-hFC"; */
+"2h4-PJ-hFC.text" = "EMAIL ADDRESS";
+
+/* Class = "UITextField"; placeholder = "E.g. \"I prefer to walk\""; ObjectID = "2xa-nN-dDr"; */
+"2xa-nN-dDr.placeholder" = "E.g. \"I prefer to walk\"";
+
+/* Class = "UILabel"; text = "...Almost there!"; ObjectID = "3Iz-UW-ncl"; */
+"3Iz-UW-ncl.text" = "...Almost there!";
+
+/* Class = "UILabel"; text = "Add security into this"; ObjectID = "3iZ-yA-U3x"; */
+"3iZ-yA-U3x.text" = "Add security into this";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "3sm-au-Bbx"; */
+"3sm-au-Bbx.normalTitle" = "NEXT";
+
+/* Class = "UIButton"; normalTitle = "Enter Code"; ObjectID = "4R8-3U-M8b"; */
+"4R8-3U-M8b.normalTitle" = "Enter Code";
+
+/* Class = "UILabel"; text = "To use our app, you need to attend one of our info sessions for volunteers. You will be given an access code that you can input below"; ObjectID = "53c-w2-Lyu"; */
+"53c-w2-Lyu.text" = "To use our app, you need to attend one of our info sessions for volunteers. You will be given an access code that you can input below";
+
+/* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "5CU-Xo-vF8"; */
+"5CU-Xo-vF8.normalTitle" = "Reset Password";
+
+/* Class = "UILabel"; text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"; ObjectID = "5Rt-j8-uNl"; */
+"5Rt-j8-uNl.text" = "Help deliver a warm meal and a smiling greeting that can help make our client's day!";
+
+/* Class = "UIViewController"; title = "Profile Page"; ObjectID = "6bh-uf-TFj"; */
+"6bh-uf-TFj.title" = "Profile Page";
+
+/* Class = "UILabel"; text = "You need to use this given username to login to your account. It is made up of the first two letters of your family name followed by your phone number."; ObjectID = "7nB-Dm-wum"; */
+"7nB-Dm-wum.text" = "You need to use this given username to login to your account. It is made up of the first two letters of your family name followed by your phone number.";
+
+/* Class = "UILabel"; text = "Forgot your password?"; ObjectID = "81O-d8-5m8"; */
+"81O-d8-5m8.text" = "Forgot your password?";
+
+/* Class = "UILabel"; text = "Driver"; ObjectID = "81d-VK-Ydk"; */
+"81d-VK-Ydk.text" = "Driver";
+
+/* Class = "UILabel"; text = "We first need some additional information to complete your registration to the event:"; ObjectID = "8TZ-Nm-afa"; */
+"8TZ-Nm-afa.text" = "We first need some additional information to complete your registration to the event:";
+
+/* Class = "UIButton"; normalTitle = "Show"; ObjectID = "95L-Qz-ejE"; */
+"95L-Qz-ejE.normalTitle" = "Show";
+
+/* Class = "UILabel"; text = "LAST NAME"; ObjectID = "9Ne-YR-o2V"; */
+"9Ne-YR-o2V.text" = "LAST NAME";
+
+/* Class = "UILabel"; text = "ADDRESS LINE"; ObjectID = "9fG-IH-CG1"; */
+"9fG-IH-CG1.text" = "ADDRESS LINE";
+
+/* Class = "UILabel"; text = "EMAIL ADDRESS"; ObjectID = "Aa2-wH-9L6"; */
+"Aa2-wH-9L6.text" = "EMAIL ADDRESS";
+
+/* Class = "UILabel"; text = "Current volunteers :"; ObjectID = "BEh-ey-DdT"; */
+"BEh-ey-DdT.text" = "Current volunteers :";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "BbL-UW-8Ns"; */
+"BbL-UW-8Ns.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "Please choose your mode of transportation"; ObjectID = "BvM-mw-YRU"; */
+"BvM-mw-YRU.text" = "Please choose your mode of transportation";
+
+/* Class = "UIViewController"; title = "goToVolunteerSignUp"; ObjectID = "C0l-Gf-aj2"; */
+"C0l-Gf-aj2.title" = "goToVolunteerSignUp";
+
+/* Class = "UILabel"; text = "slot"; ObjectID = "CN2-CR-GDd"; */
+"CN2-CR-GDd.text" = "slot";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "D9t-OT-3Ta"; */
+"D9t-OT-3Ta.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Please choose your time preference"; ObjectID = "DLj-qU-WRi"; */
+"DLj-qU-WRi.text" = "Please choose your time preference";
+
+/* Class = "UIButton"; normalTitle = "Show"; ObjectID = "DRY-KD-1cv"; */
+"DRY-KD-1cv.normalTitle" = "Show";
+
+/* Class = "UILabel"; text = "New to the activity ?"; ObjectID = "EtH-9G-dCH"; */
+"EtH-9G-dCH.text" = "New to the activity ?";
+
+/* Class = "UILabel"; text = "Morning Shift"; ObjectID = "Euf-He-dyx"; */
+"Euf-He-dyx.text" = "Morning Shift";
+
+/* Class = "UILabel"; text = "BIRTHDAY"; ObjectID = "Ftz-Zm-ReR"; */
+"Ftz-Zm-ReR.text" = "BIRTHDAY";
+
+/* Class = "UIButton"; normalTitle = "Create account"; ObjectID = "G1x-t0-dUj"; */
+"G1x-t0-dUj.normalTitle" = "Create account";
+
+/* Class = "UIButton"; normalTitle = "I already have an account"; ObjectID = "GZo-Me-fcj"; */
+"GZo-Me-fcj.normalTitle" = "I already have an account";
+
+/* Class = "UILabel"; text = "ADDRESS"; ObjectID = "HHn-KM-LUP"; */
+"HHn-KM-LUP.text" = "ADDRESS";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Hah-3m-Yrl"; */
+"Hah-3m-Yrl.text" = "Label";
+
+/* Class = "UILabel"; text = "We first need some additional information to complete your registration to the event:"; ObjectID = "HjM-tz-9jb"; */
+"HjM-tz-9jb.text" = "We first need some additional information to complete your registration to the event:";
+
+/* Class = "UIButton"; normalTitle = "Save Changes"; ObjectID = "I3B-9x-wqc"; */
+"I3B-9x-wqc.normalTitle" = "Save Changes";
+
+/* Class = "UILabel"; text = "EMAIL ADDRESS"; ObjectID = "IdI-d0-q7C"; */
+"IdI-d0-q7C.text" = "EMAIL ADDRESS";
+
+/* Class = "UIButton"; normalTitle = "FINISH"; ObjectID = "Ihb-Or-xFA"; */
+"Ihb-Or-xFA.normalTitle" = "FINISH";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "J40-Xr-826"; */
+"J40-Xr-826.text" = "Label";
+
+/* Class = "UILabel"; text = "CITY"; ObjectID = "JBI-Tr-lEY"; */
+"JBI-Tr-lEY.text" = "CITY";
+
+/* Class = "UILabel"; text = "...Almost there!"; ObjectID = "Ji0-Mt-bes"; */
+"Ji0-Mt-bes.text" = "...Almost there!";
+
+/* Class = "UILabel"; text = "Select a date"; ObjectID = "KMc-9f-9En"; */
+"KMc-9f-9En.text" = "Select a date";
+
+/* Class = "UIButton"; normalTitle = "Log in"; ObjectID = "Kzq-uo-sOD"; */
+"Kzq-uo-sOD.normalTitle" = "Log in";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "L37-FY-6hU"; */
+"L37-FY-6hU.text" = "Date";
+
+/* Class = "UILabel"; text = "This is my first time!"; ObjectID = "M5A-YS-cJh"; */
+"M5A-YS-cJh.text" = "This is my first time!";
+
+/* Class = "UILabel"; text = "Welcome to Santropol Roulant!"; ObjectID = "MVb-q3-nDi"; */
+"MVb-q3-nDi.text" = "Bienvenue au Santropol Roulant!";
+
+/* Class = "UILabel"; text = "Kitchen"; ObjectID = "MeQ-78-Gnb"; */
+"MeQ-78-Gnb.text" = "Cuisine";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "Mso-4M-h84"; */
+"Mso-4M-h84.normalTitle" = "Submit";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "Ntk-Kv-32U"; */
+"Ntk-Kv-32U.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "PERSONAL"; ObjectID = "OdM-JB-wmh"; */
+"OdM-JB-wmh.text" = "PERSONAL";
+
+/* Class = "UILabel"; text = "Non-driver"; ObjectID = "OyH-4O-SJF"; */
+"OyH-4O-SJF.text" = "Non-driver";
+
+/* Class = "UILabel"; text = "Current Volunteers:"; ObjectID = "QGE-Oh-CHG"; */
+"QGE-Oh-CHG.text" = "Current Volunteers:";
+
+/* Class = "UIButton"; normalTitle = "ENROLL ME IN!"; ObjectID = "QWM-ZH-sf7"; */
+"QWM-ZH-sf7.normalTitle" = "ENROLL ME IN!";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Qff-xi-mGR"; */
+"Qff-xi-mGR.text" = "-";
+
+/* Class = "UILabel"; text = "CITY"; ObjectID = "QgF-Ri-Kv1"; */
+"QgF-Ri-Kv1.text" = "CITY";
+
+/* Class = "UILabel"; text = "Log in"; ObjectID = "TQw-qh-I8r"; */
+"TQw-qh-I8r.text" = "Log in";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "UZL-de-q0o"; */
+"UZL-de-q0o.normalTitle" = "NEXT";
+
+/* Class = "UIButton"; normalTitle = "My Profile"; ObjectID = "Uop-Y8-Yx8"; */
+"Uop-Y8-Yx8.normalTitle" = "My Profile";
+
+/* Class = "UILabel"; text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"; ObjectID = "Uqi-O4-OiU"; */
+"Uqi-O4-OiU.text" = "Help deliver a warm meal and a smiling greeting that can help make our client's day!";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "VaI-Be-spi"; */
+"VaI-Be-spi.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "This is my first time!"; ObjectID = "W4S-1y-P8B"; */
+"W4S-1y-P8B.text" = "This is my first time!";
+
+/* Class = "UILabel"; text = "FIRST NAME"; ObjectID = "WNU-j9-CVS"; */
+"WNU-j9-CVS.text" = "FIRST NAME";
+
+/* Class = "UILabel"; text = "14:45-18:00"; ObjectID = "WNW-e1-zFA"; */
+"WNW-e1-zFA.text" = "14:45-18:00";
+
+/* Class = "UILabel"; text = "ADDRESS"; ObjectID = "WUL-4X-RBT"; */
+"WUL-4X-RBT.text" = "ADDRESS";
+
+/* Class = "UILabel"; text = "What good fortune brings you here?"; ObjectID = "WW3-OA-OX6"; */
+"WW3-OA-OX6.text" = "What good fortune brings you here?";
+
+/* Class = "UILabel"; text = "111, Roy East, Montreal (QC) H2W 1M1"; ObjectID = "WnD-dI-yFm"; */
+"WnD-dI-yFm.text" = "111, Roy East, Montreal (QC) H2W 1M1";
+
+/* Class = "UILabel"; text = "Is this your first time doing this activity?"; ObjectID = "Wz9-gs-2zt"; */
+"Wz9-gs-2zt.text" = "Is this your first time doing this activity?";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "X4V-Ud-ixx"; */
+"X4V-Ud-ixx.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "14:45-18:00"; ObjectID = "Z3t-x4-H9l"; */
+"Z3t-x4-H9l.text" = "14:45-18:00";
+
+/* Class = "UILabel"; text = "FIRST NAME"; ObjectID = "alF-LC-3Lk"; */
+"alF-LC-3Lk.text" = "FIRST NAME";
+
+/* Class = "UILabel"; text = "PHONE NUMBER"; ObjectID = "ale-7v-sFG"; */
+"ale-7v-sFG.text" = "PHONE NUMBER";
+
+/* Class = "UIButton"; normalTitle = "ENROLL ME IN!"; ObjectID = "amd-Gi-GA8"; */
+"amd-Gi-GA8.normalTitle" = "ENROLL ME IN!";
+
+/* Class = "UIButton"; normalTitle = "Show"; ObjectID = "b8c-gg-DgD"; */
+"b8c-gg-DgD.normalTitle" = "Show";
+
+/* Class = "UIViewController"; title = "Profile Page"; ObjectID = "bbs-7x-voI"; */
+"bbs-7x-voI.title" = "Profile Page";
+
+/* Class = "UILabel"; text = "LAST NAME"; ObjectID = "bkO-lK-Krr"; */
+"bkO-lK-Krr.text" = "LAST NAME";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "bma-05-VPM"; */
+"bma-05-VPM.text" = "Name";
+
+/* Class = "UILabel"; text = "Hello,"; ObjectID = "cc9-SH-YZ8"; */
+"cc9-SH-YZ8.text" = "Hello,";
+
+/* Class = "UILabel"; text = "Enter your email to reset your password."; ObjectID = "cfy-Vr-04M"; */
+"cfy-Vr-04M.text" = "Enter your email to reset your password.";
+
+/* Class = "UILabel"; text = "Additional Note"; ObjectID = "cua-gw-NAQ"; */
+"cua-gw-NAQ.text" = "Additional Note";
+
+/* Class = "UILabel"; text = "USER NAME*"; ObjectID = "dp3-xd-YGQ"; */
+"dp3-xd-YGQ.text" = "USER NAME*";
+
+/* Class = "UILabel"; text = "Your upcoming volunteering activities"; ObjectID = "e0g-8C-qHQ"; */
+"e0g-8C-qHQ.text" = "Your upcoming volunteering activities";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "eJ8-0C-usy"; */
+"eJ8-0C-usy.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "Personal Settings"; ObjectID = "eMz-FQ-NLq"; */
+"eMz-FQ-NLq.text" = "Personal Settings";
+
+/* Class = "UIViewController"; title = "goToVolunteerSignUp"; ObjectID = "ew2-80-Vjz"; */
+"ew2-80-Vjz.title" = "goToVolunteerSignUp";
+
+/* Class = "UILabel"; text = " Afternoon Shift"; ObjectID = "g0k-yQ-7rW"; */
+"g0k-yQ-7rW.text" = " Afternoon Shift";
+
+/* Class = "UILabel"; text = "Let us know if anything has changed."; ObjectID = "g5Z-No-Tax"; */
+"g5Z-No-Tax.text" = "Let us know if anything has changed.";
+
+/* Class = "UILabel"; text = "*Your username is made up of the first two letters of your last name followed by your phone number."; ObjectID = "gLw-63-rJm"; */
+"gLw-63-rJm.text" = "*Your username is made up of the first two letters of your last name followed by your phone number.";
+
+/* Class = "UILabel"; text = "6 spots available"; ObjectID = "hPz-Ql-ezr"; */
+"hPz-Ql-ezr.text" = "6 spots available";
+
+/* Class = "UILabel"; text = "YOUR USER NAME"; ObjectID = "hWt-bX-ls1"; */
+"hWt-bX-ls1.text" = "YOUR USER NAME";
+
+/* Class = "UILabel"; text = "Meal Delivery"; ObjectID = "iHe-Kd-2hg"; */
+"iHe-Kd-2hg.text" = "Meal Delivery";
+
+/* Class = "UILabel"; text = "CONTACT"; ObjectID = "irw-2e-O1q"; */
+"irw-2e-O1q.text" = "CONTACT";
+
+/* Class = "UILabel"; text = "Your Account is now set up."; ObjectID = "jpL-pD-gsi"; */
+"jpL-pD-gsi.text" = "Your Account is now set up.";
+
+/* Class = "UILabel"; text = "YOUR ROULANT USER NAME"; ObjectID = "js1-y6-ABQ"; */
+"js1-y6-ABQ.text" = "YOUR ROULANT USER NAME";
+
+/* Class = "UIButton"; normalTitle = "Sign up"; ObjectID = "kZT-l3-Krs"; */
+"kZT-l3-Krs.normalTitle" = "Sign up";
+
+/* Class = "UILabel"; text = "PHONE"; ObjectID = "maR-e8-6tj"; */
+"maR-e8-6tj.text" = "PHONE";
+
+/* Class = "UILabel"; text = "PASSWORD"; ObjectID = "mfj-TO-iRt"; */
+"mfj-TO-iRt.text" = "PASSWORD";
+
+/* Class = "UILabel"; text = "Meal Delivery"; ObjectID = "mhu-f6-iCT"; */
+"mhu-f6-iCT.text" = "Meal Delivery";
+
+/* Class = "UILabel"; text = "Registration is not available for this date. "; ObjectID = "nNd-mG-PDr"; */
+"nNd-mG-PDr.text" = "Registration is not available for this date. ";
+
+/* Class = "UILabel"; text = "What type of activity would you like to sign up for?"; ObjectID = "nQs-X2-Li5"; */
+"nQs-X2-Li5.text" = "What type of activity would you like to sign up for?";
+
+/* Class = "UILabel"; text = "POSTAL CODE"; ObjectID = "nb1-5z-X9p"; */
+"nb1-5z-X9p.text" = "POSTAL CODE";
+
+/* Class = "UILabel"; text = "Let's get in touch!"; ObjectID = "oDe-oN-nqI"; */
+"oDe-oN-nqI.text" = "Let's get in touch!";
+
+/* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "oyv-fG-LtF"; */
+"oyv-fG-LtF.normalTitle" = "Logout";
+
+/* Class = "UILabel"; text = "6 spots available"; ObjectID = "pAl-JH-jKh"; */
+"pAl-JH-jKh.text" = "6 spots available";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pi5-2X-Yz3"; */
+"pi5-2X-Yz3.text" = "Label";
+
+/* Class = "UILabel"; text = "Are there remarks you want us to know?"; ObjectID = "pxY-Xt-KSX"; */
+"pxY-Xt-KSX.text" = "Are there remarks you want us to know?";
+
+/* Class = "UIViewController"; title = "goToVolunteerSignUp"; ObjectID = "qnQ-Lz-JwL"; */
+"qnQ-Lz-JwL.title" = "goToVolunteerSignUp";
+
+/* Class = "UILabel"; text = "Call us at (514) 284-9335 for information about our next info sessions."; ObjectID = "rcY-Du-AcK"; */
+"rcY-Du-AcK.text" = "Call us at (514) 284-9335 for information about our next info sessions.";
+
+/* Class = "UIViewController"; title = "Home"; ObjectID = "rdc-SA-gXi"; */
+"rdc-SA-gXi.title" = "Home";
+
+/* Class = "UILabel"; text = "DATE OF BIRTH"; ObjectID = "rmJ-Wa-L6B"; */
+"rmJ-Wa-L6B.text" = "DATE OF BIRTH";
+
+/* Class = "UIButton"; normalTitle = "Log in"; ObjectID = "rrx-9d-71N"; */
+"rrx-9d-71N.normalTitle" = "Log in";
+
+/* Class = "UILabel"; text = "Driver ?"; ObjectID = "s9o-9V-fy8"; */
+"s9o-9V-fy8.text" = "Driver ?";
+
+/* Class = "UITextView"; text = "(514) 284-9335"; ObjectID = "t0e-bS-xyQ"; */
+"t0e-bS-xyQ.text" = "(514) 284-9335";
+
+/* Class = "UILabel"; text = "CONFIRM YOUR PASSWORD"; ObjectID = "tI7-XS-GPo"; */
+"tI7-XS-GPo.text" = "CONFIRM YOUR PASSWORD";
+
+/* Class = "UILabel"; text = "Where do you live?"; ObjectID = "tk9-Mu-u0n"; */
+"tk9-Mu-u0n.text" = "Where do you live?";
+
+/* Class = "UILabel"; text = "Let us know about you"; ObjectID = "tlm-vq-6fn"; */
+"tlm-vq-6fn.text" = "Let us know about you";
+
+/* Class = "UILabel"; text = "spots available"; ObjectID = "uFF-ch-egW"; */
+"uFF-ch-egW.text" = "spots available";
+
+/* Class = "UILabel"; text = "Welcome to  Santropol Roulant!"; ObjectID = "uMV-p9-wrh"; */
+"uMV-p9-wrh.text" = "Welcome to  Santropol Roulant!";
+
+/* Class = "UILabel"; text = "DATE OF BIRTH"; ObjectID = "uNb-Bz-3SC"; */
+"uNb-Bz-3SC.text" = "DATE OF BIRTH";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "vyr-nX-Pcc"; */
+"vyr-nX-Pcc.text" = "Date";
+
+/* Class = "UIViewController"; title = "Home Page"; ObjectID = "war-Ps-NIX"; */
+"war-Ps-NIX.title" = "Home Page";
+
+/* Class = "UILabel"; text = "POSTAL CODE"; ObjectID = "xjV-J6-272"; */
+"xjV-J6-272.text" = "POSTAL CODE";
+
+/* Class = "UILabel"; text = "Meal Delivery"; ObjectID = "xm2-xN-sqv"; */
+"xm2-xN-sqv.text" = "Meal Delivery";
+
+/* Class = "UITextView"; text = "info@santropolroulant.org"; ObjectID = "y0F-Hc-dXE"; */
+"y0F-Hc-dXE.text" = "info@santropolroulant.org";
+
+/* Class = "UILabel"; text = "Are there remarks you want us to know?"; ObjectID = "yHa-WJ-utP"; */
+"yHa-WJ-utP.text" = "Are there remarks you want us to know?";
+
+/* Class = "UIBarButtonItem"; title = "Forgot Password"; ObjectID = "yja-Tl-HKX"; */
+"yja-Tl-HKX.title" = "Forgot Password";
+
+/* Class = "UILabel"; text = "And, your contact?"; ObjectID = "z5n-gb-nTD"; */
+"z5n-gb-nTD.text" = "And, your contact?";
+
+/* Class = "UILabel"; text = "Powered by the McGill Food Analytics Centre"; ObjectID = "zAa-MO-n8K"; */
+"zAa-MO-n8K.text" = "Sponsorise par McGill Food Analytics Centre";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zKd-Xf-67q"; */
+"zKd-Xf-67q.text" = "Label";
+
+/* Class = "UILabel"; text = "Wednesday, September 30, 2019"; ObjectID = "zLa-wY-iFC"; */
+"zLa-wY-iFC.text" = "Wednesday, September 30, 2019";
+
+/* Class = "UILabel"; text = "MEAL DELIVERY"; ObjectID = "zbH-4q-aFd"; */
+"zbH-4q-aFd.text" = "MEAL DELIVERY";
+
+/* Class = "UILabel"; text = "Is this your first time doing this activity?"; ObjectID = "zxf-bk-TLi"; */
+"zxf-bk-TLi.text" = "Is this your first time doing this activity?";
