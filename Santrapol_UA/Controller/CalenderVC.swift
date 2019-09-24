@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 import SVProgressHUD
+import UBottomSheet
 
 enum MyTheme {
     case light
@@ -18,11 +19,10 @@ enum MyTheme {
 
 // JTApple Calendar to potentially replace this part
 
-class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
+class CalenderVC: UIViewController, CalenderDelegate  {
     
-    // This is a test for GitHub
-    @IBOutlet weak var backView: UIView!
-    @IBOutlet weak var container: UIView!
+    var containerViewController: BottomSheetViewController?
+    
     var stringy: String? = "5"
     var registered: String! = ""
     var typecontroller: String! = ""
@@ -30,11 +30,15 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
     var currentMonthIndex = Calendar.current.component(.month, from: Date())
     var firstWeekDayOfMonth = 0
     
-    var containerViewController: BottomSheetViewController?
     static var bookedSlotDate = [Int]()
     var location_start_query: String = ""
     var location_end_query: String = ""
     var datesImportant = [Model]()
+    
+    
+     let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
+    
+    
     
     @objc func didTapEditButton(sender: AnyObject) {
         
@@ -117,7 +121,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             
             // This controller is appearing because another was just dismissed
             
-        } 
+        }
     }
     
     
@@ -129,6 +133,16 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         vc.typecontroller = self.typecontroller
+
+                //Create a view controller that inherits BottomSheetController and attach to the current viewcontroller
+                //Add bottom sheet to the current viewcontroller
+                vc.attach(to: self)
+       
+                
+        //        //Remove sheet from the current viewcontroller
+        //        vc.detach()
         
         
         if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver"  {
@@ -242,9 +256,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
         
         
         stringy = "this is a test"
-        
-        container.layer.cornerRadius = 15
-        container.layer.masksToBounds = true
+     
         
         
         self.title = "Select a Date"
@@ -267,7 +279,7 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
         //   self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ /*   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? BottomSheetViewController{
             vc.bottomSheetDelegate = self
             vc.parentView = container
@@ -280,17 +292,14 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             containerViewController?.typecontroller = self.typecontroller
             
         }
-    }
+    } */
     
-    @IBAction func buttonTapped(_ sender: UIButton) {
-        print("does it work?")
-    }
     
-    func updateBottomSheet(frame: CGRect) {
+/*    func updateBottomSheet(frame: CGRect) {
         container.frame = frame
         //        backView.frame = self.view.frame.offsetBy(dx: 0, dy: 15 + container.frame.minY - self.view.frame.height)
         //        backView.backgroundColor = UIColor.black.withAlphaComponent(1 - (frame.minY)/200)
-    }
+    } */
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -319,13 +328,23 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
             stringy = String(dateInt)
             let stringa = String(date)
             
-            containerViewController?.test = self.stringy!
-            containerViewController?.eventint = Int(self.stringy!)
-            containerViewController?.dateLabel.text = stringa
+
             
             //  containerViewController?.viewDidLoad()
-            containerViewController?.viewWillAppear(true)
-            containerViewController?.viewDidLoad()
+
+ 
+             //Add bottom sheet to the current viewcontroller
+            
+            
+            vc.test = self.stringy!
+            vc.eventint = Int(self.stringy!)
+            vc.dateLabel?.text = stringa
+            
+            
+            vc.viewWillAppear(true)
+            vc.viewDidLoad()
+            
+           
         } else {
             showAlert()
         }
@@ -339,4 +358,5 @@ class CalenderVC: UIViewController, CalenderDelegate, BottomSheetDelegate  {
         self.present(alert, animated: true, completion: nil)
     }
 }
+
 

@@ -39,6 +39,9 @@
 		F042692D22FBDD9A00A0594F /* ContactPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042692C22FBDD9A00A0594F /* ContactPage.swift */; };
 		F07AB1902319C7CA00BEF434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F07AB18F2319C7CA00BEF434 /* Assets.xcassets */; };
 		F097073523184D61002AE653 /* UnlockCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F097073423184D61002AE653 /* UnlockCode.swift */; };
+		F0C9EC6D233998E200C660A5 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C9EC6C233998E200C660A5 /* BottomSheetController.swift */; };
+		F0C9EC6E233998E200C660A5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C9EC6A233998E200C660A5 /* Extensions.swift */; };
+		F0C9EC6F233998E200C660A5 /* Pannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C9EC6B233998E200C660A5 /* Pannable.swift */; };
 		F0DBC1312319B63E0042453E /* previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DBC12B2319B63E0042453E /* previous@2x.png */; };
 		F0DBC1322319B63E0042453E /* previous@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DBC12C2319B63E0042453E /* previous@3x.png */; };
 		F0DBC1332319B63E0042453E /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DBC12D2319B63E0042453E /* next.png */; };
@@ -86,6 +89,9 @@
 		F042692C22FBDD9A00A0594F /* ContactPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPage.swift; sourceTree = "<group>"; };
 		F07AB18F2319C7CA00BEF434 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F097073423184D61002AE653 /* UnlockCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockCode.swift; sourceTree = "<group>"; };
+		F0C9EC6A233998E200C660A5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = ../Pods/UBottomSheet/UBottomSheet/Classes/Extensions.swift; sourceTree = "<group>"; };
+		F0C9EC6B233998E200C660A5 /* Pannable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Pannable.swift; path = ../Pods/UBottomSheet/UBottomSheet/Classes/Pannable.swift; sourceTree = "<group>"; };
+		F0C9EC6C233998E200C660A5 /* BottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BottomSheetController.swift; path = ../Pods/UBottomSheet/UBottomSheet/Classes/BottomSheetController.swift; sourceTree = "<group>"; };
 		F0DBC12B2319B63E0042453E /* previous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "previous@2x.png"; sourceTree = "<group>"; };
 		F0DBC12C2319B63E0042453E /* previous@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "previous@3x.png"; sourceTree = "<group>"; };
 		F0DBC12D2319B63E0042453E /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
@@ -150,6 +156,9 @@
 				F0AC7A3D2319A49D0014C91C /* Calendar Controllers */,
 				F04071C72319BAEC0023E5E2 /* Calendar Underlying */,
 				F04071D42319BB640023E5E2 /* StoryBoards */,
+				F0C9EC6C233998E200C660A5 /* BottomSheetController.swift */,
+				F0C9EC6A233998E200C660A5 /* Extensions.swift */,
+				F0C9EC6B233998E200C660A5 /* Pannable.swift */,
 				A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */,
 				F042692C22FBDD9A00A0594F /* ContactPage.swift */,
 				A0A5A43122F270EB00828452 /* LogInEnvironment.swift */,
@@ -375,12 +384,14 @@
 				E9138B6D220BBF1300C6F1E0 /* SecondViewController.swift in Sources */,
 				E911D0E9223965AB000B7BB4 /* ViewController.swift in Sources */,
 				F04071E42319BD260023E5E2 /* CollectionViewCell.swift in Sources */,
+				F0C9EC6E233998E200C660A5 /* Extensions.swift in Sources */,
 				E9138B69220BBF1300C6F1E0 /* AppDelegate.swift in Sources */,
 				A0A5A43222F270EB00828452 /* LogInEnvironment.swift in Sources */,
 				A0E1729422F1120E0065186B /* IntroPage.swift in Sources */,
 				F04071E62319BD260023E5E2 /* HomePage.swift in Sources */,
 				E911D0C32232C80D000B7BB4 /* HomeViewController.swift in Sources */,
 				E911D0EE224016E5000B7BB4 /* ResetPassword.swift in Sources */,
+				F0C9EC6F233998E200C660A5 /* Pannable.swift in Sources */,
 				F04071E32319BD260023E5E2 /* Artwork.swift in Sources */,
 				F04071CE2319BAEC0023E5E2 /* SimpleTableCell.swift in Sources */,
 				A026ACFF22F029F70099DD30 /* ConfirmationPage.swift in Sources */,
@@ -388,6 +399,7 @@
 				E97F46282225D552000CC40E /* EventSection.swift in Sources */,
 				F04071D32319BAEC0023E5E2 /* WeekdaysView.swift in Sources */,
 				E911D0C1222DBBDE000B7BB4 /* ProfileViewController.swift in Sources */,
+				F0C9EC6D233998E200C660A5 /* BottomSheetController.swift in Sources */,
 				F04071C42319B9D00023E5E2 /* BottomSheetViewController.swift in Sources */,
 				F097073523184D61002AE653 /* UnlockCode.swift in Sources */,
 				F042692D22FBDD9A00A0594F /* ContactPage.swift in Sources */,
