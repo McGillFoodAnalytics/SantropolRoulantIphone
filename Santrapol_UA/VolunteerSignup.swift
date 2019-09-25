@@ -54,8 +54,6 @@ class VolunteerSignup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         self.navigationItem.title = ""
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -99,7 +97,14 @@ class VolunteerSignup: UIViewController {
         // Change the type description
         
         typeLbl.text = "MEAL DELIVERY"
-        descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
+        
+        if Locale.current.languageCode == "en"{
+            descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
+        }
+        else{
+            descriptionLbl.text = "Aidez à livrer un repas chaud tout en souriant pour rendre la journée de nos clients meilleure!"
+        }
+        
         typeImage.image = UIImage(named: "DeliveryPicture")
         
         
@@ -123,7 +128,13 @@ class VolunteerSignup: UIViewController {
         self.subViewKitchen.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
         typeLbl.text = "KITCHEN"
-        descriptionLbl.text = "Work with a chef to bring together all of the elements to prepare the meal of the day!"
+        if Locale.current.languageCode == "en"{
+            descriptionLbl.text = "Work with a chef to bring together all of the elements to prepare the meal of the day!"
+        }
+        else{
+            descriptionLbl.text = "Travaillez avec un chef pour réunir tous les éléments nécessaires à la préparation du repas de la journée!"
+        }
+             
         typeImage.image = UIImage(named: "KitchenPicture")
         
         DeliverySelected = false
@@ -372,7 +383,12 @@ class DeliveryChoice: UIViewController {
         
         self.subViewDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        informationDriverLbl.text = "Pick this option if you intend to serve the route Notre-Dame-de-Grâce (NDG) or Côte-des-Neiges (CDN)."
+        if Locale.current.languageCode == "en"{
+            informationDriverLbl.text = "Pick this option if you intend to serve the route Notre-Dame-de-Grâce (NDG) or Côte-des-Neiges (CDN)."
+        }
+        else{
+            informationDriverLbl.text = "Choisissez cette option si vous souhaitez desservir la route Notre-Dame-de-Grâce (NDG) ou Côte-des-Neiges (CDN)."
+        }
         
      /*   data = "Meal Delivery Driver"
         performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */
@@ -391,8 +407,12 @@ class DeliveryChoice: UIViewController {
         
         self.subViewNonDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        
-        informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
+        if Locale.current.languageCode == "en"{
+            informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
+        }
+        else{
+            informationDriverLbl.text = "Choisissez cette option si vous souhaitez desservir l’itinéraire Outremont, Mile End, Centre Sud, McGill, Centre-ville ou Westmount."
+        }
         
      /*   data = "Meal Delivery Non-Driver"
         performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */

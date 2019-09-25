@@ -23,7 +23,7 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     var options = ["Volunteer", "My schedule", "Profile", "Contact us"]
 
-    let subtitle = ["Do good & feel good", "Check your schedule", "Update information", "Inquiries and more"]
+    var subtitle = ["Do good & feel good", "Check your schedule", "Update information", "Inquiries and more"]
     let optionsgeneral = ["1", "2", "3", "4"]
     
     let userid = Auth.auth().currentUser!.uid
@@ -70,6 +70,8 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
         
         if Locale.current.languageCode == "fr"{
             options = ["Bénévole", "Mon horaire", "Profil", "Nous-joindre"]
+            
+            subtitle = ["Faites du bien", "Vérifiez votre horaire", "Votre information", "Nous joindre et autre"]
         }
         
         navigationController?.navigationBar.isTranslucent = true

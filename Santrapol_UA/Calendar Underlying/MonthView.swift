@@ -49,6 +49,10 @@ class MonthView: UIView {
     }
     
     func setupViews() {
+        
+        if Locale.current.languageCode == "fr"{
+            monthsArr = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
+        }
         self.addSubview(lblName)
         lblName.topAnchor.constraint(equalTo: topAnchor).isActive=true
         lblName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive=true
