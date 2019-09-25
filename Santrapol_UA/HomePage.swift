@@ -21,7 +21,8 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     @IBOutlet weak var NameLbl: UILabel!
     //Create array for labels and images
     
-    let options = ["Volunteer", "My schedule", "Profile", "Contact us"]
+    var options = ["Volunteer", "My schedule", "Profile", "Contact us"]
+
     let subtitle = ["Do good & feel good", "Check your schedule", "Update information", "Inquiries and more"]
     let optionsgeneral = ["1", "2", "3", "4"]
     
@@ -64,6 +65,12 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     
     override func viewDidLoad() {
+        
+        // make all changes for French in here
+        
+        if Locale.current.languageCode == "fr"{
+            options = ["Bénévole", "Mon horaire", "Profil", "Nous-joindre"]
+        }
         
         navigationController?.navigationBar.isTranslucent = true
 
