@@ -66,14 +66,6 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     override func viewDidLoad() {
         
-        // make all changes for French in here
-         print("################################")
-         print("################################")
-        print(Locale.current.languageCode);
-        print("################################")
-         print("################################")
-    
-        
         
         if Locale.current.languageCode == "fr"{
             options = ["Bénévole", "Mon horaire", "Profil", "Nous-joindre"]
