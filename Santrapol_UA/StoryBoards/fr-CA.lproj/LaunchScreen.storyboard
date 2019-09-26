@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="7s9-tb-kch">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="santropol_nobackground" translatesAutoresizingMaskIntoConstraints="NO" id="Vog-5G-sZt">
+                                <rect key="frame" x="6" y="26" width="89.5" height="77.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Vog-5G-sZt" secondAttribute="height" multiplier="82:71" id="Q33-Br-7kn"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7s9-tb-kch" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="0bJ-kw-tQa"/>
+                            <constraint firstItem="7s9-tb-kch" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2Zw-rE-7hX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7s9-tb-kch" secondAttribute="bottom" id="6cl-VM-z42"/>
+                            <constraint firstItem="Vog-5G-sZt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="6" id="9Oa-xR-Hkc"/>
+                            <constraint firstItem="Vog-5G-sZt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="J3d-50-xnJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7s9-tb-kch" secondAttribute="trailing" id="N5H-Of-Zfi"/>
+                            <constraint firstItem="Vog-5G-sZt" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.12" id="RMv-4Y-VXZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launchBackground" width="512" height="341.5"/>
+        <image name="santropol_nobackground" width="82" height="71"/>
+    </resources>
+</document>

@@ -128,11 +128,12 @@ class VolunteerSignup: UIViewController {
         self.subViewKitchen.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
         typeLbl.text = "KITCHEN"
-        if Locale.current.languageCode == "en"{
-            descriptionLbl.text = "Work with a chef to bring together all of the elements to prepare the meal of the day!"
+        if Locale.current.languageCode == "fr"{
+            
+            descriptionLbl.text = "Travaillez avec un chef pour réunir tous les éléments nécessaires à la préparation du repas de la journée!"
         }
         else{
-            descriptionLbl.text = "Travaillez avec un chef pour réunir tous les éléments nécessaires à la préparation du repas de la journée!"
+            descriptionLbl.text = "Work with a chef to bring together all of the elements to prepare the meal of the day!"
         }
              
         typeImage.image = UIImage(named: "KitchenPicture")
@@ -407,11 +408,11 @@ class DeliveryChoice: UIViewController {
         
         self.subViewNonDriver.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        if Locale.current.languageCode == "en"{
-            informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
+        if Locale.current.languageCode == "fr"{
+            informationDriverLbl.text = "Choisissez cette option si vous souhaitez desservir l’itinéraire Outremont, Mile End, Centre Sud, McGill, Centre-ville ou Westmount."
         }
         else{
-            informationDriverLbl.text = "Choisissez cette option si vous souhaitez desservir l’itinéraire Outremont, Mile End, Centre Sud, McGill, Centre-ville ou Westmount."
+             informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
         }
         
      /*   data = "Meal Delivery Non-Driver"
