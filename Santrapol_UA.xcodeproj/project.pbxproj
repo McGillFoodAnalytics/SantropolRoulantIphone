@@ -52,8 +52,8 @@
 
 /* Begin PBXFileReference section */
 		1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Santrapol_UA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA.debug.xcconfig"; sourceTree = "<group>"; };
-		513B2FA3233D73BA00FAA7FB /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "fr-CA"; path = "fr-CA.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		51C7BF502334444C007AEBB8 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		51A3CFA5233FDEFE0094740E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		51A3CFA6233FDEFF0094740E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPage.swift; sourceTree = "<group>"; };
 		A084301C22C88E48004492F5 /* ListVolunteer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListVolunteer.swift; path = "New Group/ListVolunteer.swift"; sourceTree = "<group>"; };
 		A0A5A43122F270EB00828452 /* LogInEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInEnvironment.swift; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 			knownRegions = (
 				en,
 				Base,
-				"fr-CA",
+				fr,
 			);
 			mainGroup = E9138B5C220BBF1300C6F1E0;
 			productRefGroup = E9138B66220BBF1300C6F1E0 /* Products */;
@@ -417,7 +417,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F04071D62319BB640023E5E2 /* Base */,
-				51C7BF502334444C007AEBB8 /* fr-CA */,
+				51A3CFA5233FDEFE0094740E /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -426,7 +426,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F04071D82319BB640023E5E2 /* Base */,
-				513B2FA3233D73BA00FAA7FB /* fr-CA */,
+				51A3CFA6233FDEFF0094740E /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
