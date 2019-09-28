@@ -37,7 +37,7 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
         UIImage(named: "contacticon")!,
 
     ]
-    
+
     override func viewWillAppear(_ animated: Bool) {
         
         Database.database().reference().child("user").queryOrdered(byChild: "key").queryEqual(toValue: userid).observe(.value, with: { (snapshot) in

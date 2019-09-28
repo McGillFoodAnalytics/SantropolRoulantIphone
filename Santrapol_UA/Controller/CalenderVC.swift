@@ -74,8 +74,15 @@ class CalenderVC: UIViewController, CalenderDelegate  {
              alert.addAction(OKAction)
              present(alert, animated: true, completion: nil) */
             //emoji test
-            let alert = UIAlertController(title: "Registration Successful!", message: "See you soon and remember to enjoy a nice piece of cake when you come 🍰. \nDo you want to register for another shift?", preferredStyle: .alert)
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert);
             
+            if Locale.current.languageCode == "fr"{
+                 alert = UIAlertController(title: "Enregistrement réussi!", message: "À bientôt et souvenez-vous de profiter d'un bon morceau de gâteau quand vous viendrez 🍰. \nVoulez-vous vous inscrire pour une autre activité ?", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Registration Successful!", message: "See you soon and remember to enjoy a nice piece of cake when you come 🍰. \nDo you want to register for another shift?", preferredStyle: .alert)
+            }
+           
             let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
                 
                 self.registered = ""
@@ -220,8 +227,15 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             } else if self.registered != "yes" {
                 
                 // Only display this alert if the user doesn't come back from the registration page. This will allow the other alert ("registered successfully") to show up instead.
+                var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
                 
-                let alert = UIAlertController(title: "", message: "Please try and sign up for the highlighted days. This is when we need volunteers the most! 😉", preferredStyle: .alert)
+                if Locale.current.languageCode == "fr"{
+                    alert = UIAlertController(title: "", message: "S'il vous plaît essayez de vous inscrire pour les jours soulignés C'est à ces moments-là que nous avons besoin de plus de bénévoles! 😉", preferredStyle: .alert)
+                }
+                else{
+                    alert = UIAlertController(title: "", message: "Please try and sign up for the highlighted days. This is when we need volunteers the most! 😉", preferredStyle: .alert)
+                }
+                
                 
                 let OKAction = UIAlertAction(title: "Got it!", style: .default, handler: nil)
                 
@@ -353,7 +367,16 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     
     
     fileprivate func showAlert(){
-        let alert = UIAlertController(title: "Unavailable", message: "This slot is already booked.\nPlease choose another date or time. 😔", preferredStyle: UIAlertController.Style.alert)
+        
+        var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        
+        if Locale.current.languageCode == "fr"{
+            alert = UIAlertController(title: "Unavailable", message: "Cet poste est déjà réservé. \nVeuillez choisir une autre date ou une autre heure. 😔", preferredStyle: .alert)
+        }
+        else{
+            alert = UIAlertController(title: "Unavailable", message: "This slot is already booked.\nPlease choose another date or time. 😔", preferredStyle: .alert)
+        }
+       
         alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

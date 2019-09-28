@@ -150,8 +150,13 @@ class VolunteerSignup: UIViewController {
         
         if DeliverySelected == true {
         
-            data = "Meal Delivery"
-
+            if Locale.current.languageCode == "fr"{
+                data = "Livraison"
+            }
+            else{
+                data = "Meal Delivery"
+            }
+          
             performSegue(withIdentifier: "goToDeliveryChoice", sender: self)
             
             
@@ -250,7 +255,13 @@ class KitchenChoice: UIViewController {
         
         self.subViewMorning.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        data = "Kitchen AM"
+        if Locale.current.languageCode == "fr"{
+            data = "Cuisine AM"
+        }
+        else{
+            data = "Kitchen AM"
+        }
+ 
         performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
         
         morningSelected = true
@@ -267,7 +278,13 @@ class KitchenChoice: UIViewController {
         
         self.subViewAfternoon.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        data = "Kitchen PM"
+        if Locale.current.languageCode == "fr"{
+            data = "Cuisine PM"
+        }
+        else{
+            data = "Kitchen PM"
+        }
+
         performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
         
         morningSelected = false
@@ -430,20 +447,39 @@ class DeliveryChoice: UIViewController {
         
         if driverSelected == true {
             
-            data = "Meal Delivery Driver"
+            if Locale.current.languageCode == "fr"{
+                data = "Livraison Conduceur"
+            }
+            else{
+                data = "Meal Delivery Driver"
+            }
+          
             performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
             
             
         } else if nonDriverSelected == true {
             
-            data = "Meal Delivery Non-Driver"
+            if Locale.current.languageCode == "fr"{
+                data = "Livraison Non-Conducteur"
+            }
+            else{
+                data = "Meal Delivery Non-Driver"
+            }
+           
             performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
             
             
         } else {
             
             // Display an alert
-            let alert = UIAlertController(title: "", message: "Please select a time preference!", preferredStyle: .alert)
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "", message: "S'il vous plaît sélectionnez une préférence de temps!", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "", message: "Please select a time preference!", preferredStyle: .alert)
+            }
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
