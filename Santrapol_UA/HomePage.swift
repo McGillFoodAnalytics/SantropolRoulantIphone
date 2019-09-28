@@ -52,7 +52,14 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 
                 self.user_first_name = dict?["first_name"] as? String
                 
-                self.NameLbl.text = "Hello, \(self.user_first_name ?? "")!"
+                if Locale.current.languageCode == "fr"{
+                    self.NameLbl.text = "Bonjour, \(self.user_first_name ?? "")!"
+                }
+                else{
+                    self.NameLbl.text = "Hello, \(self.user_first_name ?? "")!"
+                }
+                
+                
             }
             
         })
@@ -66,14 +73,16 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     override func viewDidLoad() {
         
-        
+        // Language debug information
+        print("####################");
         print("####################");
         print("Current local language is:");
         print(Locale.current.languageCode);
-    
+        print("####################");
         print("####################");
         
         
+    
         if Locale.current.languageCode == "fr"{
             options = ["Bénévole", "Mon horaire", "Profil", "Nous-joindre"]
             

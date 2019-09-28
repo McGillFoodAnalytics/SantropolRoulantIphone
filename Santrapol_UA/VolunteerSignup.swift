@@ -95,25 +95,24 @@ class VolunteerSignup: UIViewController {
         self.subViewDelivery.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
         // Change the type description
+    
         
-        typeLbl.text = "MEAL DELIVERY"
-        
-        if Locale.current.languageCode == "en"{
-            descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
+        if Locale.current.languageCode == "fr"{
+            descriptionLbl.text = "Aidez à livrer un repas chaud tout en souriant pour rendre la journée de nos clients meilleure!"
+            typeLbl.text = "LIVRAISON"
         }
         else{
-            descriptionLbl.text = "Aidez à livrer un repas chaud tout en souriant pour rendre la journée de nos clients meilleure!"
+          
+            descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
+            typeLbl.text = "MEAL DELIVERY"
         }
+        
         
         typeImage.image = UIImage(named: "DeliveryPicture")
         
-        
-        
+    
         DeliverySelected = true
         kitchenSelected = false
-        
-
-        
     }
     
    
@@ -127,13 +126,15 @@ class VolunteerSignup: UIViewController {
         
         self.subViewKitchen.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        typeLbl.text = "KITCHEN"
+        
         if Locale.current.languageCode == "fr"{
             
             descriptionLbl.text = "Travaillez avec un chef pour réunir tous les éléments nécessaires à la préparation du repas de la journée!"
+            typeLbl.text = "CUISINE"
         }
         else{
             descriptionLbl.text = "Work with a chef to bring together all of the elements to prepare the meal of the day!"
+            typeLbl.text = "KITCHEN"
         }
              
         typeImage.image = UIImage(named: "KitchenPicture")
@@ -148,8 +149,9 @@ class VolunteerSignup: UIViewController {
         
         
         if DeliverySelected == true {
-            
+        
             data = "Meal Delivery"
+
             performSegue(withIdentifier: "goToDeliveryChoice", sender: self)
             
             
