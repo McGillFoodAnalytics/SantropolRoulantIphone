@@ -326,7 +326,14 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
                     
                     // Returns an alert if the first index of the chosen string does not exist
                     
-                    let alert = UIAlertController(title: "Note", message: "Space unavailable for your given choice!", preferredStyle: .alert)
+                    var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+                    
+                    if Locale.current.languageCode == "fr"{
+                        alert = UIAlertController(title: "Note", message: "Space unavailable for your given choice!", preferredStyle: .alert)
+                    }
+                    else{
+                        alert = UIAlertController(title: "Note", message: "Il n'y a pas d'espace disponible pour ce choix", preferredStyle: .alert)
+                    }
                     
                     let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     
@@ -468,7 +475,16 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
                     
                     // Returns an alert if the first index of the chosen string does not exist
                     
-                    let alert = UIAlertController(title: "Note", message: "Space unavailable for your given choice!", preferredStyle: .alert)
+                    var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+                    
+                    if Locale.current.languageCode == "fr"{
+                        alert = UIAlertController(title: "Note", message: "Space unavailable for your given choice!", preferredStyle: .alert)
+                    }
+                    else{
+                        alert = UIAlertController(title: "Note", message: "Il n'y a pas d'espace disponible pour ce choix", preferredStyle: .alert)
+                    }
+                    
+                    
                     
                     let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     

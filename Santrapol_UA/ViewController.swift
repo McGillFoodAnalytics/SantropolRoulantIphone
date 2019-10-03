@@ -237,24 +237,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         self.availableDates.sort { $0.event_int ?? 0 < $1.event_int ?? 0 }
                     
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false // Hides the loading spinner
-                        self.tblList.reloadData()
-
-                        
-                        
-
-                    
+                        self.tblList.reloadData()   
                 })
-                
-                
-
-                
             }
-            
         })
-       
-        
-
-        
     }
     
     
