@@ -74,12 +74,14 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     override func viewDidLoad() {
         
         // Language debug information
+        /*
         print("####################");
         print("####################");
         print("Current local language is:");
         print(Locale.current.languageCode);
         print("####################");
         print("####################");
+        */
         
         
     

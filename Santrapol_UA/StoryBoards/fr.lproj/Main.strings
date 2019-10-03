@@ -343,7 +343,7 @@
 
 /* Class = "UILabel"; text = "*Your username is made up of the first two letters of your last name followed by your phone number."; ObjectID = "gLw-63-rJm"; */
 //"gLw-63-rJm.text" = "*Your username is made up of the first two letters of your last name followed by your phone number.";
-"gLw-63-rJm.text" = "*Votre nom d'utilisateur est composé des deux premières lettres de votre nom de famille suivies de votre numéro de téléphone..";
+"gLw-63-rJm.text" = "*Votre nom d'utilisateur est composé des deux premières lettres de votre nom de famille suivies de votre numéro de téléphone.";
 
 /* Class = "UILabel"; text = "6 spots available"; ObjectID = "hPz-Ql-ezr"; */
 //"hPz-Ql-ezr.text" = "6 spots available";
@@ -386,11 +386,11 @@
 
 /* Class = "UILabel"; text = "Registration is not available for this date. "; ObjectID = "nNd-mG-PDr"; */
 //"nNd-mG-PDr.text" = "Registration is not available for this date. ";
-"nNd-mG-PDr.text" = "L'inscription n'est pas disponible pour cette date. ";
+"nNd-mG-PDr.text" = "L'inscription n'est pas disponible pour cette date.";
 
 /* Class = "UILabel"; text = "What type of activity would you like to sign up for?"; ObjectID = "nQs-X2-Li5"; */
 //"nQs-X2-Li5.text" = "What type of activity would you like to sign up for?";
-"nQs-X2-Li5.text" = "À quel type d'activité voudriez-vous vous inscrire??";
+"nQs-X2-Li5.text" = "À quel type d'activité voudriez-vous vous inscrire?";
 
 /* Class = "UILabel"; text = "POSTAL CODE"; ObjectID = "nb1-5z-X9p"; */
 //"nb1-5z-X9p.text" = "POSTAL CODE";
