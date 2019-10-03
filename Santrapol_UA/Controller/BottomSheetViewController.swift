@@ -388,21 +388,28 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         
         // The following block of code prevents a user from registering twice to the same event (disabled for now for development purposes)
         
-             if namesRegisteredArray.contains(userid) {
+        if namesRegisteredArray.contains(userid) {
          
-         // Create an alert blocking the user to register for this event
-         let alert = UIAlertController(title: "Do you have a twin?", message: "... because you have already registered for this activity!", preferredStyle: .alert)
+        // Create an alert blocking the user to register for this event
+        
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert);
+            
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Avez-vous un jumeau?", message: "... parce que vous êtes déjà inscrit à cette activité!", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Do you have a twin?", message: "... because you have already registered for this activity!", preferredStyle: .alert)
+            }
          
-         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
          
-         alert.addAction(OKAction)
+            alert.addAction(OKAction)
          
-         self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
          
-         return
-         
-         
+            return
          }
+        
         
         if number + 1 > namesRegistered.count {
             

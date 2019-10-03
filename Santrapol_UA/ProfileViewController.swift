@@ -385,7 +385,13 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         //First Name
         if firstNameField.text! == "" {
             
-            showAlert(message: "Please enter a valid first name")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Veuillez entrer un prénom valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid first name")
+            }
+            
             SVProgressHUD.dismiss()
             return
             
@@ -396,7 +402,13 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         else if lastNameField.text! == "" {
             
-            showAlert(message: "Please enter a valid last name")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Veuillez entrer un nom de famille valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid last name")
+            }
+            
             SVProgressHUD.dismiss()
             return
         }
@@ -405,7 +417,13 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         else if dobField.text! == "" {
             
-            showAlert(message: "Please enter a valid date of birth")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "S'il vous plaît, entrez une date de naissance valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid date of birth")
+            }
+            
             SVProgressHUD.dismiss()
             return
         }
@@ -415,14 +433,27 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
             
         else if isValidEmail(testStr: emailField.text!) == false {
             
-            showAlert(message: "Please enter a valid email address")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "S'il vous plaît, entrez une adresse email valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid email address")
+            }
+            
+            
             SVProgressHUD.dismiss()
             return
         }
         
         else if email_array.contains(self.emailField.text!) {
             
-            showAlert(message: "This email is already in use by another volunteer!")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Cet email est déjà utilisé par un autre volontaire!")
+            }
+            else{
+                showAlert(message: "This email is already in use by another volunteer!")
+            }
+            
             SVProgressHUD.dismiss()
             return
         }
@@ -432,14 +463,26 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
             
         else if phoneField.text!.digitsOnly().count != 10 {
             
-            showAlert(message: "Please enter a valid phone number")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "S'il vous plaît entrer un numéro de téléphone valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid phone number")
+            }
+            
             SVProgressHUD.dismiss()
             return
         }
         
         else if phone_array.contains(phoneField.text!.digitsOnly()){
             
-            showAlert(message: "This phone number is already in use by another volunteer!")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Ce numéro de téléphone est déjà utilisé par un autre volontaire!")
+            }
+            else{
+                showAlert(message: "This phone number is already in use by another volunteer!")
+            }
+            
             SVProgressHUD.dismiss()
             return
         }
@@ -448,7 +491,13 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         else if addressField.text == "" {
             
-            showAlert(message: "Please enter a valid address line")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Veuillez entrer une ligne d'adresse valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid address line")
+            }
+        
             SVProgressHUD.dismiss()
             return
         }
@@ -458,7 +507,13 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         else if cityField.text == "" {
             
-            showAlert(message: "Please enter a valid city")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Veuillez entrer une ville valide")
+            }
+            else{
+                showAlert(message: "Please enter a valid city")
+            }
+            
             SVProgressHUD.dismiss()
             return
         }
@@ -467,10 +522,15 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         else if String(postalCodeField.text!.filter { !" \n\t\r".contains($0) }).count != 6 {
             
-            showAlert(message: "Please enter a postal code")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "VS'il vous plaît entrer un code postal")
+            }
+            else{
+                showAlert(message: "Please enter a postal code")
+            }
+            
             SVProgressHUD.dismiss()
             return
-            
         }
         
         
@@ -556,10 +616,17 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
 
        eventRefUpdate.updateChildValues(childUpdates)
         
+        var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
         
         if old_key != roulantUserNameField.placeholder {
             
-            let alert = UIAlertController(title: "Success", message: "Your profile informations have been updated! Note that your username is now \(roulantUserNameField.placeholder ?? "").", preferredStyle: .alert)
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Success", message: "Les informations de votre profil ont été mises à jour! Notez que votre nom d'utilisateur est maintenant \(roulantUserNameField.placeholder ?? "").", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Success", message: "Your profile informations have been updated! Note that your username is now \(roulantUserNameField.placeholder ?? "").", preferredStyle: .alert)
+            }
+            
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
@@ -570,7 +637,14 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            let alert = UIAlertController(title: "Success", message: "Your profile informations have been updated!", preferredStyle: .alert)
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Success", message: "Les informations de votre profil ont été mises à jour! Notez que votre nom d'utilisateur est maintenant \(roulantUserNameField.placeholder ?? "").", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Success", message: "Les informations de votre profil ont été mises à jour!", preferredStyle: .alert)
+            }
+            
+            
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             

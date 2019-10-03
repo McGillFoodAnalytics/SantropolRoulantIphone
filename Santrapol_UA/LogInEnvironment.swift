@@ -115,7 +115,14 @@ class LogInEnvironment: UIViewController {
         
         if userNameField.text == "" {
             SVProgressHUD.dismiss()
-            showAlert(message: "User doesn't exist")
+            
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "L'utilisateur n'existe pas")
+            }
+            else{
+                showAlert(message: "User doesn't exist")
+            }
+            
             self.navigationController?.view.isUserInteractionEnabled = true
 
 
@@ -125,7 +132,14 @@ class LogInEnvironment: UIViewController {
         } else if userNameField.text!.rangeOfCharacter(from: characterset.inverted) != nil {
             
             SVProgressHUD.dismiss()
-            showAlert(message: "User doesn't exist")
+            
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "L'utilisateur n'existe pas")
+            }
+            else{
+                showAlert(message: "User doesn't exist")
+            }
+        
             self.navigationController?.view.isUserInteractionEnabled = true
 
             return
@@ -150,19 +164,41 @@ class LogInEnvironment: UIViewController {
                             switch errCode {
                             case .invalidEmail:
                                 print("Invalid email")
-                                self.showAlert(message: "Please enter valid email")
-         
+                                
+                                if Locale.current.languageCode == "fr"{
+                                    self.showAlert(message: "S'il vous plaît entrer un email valide")
+                                }
+                                else{
+                                    self.showAlert(message: "Please enter a valid email")
+                                }
                                 
                             case .userDisabled:
-                                self.showAlert(message: "User is disabled")
+                                
+                                if Locale.current.languageCode == "fr"{
+                                    self.showAlert(message: "L'utilisateur est désactivé")
+                                }
+                                else{
+                                    self.showAlert(message: "User is disabled")
+                                }
+                                
 
                             case .wrongPassword:
+                                if Locale.current.languageCode == "fr"{
+                                    self.showAlert(message: "Mot de passe incorrect")
+                                }
+                                else{
+                                    self.showAlert(message: "Incorrect Password")
+                                }
                                 
-                                self.showAlert(message: "Incorrect Password")
      
                             default:
                                 
-                                self.showAlert(message: "User doesn't exist")
+                                if Locale.current.languageCode == "fr"{
+                                    self.showAlert(message: "L'utilisateur n'existe pas")
+                                }
+                                else{
+                                    self.showAlert(message: "User doesn't exist")
+                                }
                             }
                             
                             SVProgressHUD.dismiss()
@@ -260,8 +296,16 @@ class RecoverPass: UIViewController {
 
                 }
                 else {
+                    var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
                     
-                    let alert = UIAlertController(title: "Success", message: "An email has been sent to \(email ?? "test")", preferredStyle: .alert)
+                    if Locale.current.languageCode == "fr"{
+                        alert = UIAlertController(title: "Success", message: "Un email a été envoyé à \(email ?? "test")", preferredStyle: .alert)
+                        
+                    }
+                    else{
+                        alert = UIAlertController(title: "Success", message: "An email has been sent to \(email ?? "test")", preferredStyle: .alert)
+                    }
+                    
                     
                     let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     
@@ -274,17 +318,26 @@ class RecoverPass: UIViewController {
             }
         }
         else {
-            
-            self.showAlert(message: "Please enter valid email address")
-
+            if Locale.current.languageCode == "fr"{
+                self.showAlert(message: "Veuillez entrer une adresse email valide")
+            }
+            else{
+                self.showAlert(message: "Please enter valid email address")
+            }
         }
-        
-        
     }
     
     func showAlert(message:String){
+        var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
         
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        if Locale.current.languageCode == "fr"{
+            alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+        }
+        else{
+            alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        }
+        
+        
         
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         

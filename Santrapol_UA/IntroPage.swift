@@ -220,7 +220,15 @@ firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
         
         if error1 == true || error2 == true || error3 == true {
             
-            let alert = UIAlertController(title: "Error", message: "Some fields are missing or were entered incorrectly", preferredStyle: .alert)
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Erreur", message: "Certains champs sont manquants ou ont été mal entrés", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Error", message: "Some fields are missing or were entered incorrectly", preferredStyle: .alert)
+            }
+            
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
@@ -413,7 +421,16 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
         
         if error1 == true || error2 == true {
             
-            let alert = UIAlertController(title: "Error", message: "Some fields were entered incorrectly or are already in use", preferredStyle: .alert)
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Erreur", message: "Certains champs ont été mal saisis ou sont déjà utilisés", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Error", message: "Some fields were entered incorrectly or are already in use", preferredStyle: .alert)
+            }
+            
+            
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
@@ -564,7 +581,14 @@ class PersonalAddress: UIViewController, UITextFieldDelegate {
         
         if error1 == true || error2 == true || error3 == true {
             
-            let alert = UIAlertController(title: "Error", message: "Some fields are missing or were entered incorrectly", preferredStyle: .alert)
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Erreur", message: "Certains champs sont manquants ou ont été mal entrés", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "Error", message: "Some fields are missing or were entered incorrectly", preferredStyle: .alert)
+            }
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
@@ -791,7 +815,15 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
     
     func showAlert(message:String){
         
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        
+        if Locale.current.languageCode == "fr"{
+            alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+        }
+        else{
+            alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        }
+        
         
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         
@@ -884,12 +916,6 @@ class AccountSetUp: UIViewController, UITextFieldDelegate {
         
     }
 }
-
-
-    
-
-
-
 
 
 extension UITextField

@@ -61,7 +61,7 @@
 
 /* Class = "UILabel"; text = "Driver"; ObjectID = "81d-VK-Ydk"; */
 //"81d-VK-Ydk.text" = "Driver";
-"81d-VK-Ydk.text" = "Conducteur";
+"81d-VK-Ydk.text" = "Conduir";
 
 /* Class = "UILabel"; text = "We first need some additional information to complete your registration to the event:"; ObjectID = "8TZ-Nm-afa"; */
 //"8TZ-Nm-afa.text" = "We first need some additional information to complete your registration to the event:";
@@ -120,7 +120,7 @@
 
 /* Class = "UILabel"; text = "Morning Shift"; ObjectID = "Euf-He-dyx"; */
 //"Euf-He-dyx.text" = "Morning Shift";
-"Euf-He-dyx.text" = "Quart du matin";
+"Euf-He-dyx.text" = "Shift du matin";
 
 /* Class = "UILabel"; text = "BIRTHDAY"; ObjectID = "Ftz-Zm-ReR"; */
 //"Ftz-Zm-ReR.text" = "BIRTHDAY";
@@ -203,7 +203,7 @@
 
 /* Class = "UILabel"; text = "Non-driver"; ObjectID = "OyH-4O-SJF"; */
 //"OyH-4O-SJF.text" = "Non-driver";
-"OyH-4O-SJF.text" = "Non-Conducteur";
+"OyH-4O-SJF.text" = "Autre";
 
 /* Class = "UILabel"; text = "Current Volunteers:"; ObjectID = "QGE-Oh-CHG"; */
 //"QGE-Oh-CHG.text" = "Current Volunteers:";
@@ -335,7 +335,7 @@
 
 /* Class = "UILabel"; text = " Afternoon Shift"; ObjectID = "g0k-yQ-7rW"; */
 //"g0k-yQ-7rW.text" = " Afternoon Shift";
-"g0k-yQ-7rW.text" = " Quart de l'après-midi";
+"g0k-yQ-7rW.text" = "Shift d'après-midi";
 
 /* Class = "UILabel"; text = "Let us know if anything has changed."; ObjectID = "g5Z-No-Tax"; */
 //"g5Z-No-Tax.text" = "Let us know if anything has changed.";
@@ -355,7 +355,7 @@
 
 /* Class = "UILabel"; text = "Meal Delivery"; ObjectID = "iHe-Kd-2hg"; */
 //"iHe-Kd-2hg.text" = "Meal Delivery";
-"iHe-Kd-2hg.text" = "Livraison de repas";
+"iHe-Kd-2hg.text" = "Livraison";
 
 /* Class = "UILabel"; text = "CONTACT"; ObjectID = "irw-2e-O1q"; */
 "irw-2e-O1q.text" = "CONTACT";
@@ -382,7 +382,7 @@
 
 /* Class = "UILabel"; text = "Meal Delivery"; ObjectID = "mhu-f6-iCT"; */
 //"mhu-f6-iCT.text" = "Meal Delivery";
-"mhu-f6-iCT.text" = "Livraison de repas";
+"mhu-f6-iCT.text" = "Livraison";
 
 /* Class = "UILabel"; text = "Registration is not available for this date. "; ObjectID = "nNd-mG-PDr"; */
 //"nNd-mG-PDr.text" = "Registration is not available for this date. ";
@@ -437,7 +437,7 @@
 
 /* Class = "UILabel"; text = "Driver ?"; ObjectID = "s9o-9V-fy8"; */
 //"s9o-9V-fy8.text" = "Driver ?";
-"s9o-9V-fy8.text" = "Conducteur ?";
+"s9o-9V-fy8.text" = "Conduir";
 
 /* Class = "UITextView"; text = "(514) 284-9335"; ObjectID = "t0e-bS-xyQ"; */
 "t0e-bS-xyQ.text" = "(514) 284-9335";

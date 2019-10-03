@@ -64,14 +64,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             alert.addAction(OKAction)
             present(alert, animated: true, completion: nil) */
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
             
-            let alert = UIAlertController(title: "Success", message: "Registered successfully! Do you want to register for another shift?", preferredStyle: .alert)
             
-            let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-                
-                self.registered = ""
-                
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "Succès", message: "Enregistré avec succès! Voulez-vous vous inscrire pour un autre quart?", preferredStyle: .alert)
             }
+            else{
+                alert = UIAlertController(title: "Success", message: "Registered successfully! Do you want to register for another shift?", preferredStyle: .alert)
+            }
+            
+            
+           
+            let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+                    
+                    self.registered = ""
+                    
+            }
+            
             
           //  let YesAction = UIAlertAction(title: "Yes", style: .cancel, handler: nil)
             
