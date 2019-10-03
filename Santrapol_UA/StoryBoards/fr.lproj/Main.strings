@@ -120,7 +120,7 @@
 
 /* Class = "UILabel"; text = "Morning Shift"; ObjectID = "Euf-He-dyx"; */
 //"Euf-He-dyx.text" = "Morning Shift";
-"Euf-He-dyx.text" = "Shift du matin";
+"Euf-He-dyx.text" = "Matin";
 
 /* Class = "UILabel"; text = "BIRTHDAY"; ObjectID = "Ftz-Zm-ReR"; */
 //"Ftz-Zm-ReR.text" = "BIRTHDAY";
@@ -335,7 +335,7 @@
 
 /* Class = "UILabel"; text = " Afternoon Shift"; ObjectID = "g0k-yQ-7rW"; */
 //"g0k-yQ-7rW.text" = " Afternoon Shift";
-"g0k-yQ-7rW.text" = "Shift d'après-midi";
+"g0k-yQ-7rW.text" = "Après-midi";
 
 /* Class = "UILabel"; text = "Let us know if anything has changed."; ObjectID = "g5Z-No-Tax"; */
 //"g5Z-No-Tax.text" = "Let us know if anything has changed.";
@@ -476,7 +476,7 @@
 
 /* Class = "UILabel"; text = "Meal Delivery"; ObjectID = "xm2-xN-sqv"; */
 //"xm2-xN-sqv.text" = "Meal Delivery";
-"xm2-xN-sqv.text" = "Livraison de repas";
+"xm2-xN-sqv.text" = "Livraison";
 
 /* Class = "UITextView"; text = "info@santropolroulant.org"; ObjectID = "y0F-Hc-dXE"; */
 "y0F-Hc-dXE.text" = "info@santropolroulant.org";

@@ -236,7 +236,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                     alert = UIAlertController(title: "", message: "Please try and sign up for the highlighted days. This is when we need volunteers the most! 😉", preferredStyle: .alert)
                 }
                 
-                
                 let OKAction = UIAlertAction(title: "Got it!", style: .default, handler: nil)
                 
                 alert.addAction(OKAction)
@@ -270,10 +269,15 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         
         
         stringy = "this is a test"
-     
+
         
+        if Locale.current.languageCode == "fr"{
+            self.title = "Choisir une date"
+        }
+        else{
+            self.title = "Select a Date"
+        }
         
-        self.title = "Select a Date"
         //  self.navigationItem.hidesBackButton = false
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Picture2")!)
