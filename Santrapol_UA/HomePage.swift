@@ -58,15 +58,8 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 else{
                     self.NameLbl.text = "Hello, \(self.user_first_name ?? "")!"
                 }
-                
-                
             }
-            
         })
-        
-        
-        
-        
     }
     
     
@@ -86,9 +79,9 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
         
     
         if Locale.current.languageCode == "fr"{
-            options = ["Bénévole", "Mon horaire", "Profil", "Nous-joindre"]
+            options = ["Bénévole", "Mon horaire", "Profil", "Nous joindre"]
             
-            subtitle = ["Faites du bien", "Vérifiez votre horaire", "Votre information", "Nous joindre et autre"]
+            subtitle = ["Faites du bien", "Vérifiez votre horaire", "Votre information", "Notre information"]
         }
         
         navigationController?.navigationBar.isTranslucent = true

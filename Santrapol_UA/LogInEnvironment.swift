@@ -39,14 +39,14 @@ class LogInEnvironment: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-                for constraint in viewLogIn.constraints {
-            if constraint.identifier == "myConstraint" {
-                constraint.constant =  ( (CGFloat(logInLabel.text!.count) - 6) * (0.2/6) ) * UIScreen.main.bounds.width
+            for constraint in viewLogIn.constraints {
+                if constraint.identifier == "myConstraint" {
+                    constraint.constant =  ( (CGFloat(logInLabel.text!.count) - 6) * (0.2/6) ) * UIScreen.main.bounds.width
                 
-                print(logInLabel.text!.count)
+                    print(logInLabel.text!.count)
+                }
             }
-        }
-        viewLogIn.layoutIfNeeded()
+            viewLogIn.layoutIfNeeded()
     }
     
     
@@ -279,6 +279,8 @@ class RecoverPass: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     
+    @IBOutlet weak var resetPassOutlet: UIButton!
+    
     override func viewDidAppear(_ animated: Bool){
         
          emailField.becomeFirstResponder()
@@ -288,6 +290,12 @@ class RecoverPass: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.resetPassOutlet.titleLabel?.minimumScaleFactor = 0.50;
+        self.resetPassOutlet.titleLabel?.numberOfLines = 1;
+        self.resetPassOutlet.titleLabel?.adjustsFontSizeToFitWidth = true;
+        self.resetPassOutlet.titleLabel?.baselineAdjustment = UIBaselineAdjustment.alignCenters;
+       
         
     emailField.frame.size.width = UIScreen.main.bounds.width - 58
         
