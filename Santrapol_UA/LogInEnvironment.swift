@@ -14,6 +14,8 @@ import SVProgressHUD
 class LogInEnvironment: UIViewController {
 
     
+    @IBOutlet weak var viewLogIn: UIView!
+    @IBOutlet weak var logInLabel: UILabel!
     
     @IBOutlet weak var userNameField: UITextField!
     //   @IBOutlet weak var userNameField: UITextField!
@@ -36,9 +38,22 @@ class LogInEnvironment: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+                for constraint in viewLogIn.constraints {
+            if constraint.identifier == "myConstraint" {
+                constraint.constant =  ( (CGFloat(logInLabel.text!.count) - 6) * (0.2/6) ) * UIScreen.main.bounds.width
+                
+                print(logInLabel.text!.count)
+            }
+        }
+        viewLogIn.layoutIfNeeded()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         
         userNameField.frame.size.width = UIScreen.main.bounds.width - 58
         
