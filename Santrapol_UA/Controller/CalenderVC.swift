@@ -228,7 +228,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                 
                 // Only display this alert if the user doesn't come back from the registration page. This will allow the other alert ("registered successfully") to show up instead.
                 var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-                
+                /*
                 if Locale.current.languageCode == "fr"{
                     alert = UIAlertController(title: "", message: "S'il vous plaît essayez de vous inscrire pour les jours soulignés C'est à ces moments-là que nous avons besoin de plus de bénévoles! 😉", preferredStyle: .alert)
                 }
@@ -241,7 +241,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                 alert.addAction(OKAction)
                 
                 self.present(alert, animated: true, completion: nil)
-                
+                */
                 
             } else {
                 
@@ -268,7 +268,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         self.navigationItem.rightBarButtonItem = editButton
         
         
-        stringy = "this is a test"
 
         
         if Locale.current.languageCode == "fr"{
