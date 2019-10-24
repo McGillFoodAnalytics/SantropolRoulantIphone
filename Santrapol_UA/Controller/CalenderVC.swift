@@ -47,7 +47,12 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         let vc : HomePage = storyboard.instantiateViewController(withIdentifier: "HomePage") as! HomePage
         
         let navigationController = UINavigationController(rootViewController: vc)
-        
+        navigationController.modalPresentationStyle = .fullScreen
+        if #available(iOS 13.0, *) {
+            navigationController.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
+        }
         self.present(navigationController, animated: true, completion: nil)
     }
     
