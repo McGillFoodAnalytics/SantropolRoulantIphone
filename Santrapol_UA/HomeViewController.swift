@@ -104,12 +104,12 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 
                 let dateToday = Date()
                 
-                print(dateToday)
-                print(dateEvent)
+                //print(dateToday)
+                //print(dateEvent)
                 
                 let diffInMinutes = Calendar.current.dateComponents([.minute], from: dateToday, to: dateEvent!).minute
                 
-                print(diffInMinutes)
+                //print(diffInMinutes)
                 
                 
                 if diffInMinutes ?? 0 < 2880 {

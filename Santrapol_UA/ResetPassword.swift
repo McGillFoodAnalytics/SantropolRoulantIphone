@@ -51,7 +51,7 @@ override func viewDidLoad() {
 
 func displayMessage(userMessage:String)
 {
-    var Alert = UIAlertController(title: "Message", message: userMessage, preferredStyle: UIAlertController.Style.alert)
+    let Alert = UIAlertController(title: "Message", message: userMessage, preferredStyle: UIAlertController.Style.alert)
     let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {action in
         self.dismiss(animated: true, completion: nil)
         

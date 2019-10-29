@@ -71,7 +71,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         //let key = useref.child(user.uid).key
         
         if let email = Email.text,
-        let pass = Password.text, let Firstname = FirstName.text
+        let pass = Password.text, let _ = FirstName.text
         { Auth.auth().createUser(withEmail: email, password: pass)  { (user, error) in
     
                 //Check error and show error message

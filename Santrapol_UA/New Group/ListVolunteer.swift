@@ -163,7 +163,7 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         // Now determine from the event type if the user is a driver or not
                 
-                var driver_dummy = event_type.prefix(4).suffix(1)
+                let driver_dummy = event_type.prefix(4).suffix(1)
                 
                 
                 if driver_dummy == "d" {

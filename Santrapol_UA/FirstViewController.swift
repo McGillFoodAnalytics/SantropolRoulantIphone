@@ -68,7 +68,7 @@ class FirstViewController: UIViewController {
         SVProgressHUD.setForegroundColor(UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0)) 
         SVProgressHUD.show()
         
-        var username: String
+        //var username: String
         
         let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         

@@ -26,7 +26,7 @@ class ContactPage: UIViewController {
         
         let initialLocation = CLLocation(latitude: 45.516520, longitude: -73.575146)
         
-        mapView.delegate = self as? MKMapViewDelegate
+        mapView.delegate = self as MKMapViewDelegate
         
         let artwork = Artwork(title: "Santropol Roulant",
             locationName: "Social services organization",

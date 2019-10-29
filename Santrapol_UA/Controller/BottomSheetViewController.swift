@@ -178,7 +178,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                         
                         // Now determine from the event type if the user is a driver or not
                         
-                        var driver_dummy = event_type.prefix(4).suffix(1)
+                        let driver_dummy = event_type.prefix(4).suffix(1)
                         
                         
                         if driver_dummy == "d" {
@@ -207,7 +207,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                         let event_start = dict?["event_time_start"] as? String
                         let event_end = dict?["event_time_end"] as? String
                         let note = dict?["note"] as? String
-                        let eventint = dict?["event_date"] as? Int
+                        let _ = dict?["event_date"] as? Int
                         
                         
                         let nameAttendee = Names(firstName: first_name, lastName: last_name, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end, note: note)
