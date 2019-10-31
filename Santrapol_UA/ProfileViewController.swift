@@ -200,7 +200,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         
         // Load the date from Firebase
-        var user_uid: String?
+        //var user_uid: String?
         
         Database.database().reference().child("user").queryOrdered(byChild: "key").queryEqual(toValue: userid).observe(.value, with: { (snapshot) in
             
@@ -216,7 +216,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
                 
                 self.lastNameField.text = dict?["last_name"] as? String
                 
-                var dob = dict?["dob"] as? String
+                let dob = dict?["dob"] as? String
                 
                 
                 let dateFormatterGet = DateFormatter()
@@ -246,16 +246,16 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
                 self.phoneField.text = phone_number
                 
                 
-                var addressNumber = dict?["address_number"] as? Int
-                var address_street = dict?["address_street"] as? String
+                let addressNumber = dict?["address_number"] as? Int
+                let address_street = dict?["address_street"] as? String
                 
                 self.addressField.text = "\(String(addressNumber ?? 0)), \(address_street ?? "")"
                 
                 self.cityField.text = dict?["address_city"] as? String
                 
-                var postal_code = dict?["address_postal_code"] as? String ?? ""
+                let postal_code = dict?["address_postal_code"] as? String ?? ""
                 
-                var postal_code2 = String(postal_code.prefix(3) + " " + postal_code.suffix(3))
+                let postal_code2 = String(postal_code.prefix(3) + " " + postal_code.suffix(3))
                 
                 self.postalCodeField.text = postal_code2
                 
@@ -307,7 +307,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
                 
                 
                 let childSnapshot = child as? DataSnapshot
-                let dict = childSnapshot?.value as? [String:Any]
+                //let dict = childSnapshot?.value as? [String:Any]
                 
                 let eventid = childSnapshot?.key
                 
@@ -561,18 +561,18 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         // Prepare the dictionary to update the Firebawse
         let dictionary: NSDictionary = [
-            "first_name" : firstNameField.text,
-            "last_name" : lastNameField.text,
-            "email": emailField.text,
+            "first_name" : firstNameField.text as Any,
+            "last_name" : lastNameField.text as Any,
+            "email": emailField.text as Any,
             "dob": "\(year)\(String(format: "%02d", month))\(String(format: "%02d", day))" as String,
-            "phone_number": phoneField.text?.digitsOnly(),
-            "address_city": cityField.text,
+            "phone_number": phoneField.text?.digitsOnly() as Any,
+            "address_city": cityField.text as Any,
             "address_number": Int(addressField.text!.digitsOnly()) ?? 0,
             "address_postal_code": String(postalCodeField.text!.filter { !" \n\t\r".contains($0) }),
             "address_street": addressField.text!.components(separatedBy: CharacterSet.decimalDigits).joined().trimmingCharacters(in: NSCharacterSet(charactersIn: ",") as CharacterSet).trimmingCharacters(in: .whitespacesAndNewlines),
             "key": key,
-            "signup_date": self.registration_date,
-            "no_show": self.old_no_show
+            "signup_date": self.registration_date as Any,
+            "no_show": self.old_no_show as Any
             
             // Write more information about the user in the future
             

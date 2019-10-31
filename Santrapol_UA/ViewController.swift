@@ -151,8 +151,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
 
         
-        var reftype = Database.database().reference().child("type")
-        var refattendee = Database.database().reference().child("attendee")
+        //var reftype = Database.database().reference().child("type")
+        //var refattendee = Database.database().reference().child("attendee")
         //Retrieve the events list
         //print(ref)
         

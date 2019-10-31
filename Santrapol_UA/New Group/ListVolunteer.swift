@@ -403,7 +403,7 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
             
             
             let viewControllers = self.navigationController!.viewControllers
-            for var aViewController in viewControllers
+            for aViewController in viewControllers
             {
                 if aViewController is ViewController
                 {
@@ -527,6 +527,7 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
                     
                     // Call the information to transfer in the database
                     
+                    /*
                     let dictionary: NSDictionary = [
                         "first_name" : user_first_name,
                         "last_name" : user_last_name,
@@ -536,6 +537,7 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
                         // Write more information about the user in the future
                         
                     ]
+                    */
                     
                     // User key
                     Database.database().reference().child("event").child(String(self.eventint) + event_type_register + "0" + String(firstIndexNil + 1)).child("key").setValue(user_key)
@@ -572,7 +574,7 @@ class ListVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegat
             
             
             let viewControllers = self.navigationController!.viewControllers
-            for var aViewController in viewControllers
+            for aViewController in viewControllers
             {
                 if aViewController is ViewController
                 {

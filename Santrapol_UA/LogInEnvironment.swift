@@ -121,7 +121,7 @@ class LogInEnvironment: UIViewController {
        
 
         
-        var username: String
+        //var username: String
         
         let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         

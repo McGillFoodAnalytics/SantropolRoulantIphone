@@ -108,7 +108,7 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
         CollectionView.delegate = self
         
         
-        var layout = self.CollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let layout = self.CollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         layout.minimumInteritemSpacing = 5
         layout.itemSize = CGSize(width: (screenSize.width - 20)/2, height: ((screenSize.height/1.6) - 20)/2)

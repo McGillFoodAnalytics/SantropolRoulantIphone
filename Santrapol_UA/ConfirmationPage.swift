@@ -94,7 +94,7 @@ class ConfirmationPage: UIViewController {
         
         print(typecontroller)
         
-        var event_type_register: String = ""
+       //var event_type_register: String = ""
         var user_first_name: String?
         var user_last_name: String?
         var user_key: String?
@@ -226,10 +226,10 @@ class ConfirmationPage: UIViewController {
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         
         var event_type_register: String = ""
-        var user_first_name: String?
-        var user_last_name: String?
-        var user_key: String?
-        var user_uid: String?
+        //var user_first_name: String?
+        //var user_last_name: String?
+        //var user_key: String?
+        //var user_uid: String?
         
         
         if typecontroller == "Meal Delivery Non-Driver" || typecontroller == "Meal Delivery Driver" {
@@ -284,7 +284,7 @@ class ConfirmationPage: UIViewController {
             
             let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
             
-            let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
+            //let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
             
             
             // Lookup for the first index which corresponds to an empty string in the names position
@@ -320,11 +320,11 @@ class ConfirmationPage: UIViewController {
             
             let childUpdates = [
                 
-                "key": userInformation[0].user_key,
-                "uid": userInformation[0].user_uid,
-                "first_name": userInformation[0].user_first_name,
-                "last_name": userInformation[0].user_last_name,
-                "note": self.additionalNotes.text,
+                "key": userInformation[0].user_key as Any,
+                "uid": userInformation[0].user_uid as Any,
+                "first_name": userInformation[0].user_first_name as Any,
+                "last_name": userInformation[0].user_last_name as Any,
+                "note": self.additionalNotes.text as Any,
                 "first_shift": self.isOn
                 
                 ] as [String : Any]
@@ -333,7 +333,7 @@ class ConfirmationPage: UIViewController {
             
             
             let viewControllers = self.navigationController!.viewControllers
-            for var aViewController in viewControllers
+            for aViewController in viewControllers
             {
                 if aViewController is CalenderVC
                 {
@@ -395,9 +395,9 @@ class ConfirmationPage: UIViewController {
             
             // In the namesRegistered array, need to filter out all entries corresponding to the event_type_register
             
-            let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
+            //let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
             
-            let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
+            //let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
             
             
             // Lookup for the first index which corresponds to an empty string in the names position
@@ -438,11 +438,11 @@ class ConfirmationPage: UIViewController {
                     
                     let childUpdates = [
                         
-                        "key": userInformation[0].user_key,
-                        "uid": userInformation[0].user_uid,
-                        "first_name": userInformation[0].user_first_name,
-                        "last_name": userInformation[0].user_last_name,
-                        "note": self.additionalNotes.text,
+                        "key": userInformation[0].user_key as Any,
+                        "uid": userInformation[0].user_uid as Any,
+                        "first_name": userInformation[0].user_first_name as Any,
+                        "last_name": userInformation[0].user_last_name as Any,
+                        "note": self.additionalNotes.text as Any,
                         "first_shift": self.isOn
                     
                         ] as [String : Any]
@@ -480,7 +480,7 @@ class ConfirmationPage: UIViewController {
             
             
             let viewControllers = self.navigationController!.viewControllers
-            for var aViewController in viewControllers
+            for aViewController in viewControllers
             {
                 if aViewController is CalenderVC
                 {

@@ -232,7 +232,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             } else if self.registered != "yes" {
                 
                 // Only display this alert if the user doesn't come back from the registration page. This will allow the other alert ("registered successfully") to show up instead.
-                var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+                //var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
                 /*
                 if Locale.current.languageCode == "fr"{
                     alert = UIAlertController(title: "", message: "S'il vous plaît essayez de vous inscrire pour les jours soulignés C'est à ces moments-là que nous avons besoin de plus de bénévoles! 😉", preferredStyle: .alert)

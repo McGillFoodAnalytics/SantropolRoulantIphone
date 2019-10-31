@@ -361,7 +361,7 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
         
         // Check if the email is contained
         
-        var email_array = self.registeredUsersFull.map {$0.email}
+        let email_array = self.registeredUsersFull.map {$0.email}
         if isValidEmail(testStr: emailField.text!) == false {
             
             self.error1 = true
@@ -398,7 +398,7 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
         print(isValidEmail(testStr: emailField.text!))
         // Check if the phone number is contained
         
-        var phone_number_array = self.registeredUsersFull.map {$0.phone_number}
+        let phone_number_array = self.registeredUsersFull.map {$0.phone_number}
         
         if phone_number_array.contains(phoneNumberField.text!.digitsOnly()) {
             
@@ -839,7 +839,8 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
         //let key = useref.child(user.uid).key
         
         if let email = email,
-            let pass = passwordLbl.text, let Firstname = first_name
+            let pass = passwordLbl.text
+            //,let Firstname = first_name
         { Auth.auth().createUser(withEmail: email, password: pass)  { (user, error) in
             
             //Check error and show error message
@@ -849,9 +850,9 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             print(key)
             
             let dictionary: NSDictionary = [
-                "first_name" : self.first_name,
+                "first_name" : self.first_name as Any,
                 "last_name" : self.last_name,
-                "email": self.email,
+                "email": self.email as Any,
                 "dob": self.dob,
                 "phone_number": self.phone_number,
                 "address_city": self.address_city,
@@ -904,7 +905,7 @@ class AccountSetUp: UIViewController, UITextFieldDelegate {
     @IBAction func finishTapped(_ sender: UIButton) {
         
         let viewControllers = self.navigationController!.viewControllers
-        for var aViewController in viewControllers
+        for aViewController in viewControllers
         {
             if aViewController is IntroPage
             {
@@ -935,7 +936,7 @@ extension UITextField
 extension String {
     
     var length : Int {
-        return self.characters.count
+        return self.count
     }
     
     func digitsOnly() -> String{
