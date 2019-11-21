@@ -198,7 +198,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
 
                 
     
-                
+
                 // Remove duplicates (optional step)
                // self.verificationArray = self.verificationArray.unique()
             }

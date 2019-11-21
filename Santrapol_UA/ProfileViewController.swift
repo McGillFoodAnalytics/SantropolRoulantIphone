@@ -53,10 +53,6 @@ class ProfileViewController: UIViewController {
         
     }
     
-    
-    
-
-
 }
 
 
@@ -116,7 +112,7 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                //Labels
+        //Labels
         personalLbl.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
         personalLbl.layer.cornerRadius = 5
@@ -184,7 +180,14 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
         
         dobField.inputView = datePicker
         
-        self.navigationItem.title = "Your Roulant Profile"
+        
+        if Locale.current.languageCode == "fr"{
+            self.navigationItem.title = "Votre Profil"
+        }
+        else{
+            self.navigationItem.title = "Your Profile"
+        }
+        
     
         
         self.viewScroll.backgroundColor = UIColor.clear
@@ -228,11 +231,8 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
                 let date = dateFormatterGet.date(from: dob!)
                 
                 self.dobField.text = dateFormatterPrint.string(from: date ?? Date())
-               
-                
-                
-                
-                
+    
+            
                 self.emailField.text = dict?["email"] as? String
                 
                 self.origin_email = dict?["email"] as? String

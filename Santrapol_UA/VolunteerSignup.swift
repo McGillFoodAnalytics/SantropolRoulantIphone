@@ -265,12 +265,7 @@ class KitchenChoice: UIViewController {
         
         self.subViewMorning.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        if Locale.current.languageCode == "fr"{
-            data = "Cuisine AM"
-        }
-        else{
-            data = "Kitchen AM"
-        }
+        data = "Kitchen AM"
         
         morningSelected = true
         afternoonSelected = false
@@ -288,12 +283,7 @@ class KitchenChoice: UIViewController {
         
         self.subViewAfternoon.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        if Locale.current.languageCode == "fr"{
-            data = "Cuisine PM"
-        }
-        else{
-            data = "Kitchen PM"
-        }
+        data = "Kitchen PM"
         
         morningSelected = false
         afternoonSelected = true
