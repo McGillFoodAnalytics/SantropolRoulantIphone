@@ -282,7 +282,7 @@ class ConfirmationPage: UIViewController {
             
             // In the namesRegistered array, need to filter out all entries corresponding to the event_type_register
             
-            let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
+           // let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
             
             //let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
             

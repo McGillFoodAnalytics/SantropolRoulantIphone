@@ -271,11 +271,11 @@ class KitchenChoice: UIViewController {
         else{
             data = "Kitchen AM"
         }
- 
-        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
         
         morningSelected = true
         afternoonSelected = false
+        
+        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
     }
     
     @IBAction func afternoonTapped(_ sender: UIButton) {
@@ -294,11 +294,11 @@ class KitchenChoice: UIViewController {
         else{
             data = "Kitchen PM"
         }
-
-        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
         
         morningSelected = false
         afternoonSelected = true
+        
+        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
     }
     
 /*    @IBAction func nextTapped(_ sender: UIButton) {

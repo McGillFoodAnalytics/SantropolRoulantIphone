@@ -1,4 +1,3 @@
-
 /* Class = "UILabel"; text = "PASSWORD"; ObjectID = "0Fg-OG-2RA"; */
 //"0Fg-OG-2RA.text" = "PASSWORD";
 "0Fg-OG-2RA.text" = "MOT DE PASSE";
@@ -257,7 +256,7 @@
 
 /* Class = "UILabel"; text = "What good fortune brings you here?"; ObjectID = "WW3-OA-OX6"; */
 //"WW3-OA-OX6.text" = "What good fortune brings you here?";
-"WW3-OA-OX6.text" = "Quelle bonne chance vous apporte ici?";
+"WW3-OA-OX6.text" = "Quelle chance vous apporte ici?";
 
 /* Class = "UILabel"; text = "111, Roy East, Montreal (QC) H2W 1M1"; ObjectID = "WnD-dI-yFm"; */
 "WnD-dI-yFm.text" = "111, Roy East, Montreal (QC) H2W 1M1";
@@ -511,3 +510,12 @@
 /* Class = "UILabel"; text = "Is this your first time doing this activity?"; ObjectID = "zxf-bk-TLi"; */
 //"zxf-bk-TLi.text" = "Is this your first time doing this activity?";
 "zxf-bk-TLi.text" = "Est-ce votre première fois que vous faites cette activité?";
+
+/* Class = "UILabel"; text = "We would love extra help on the days highlighted in purple!"; ObjectID = "nID-SN-dJA"; */
+"nID-SN-dJA.text" = "Nous aimerions de l'aide supplémentaire pour les jours surlignés!";
+
+/* Class = "UILabel"; text = "spots available"; ObjectID = "uFF-ch-egW"; */
+"uFF-ch-egW.text" = "places disponibles";\
+
+/* Class = "UILabel"; text = "Current volunteers :"; ObjectID = "BEh-ey-DdT"; */
+"BEh-ey-DdT.text" = "Bénévoles actuels:";
