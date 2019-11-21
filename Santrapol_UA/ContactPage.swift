@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+// This is a comment
+
 class ContactPage: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
