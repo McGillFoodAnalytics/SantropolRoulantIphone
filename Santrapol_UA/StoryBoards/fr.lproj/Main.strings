@@ -519,3 +519,6 @@
 
 /* Class = "UILabel"; text = "Current volunteers :"; ObjectID = "BEh-ey-DdT"; */
 "BEh-ey-DdT.text" = "Bénévoles actuels:";
+
+/* Class = "UILabel"; text = "DATE OF BIRTH"; ObjectID = "uNb-Bz-3SC"; */
+"uNb-Bz-3SC.text" = "DATE DE NAISSANCE";

@@ -52,8 +52,8 @@
 
 /* Begin PBXFileReference section */
 		1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Santrapol_UA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA.debug.xcconfig"; sourceTree = "<group>"; };
-		51BD77DB23862AAC000F9422 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		51BD77DC23862AAD000F9422 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		51BD77DF23872DD1000F9422 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		51BD77E023872DD1000F9422 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPage.swift; sourceTree = "<group>"; };
 		A084301C22C88E48004492F5 /* ListVolunteer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListVolunteer.swift; path = "New Group/ListVolunteer.swift"; sourceTree = "<group>"; };
 		A0A5A43122F270EB00828452 /* LogInEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInEnvironment.swift; sourceTree = "<group>"; };
@@ -417,7 +417,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F04071D62319BB640023E5E2 /* Base */,
-				51BD77DB23862AAC000F9422 /* fr */,
+				51BD77DF23872DD1000F9422 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -426,7 +426,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F04071D82319BB640023E5E2 /* Base */,
-				51BD77DC23862AAD000F9422 /* fr */,
+				51BD77E023872DD1000F9422 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
