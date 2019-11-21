@@ -365,7 +365,7 @@
 
 /* Class = "UILabel"; text = "YOUR ROULANT USER NAME"; ObjectID = "js1-y6-ABQ"; */
 //"js1-y6-ABQ.text" = "YOUR ROULANT USER NAME";
-"js1-y6-ABQ.text" = "VOTRE NOM D'UTILISATEUR ROULANT";
+"js1-y6-ABQ.text" = "VOTRE NOM D'UTILISATEUR";
 
 /* Class = "UIButton"; normalTitle = "Sign up"; ObjectID = "kZT-l3-Krs"; */
 //"kZT-l3-Krs.normalTitle" = "Sign up";

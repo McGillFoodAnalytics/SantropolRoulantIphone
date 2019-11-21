@@ -153,8 +153,16 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
             if self.verificationArray.contains(self.eventint) {
                 
                 self.tableView.isHidden = false
-                self.currentVolunteersLbl.text = "Current Volunteers:"
-                self.spotsAvailableLbl.text = "spots available"
+                
+                if Locale.current.languageCode == "fr"{
+                    self.currentVolunteersLbl.text = "Bénévoles actuels:"
+                    self.spotsAvailableLbl.text = "places disponibles"
+                }
+                else{
+                    self.currentVolunteersLbl.text = "Current Volunteers:"
+                    self.spotsAvailableLbl.text = "spots available"
+                }
+                
                 self.notice.isHidden = true
                 
                 

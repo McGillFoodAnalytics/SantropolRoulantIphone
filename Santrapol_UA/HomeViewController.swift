@@ -85,80 +85,146 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-        
-            let alert = UIAlertController(title: "Confirm 💔", message: "Are you sure you want to delete this event?", preferredStyle: .alert)
             
-            let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            var YesAction = UIAlertAction(title: "", style: .default)
+            var NoAction = UIAlertAction(title: "", style: .default)
+        
+           if Locale.current.languageCode == "fr"{
+            
+                    alert = UIAlertController(title: "Confirmer 💔", message: "Êtes-vous sûr de vouloir supprimer cet événement?", preferredStyle: .alert)
+            
+                    YesAction = UIAlertAction(title: "Oui", style: .default) { (action) in
                 
-                let details = self.EventList[indexPath.row]
-                let eventid = details.eventid ?? nil
-                let eventint = (details.eventid?.prefix(6) ?? nil) ?? ""
-                let eventStart = details.event_time_start
+                    let details = self.EventList[indexPath.row]
+                    let eventid = details.eventid ?? nil
+                    let eventint = (details.eventid?.prefix(6) ?? nil) ?? ""
+                    let eventStart = details.event_time_start
                 
-                let eventDateTime = eventint + "," + eventStart!
+                    let eventDateTime = eventint + "," + eventStart!
                 
-                let dateFormatterGet = DateFormatter()
-                dateFormatterGet.dateFormat = "yyMMdd,HH:mm"
+                    let dateFormatterGet = DateFormatter()
+                    dateFormatterGet.dateFormat = "yyMMdd,HH:mm"
                 
-                let dateEvent = dateFormatterGet.date(from: eventDateTime)
+                    let dateEvent = dateFormatterGet.date(from: eventDateTime)
                 
-                let dateToday = Date()
-                
-                //print(dateToday)
-                //print(dateEvent)
-                
-                let diffInMinutes = Calendar.current.dateComponents([.minute], from: dateToday, to: dateEvent!).minute
-                
-                //print(diffInMinutes)
+                    let dateToday = Date()
+            
+                    let diffInMinutes = Calendar.current.dateComponents([.minute], from: dateToday, to: dateEvent!).minute
                 
                 
-                if diffInMinutes ?? 0 < 2880 {
+                    if diffInMinutes ?? 0 < 2880 {
                     
-                    let alert = UIAlertController(title: "😭😭😭", message: "The event is less than 48 hours away. Please call us at (514) 284-9335 in order to cancel", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "😭😭😭", message: "L'événement est dans moins de 48 heures. Veuillez nous appeler au (514) 284-9335 pour annuler", preferredStyle: .alert)
                     
-                    let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     
-                    alert.addAction(OKAction)
+                        alert.addAction(OKAction)
                     
-                    self.present(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
                     
-                    return
+                        return
                     
                     
-                } else {
+                    } else {
                     
-                    let deleteRef = Database.database().reference().child("event").child(eventid!)
+                        let deleteRef = Database.database().reference().child("event").child(eventid!)
                     
-                    let childUpdates = [
+                        let childUpdates = [
                         
-                        "first_name": "",
-                        "last_name": "",
-                        "key": "nan",
-                        "uid": "nan",
-                        "note": "",
-                        "first_shift": false
-                        ] as [String : Any]
+                            "first_name": "",
+                            "last_name": "",
+                            "key": "nan",
+                            "uid": "nan",
+                            "note": "",
+                            "first_shift": false
+                            ] as [String : Any]
                     
-                    // Performs all the changes simultaneously
-                    deleteRef.updateChildValues(childUpdates)
+                        // Performs all the changes simultaneously
+                        deleteRef.updateChildValues(childUpdates)
                     
                     
-                    self.EventList.remove(at: indexPath.row)
+                        self.EventList.remove(at: indexPath.row)
                     
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                    }
+                }
+                NoAction = UIAlertAction(title: "Non", style: .default) { (action) in
+                           
+                    return
+                           
+                }
+            }
+           else{
+            alert = UIAlertController(title: "Confirm 💔", message: "Are you sure you want to delete this event?", preferredStyle: .alert)
+            
+            YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+                
+                    let details = self.EventList[indexPath.row]
+                    let eventid = details.eventid ?? nil
+                    let eventint = (details.eventid?.prefix(6) ?? nil) ?? ""
+                    let eventStart = details.event_time_start
+                
+                    let eventDateTime = eventint + "," + eventStart!
+                
+                    let dateFormatterGet = DateFormatter()
+                    dateFormatterGet.dateFormat = "yyMMdd,HH:mm"
+                
+                    let dateEvent = dateFormatterGet.date(from: eventDateTime)
+                
+                    let dateToday = Date()
+            
+                    let diffInMinutes = Calendar.current.dateComponents([.minute], from: dateToday, to: dateEvent!).minute
+                
+                
+                    if diffInMinutes ?? 0 < 2880 {
+                    
+                        let alert = UIAlertController(title: "😭😭😭", message: "The event is less than 48 hours away. Please call us at (514) 284-9335 in order to cancel", preferredStyle: .alert)
+                    
+                        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    
+                        alert.addAction(OKAction)
+                    
+                        self.present(alert, animated: true, completion: nil)
+                    
+                        return
+                    
+                    
+                    } else {
+                    
+                        let deleteRef = Database.database().reference().child("event").child(eventid!)
+                    
+                        let childUpdates = [
+                        
+                            "first_name": "",
+                            "last_name": "",
+                            "key": "nan",
+                            "uid": "nan",
+                            "note": "",
+                            "first_shift": false
+                            ] as [String : Any]
+                    
+                        // Performs all the changes simultaneously
+                        deleteRef.updateChildValues(childUpdates)
+                    
+                    
+                        self.EventList.remove(at: indexPath.row)
+                    
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                    }
+                }
+                NoAction = UIAlertAction(title: "No", style: .default) { (action) in
+                
+                    return
                 
                 }
             }
             
             //  let YesAction = UIAlertAction(title: "Yes", style: .cancel, handler: nil)
             
-            let NoAction = UIAlertAction(title: "No", style: .default) { (action) in
-                
-                
-                
-                return
-                
-            }
+            
             
             alert.addAction(YesAction)
             alert.addAction(NoAction)
