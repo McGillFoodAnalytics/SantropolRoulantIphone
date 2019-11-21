@@ -354,11 +354,6 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
         
         
         // Verify if the Email and phone number are already in used by another user
-        
-
-        
-
-        
         // Check if the email is contained
         
         let email_array = self.registeredUsersFull.map {$0.email}
@@ -763,7 +758,14 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             passwordLbl.setBottomBorder(withColor: UIColor.red)
             confirmPasswordLbl.setBottomBorder(withColor: UIColor.white)
             
-            showAlert(message: "The password field cannot be left empty!")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Le mot de passe ne peut pas être laissé vide!")
+            }
+            else{
+                showAlert(message: "The password field cannot be left empty!")
+            }
+            
+            
             return
             
             
@@ -774,7 +776,14 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             passwordLbl.setBottomBorder(withColor: UIColor.red)
             confirmPasswordLbl.setBottomBorder(withColor: UIColor.red)
             
-            showAlert(message: "Passwords do not match!")
+            if Locale.current.languageCode == "fr"{
+                showAlert(message: "Les mots de passe ne correspondent pas!")
+            }
+            else{
+                showAlert(message: "Passwords do not match!")
+            }
+            
+            
             return
             
             

@@ -120,7 +120,7 @@ class ConfirmationPage: UIViewController {
         var image = UIImage(named: "home")
         image = image?.withRenderingMode(.alwaysOriginal)
         
-        let editButton   = UIBarButtonItem(image: image,  style: .plain, target: self, action: #selector(didTapEditButton))
+        let editButton = UIBarButtonItem(image: image,  style: .plain, target: self, action: #selector(didTapEditButton))
         
         self.navigationItem.rightBarButtonItem = editButton
         

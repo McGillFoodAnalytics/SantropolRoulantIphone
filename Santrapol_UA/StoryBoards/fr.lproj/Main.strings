@@ -432,7 +432,7 @@
 "rmJ-Wa-L6B.text" = "DATE DE NAISSANCE";
 
 /* Class = "UIButton"; normalTitle = "Log in"; ObjectID = "rrx-9d-71N"; */
-"rrx-9d-71N.normalTitle" = "Log in";
+"rrx-9d-71N.normalTitle" = "S'identifier";
 
 /* Class = "UILabel"; text = "Driver ?"; ObjectID = "s9o-9V-fy8"; */
 //"s9o-9V-fy8.text" = "Driver ?";
@@ -522,3 +522,4 @@
 
 /* Class = "UILabel"; text = "DATE OF BIRTH"; ObjectID = "uNb-Bz-3SC"; */
 "uNb-Bz-3SC.text" = "DATE DE NAISSANCE";
+

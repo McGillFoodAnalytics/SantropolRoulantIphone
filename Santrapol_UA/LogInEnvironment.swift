@@ -82,7 +82,13 @@ class LogInEnvironment: UIViewController {
             // The button is showing text and now we want to hide it
             PasswordField.isSecureTextEntry = true
             UIView.performWithoutAnimation {
-                showToggle.setTitle("Show", for: .normal)
+                
+                if Locale.current.languageCode == "fr"{
+                    showToggle.setTitle("Montrer", for: .normal)
+                }
+                else{
+                    showToggle.setTitle("Show", for: .normal)
+                }
                 showToggle.layoutIfNeeded()
             }
             
@@ -91,14 +97,16 @@ class LogInEnvironment: UIViewController {
             // The password is hidden and now we want to display it
             PasswordField.isSecureTextEntry = false
             UIView.performWithoutAnimation {
-                showToggle.setTitle("Hide", for: .normal)
+                
+                if Locale.current.languageCode == "fr"{
+                    showToggle.setTitle("Cacher", for: .normal)
+                }
+                else{
+                    showToggle.setTitle("Hide", for: .normal)
+                }
                 showToggle.layoutIfNeeded()
             }
-            
-            
         }
-        
-        
     }
 
     
@@ -119,13 +127,9 @@ class LogInEnvironment: UIViewController {
         }
         */
        
-
-        
         //var username: String
         
         let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-        
-        
         
         
         if userNameField.text == "" {
@@ -181,7 +185,7 @@ class LogInEnvironment: UIViewController {
                                 print("Invalid email")
                                 
                                 if Locale.current.languageCode == "fr"{
-                                    self.showAlert(message: "S'il vous plaît entrer un email valide")
+                                    self.showAlert(message: "S'il vous plaît entrez une addresse email valide")
                                 }
                                 else{
                                     self.showAlert(message: "Please enter a valid email")
