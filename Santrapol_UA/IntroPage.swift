@@ -706,7 +706,16 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             // The button is showing text and now we want to hide it
             passwordLbl.isSecureTextEntry = true
             UIView.performWithoutAnimation {
-                showPass.setTitle("Show", for: .normal)
+                
+                    if Locale.current.languageCode == "fr"{
+                    
+                    showPass.setTitle("Montrer", for: .normal)
+                    
+                } else {
+                    
+                    showPass.setTitle("Show", for: .normal)
+                    
+                }
                 showPass.layoutIfNeeded()
             }
 
@@ -716,8 +725,18 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             passwordLbl.isSecureTextEntry = false
             
             UIView.performWithoutAnimation {
-                showPass.setTitle("Hide", for: .normal)
+                
+                if Locale.current.languageCode == "fr"{
+                    
+                    showPass.setTitle("Cacher", for: .normal)
+                    
+                } else {
+                    
+                    showPass.setTitle("Hide", for: .normal)
+                    
+                }
                 showPass.layoutIfNeeded()
+                
             }
             
         }
@@ -731,7 +750,17 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             // The button is showing text and now we want to hide it
             confirmPasswordLbl.isSecureTextEntry = true
             UIView.performWithoutAnimation {
-                showConfirmPass.setTitle("Show", for: .normal)
+                
+                if Locale.current.languageCode == "fr"{
+                    
+                    showConfirmPass.setTitle("Montrer", for: .normal)
+                    
+                } else {
+                    
+                    showConfirmPass.setTitle("Show", for: .normal)
+                    
+                }
+                
                 showConfirmPass.layoutIfNeeded()
             }
 
@@ -740,7 +769,16 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             // The password is hidden and now we want to display it
             confirmPasswordLbl.isSecureTextEntry = false
             UIView.performWithoutAnimation {
-                showConfirmPass.setTitle("Hide", for: .normal)
+                
+                if Locale.current.languageCode == "fr"{
+                    
+                    showConfirmPass.setTitle("Cacher", for: .normal)
+                    
+                } else {
+                    
+                    showConfirmPass.setTitle("Hide", for: .normal)
+                    
+                }
                 showConfirmPass.layoutIfNeeded()
             }
             

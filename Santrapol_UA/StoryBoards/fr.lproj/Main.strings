@@ -36,7 +36,7 @@
 
 /* Class = "UILabel"; text = "To use our app, you need to attend one of our info sessions for volunteers. You will be given an access code that you can input below"; ObjectID = "53c-w2-Lyu"; */
 /*"53c-w2-Lyu.text" = "To use our app, you need to attend one of our info sessions for volunteers. You will be given an access code that you can input below";*/
-"53c-w2-Lyu.text" = "Pour utiliser notre application, vous devez assister à l'une de nos sessions d'information pour les volontaires. Vous recevrez un code d'accès que vous pourrez saisir ci-dessous";
+"53c-w2-Lyu.text" = "Pour utiliser notre application, vous devez assister à l'une de nos sessions d'information pour les bénévoles. Vous y recevrez un code d'accès que vous pourrez saisir ci-dessous.";
 
 /* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "5CU-Xo-vF8"; */
 //"5CU-Xo-vF8.normalTitle" = "Reset Password";
@@ -64,7 +64,7 @@
 
 /* Class = "UILabel"; text = "We first need some additional information to complete your registration to the event:"; ObjectID = "8TZ-Nm-afa"; */
 //"8TZ-Nm-afa.text" = "We first need some additional information to complete your registration to the event:";
-"8TZ-Nm-afa.text" = "Nous avons d’abord besoin de quelques informations supplémentaires pour compléter votre inscription à l’événement:";
+"8TZ-Nm-afa.text" = "Nous avons besoin d'informations supplémentaires pour compléter votre inscription au quart:";
 
 /* Class = "UIButton"; normalTitle = "Show"; ObjectID = "95L-Qz-ejE"; */
 //"95L-Qz-ejE.normalTitle" = "Show";
@@ -143,11 +143,11 @@
 
 /* Class = "UILabel"; text = "We first need some additional information to complete your registration to the event:"; ObjectID = "HjM-tz-9jb"; */
 /*"HjM-tz-9jb.text" = "We first need some additional information to complete your registration to the event:";*/
-"HjM-tz-9jb.text" = "Nous avons d’abord besoin de quelques informations supplémentaires pour compléter votre inscription à l’événement:";
+"HjM-tz-9jb.text" = "Nous avons besoin d'informations supplémentaires pour compléter votre inscription au quart:";
 
 /* Class = "UIButton"; normalTitle = "Save Changes"; ObjectID = "I3B-9x-wqc"; */
 //"I3B-9x-wqc.normalTitle" = "Save Changes";
-"I3B-9x-wqc.normalTitle" = "Sauver les changement";
+"I3B-9x-wqc.normalTitle" = "Sauver les changements";
 
 /* Class = "UILabel"; text = "EMAIL ADDRESS"; ObjectID = "IdI-d0-q7C"; */
 //"IdI-d0-q7C.text" = "EMAIL ADDRESS";
@@ -185,7 +185,7 @@
 "M5A-YS-cJh.text" = "C'est ma première fois!";
 
 /* Class = "UILabel"; text = "Welcome to Santropol Roulant!"; ObjectID = "MVb-q3-nDi"; */
-//"MVb-q3-nDi.text" = "Bienvenue au Santropol Roulant!";
+"MVb-q3-nDi.text" = "Bienvenue à Santropol Roulant!";
 "MeQ-78-Gnb.text" = "Cuisine";
 
 /* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "Mso-4M-h84"; */
@@ -256,7 +256,7 @@
 
 /* Class = "UILabel"; text = "What good fortune brings you here?"; ObjectID = "WW3-OA-OX6"; */
 //"WW3-OA-OX6.text" = "What good fortune brings you here?";
-"WW3-OA-OX6.text" = "Quelle chance vous apporte ici?";
+"WW3-OA-OX6.text" = "Que pouvons nous faire pour vous?";
 
 /* Class = "UILabel"; text = "111, Roy East, Montreal (QC) H2W 1M1"; ObjectID = "WnD-dI-yFm"; */
 "WnD-dI-yFm.text" = "111, Roy East, Montreal (QC) H2W 1M1";
@@ -306,7 +306,7 @@
 
 /* Class = "UILabel"; text = "Enter your email to reset your password."; ObjectID = "cfy-Vr-04M"; */
 //"cfy-Vr-04M.text" = "Enter your email to reset your password.";
-"cfy-Vr-04M.text" = "Entrez votre e-mail pour réinitialiser votre mot de passe.";
+"cfy-Vr-04M.text" = "Réinitialiser votre mot de passe.";
 
 /* Class = "UILabel"; text = "Additional Note"; ObjectID = "cua-gw-NAQ"; */
 //"cua-gw-NAQ.text" = "Additional Note";
@@ -443,7 +443,7 @@
 
 /* Class = "UILabel"; text = "CONFIRM YOUR PASSWORD"; ObjectID = "tI7-XS-GPo"; */
 //"tI7-XS-GPo.text" = "CONFIRM YOUR PASSWORD";
-"tI7-XS-GPo.text" = "CONFIRMER VOTRE MOT DE PASSE";
+"tI7-XS-GPo.text" = "CONFIRMER MOT DE PASSE";
 
 /* Class = "UILabel"; text = "Where do you live?"; ObjectID = "tk9-Mu-u0n"; */
 //"tk9-Mu-u0n.text" = "Where do you live?";
@@ -512,7 +512,7 @@
 "zxf-bk-TLi.text" = "Est-ce la première fois que vous faites cette activité?";
 
 /* Class = "UILabel"; text = "We would love extra help on the days highlighted in purple!"; ObjectID = "nID-SN-dJA"; */
-"nID-SN-dJA.text" = "Nous aimerions de l'aide supplémentaire pour les jours surlignés en violet!";
+"nID-SN-dJA.text" = "Nous aimerions de l'aide pour les jours surlignés en violet!";
 
 /* Class = "UILabel"; text = "spots available"; ObjectID = "uFF-ch-egW"; */
 "uFF-ch-egW.text" = "places disponibles";\

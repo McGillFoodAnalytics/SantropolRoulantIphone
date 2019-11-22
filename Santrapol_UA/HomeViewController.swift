@@ -115,7 +115,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 
                     if diffInMinutes ?? 0 < 2880 {
                     
-                        let alert = UIAlertController(title: "😭😭😭", message: "L'événement est dans moins de 48 heures. Veuillez nous appeler au (514) 284-9335 pour annuler", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "😭😭😭", message: "L'événement est dans moins de 48 heures. Veuillez nous appeler au (514) 284-9335 pour annuler.", preferredStyle: .alert)
                     
                         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     
@@ -180,7 +180,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 
                     if diffInMinutes ?? 0 < 2880 {
                     
-                        let alert = UIAlertController(title: "😭😭😭", message: "The event is less than 48 hours away. Please call us at (514) 284-9335 in order to cancel", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "😭😭😭", message: "The event is less than 48 hours away. Please call us at (514) 284-9335 in order to cancel.", preferredStyle: .alert)
                     
                         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     

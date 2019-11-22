@@ -87,16 +87,29 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             else{
                 alert = UIAlertController(title: "Registration Successful!", message: "See you soon and remember to enjoy a nice piece of cake when you come 🍰. \nDo you want to register for another shift?", preferredStyle: .alert)
             }
+            
+            
            
-            let YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            var YesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
                 
                 self.registered = ""
                 
             }
             
+            if Locale.current.languageCode == "fr"{
+                
+            YesAction = UIAlertAction(title: "Oui", style: .default) { (action) in
+                    
+                    self.registered = ""
+                    
+                }
+                
+            }
+            
+            
             //  let YesAction = UIAlertAction(title: "Yes", style: .cancel, handler: nil)
             
-            let NoAction = UIAlertAction(title: "No", style: .default) { (action) in
+            var NoAction = UIAlertAction(title: "No", style: .default) { (action) in
                 
                 /*    let secondViewController = self.storyboard!.instantiateViewController(withIdentifier: "Home")
                  self.present(secondViewController, animated: true, completion: nil) */
@@ -109,6 +122,28 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                 self.present(navigationController, animated: true, completion: nil)
                 
             }
+            
+            
+            if Locale.current.languageCode == "fr"{
+             
+                NoAction = UIAlertAction(title: "Non", style: .default) { (action) in
+                    
+                    /*    let secondViewController = self.storyboard!.instantiateViewController(withIdentifier: "Home")
+                     self.present(secondViewController, animated: true, completion: nil) */
+                    
+                    let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc : HomeViewController = storyboard.instantiateViewController(withIdentifier: "Home") as! HomeViewController
+                    
+                    let navigationController = UINavigationController(rootViewController: vc)
+                    
+                    self.present(navigationController, animated: true, completion: nil)
+                    
+                }
+            
+                
+            }
+            
+            
             
             alert.addAction(YesAction)
             alert.addAction(NoAction)
@@ -157,7 +192,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         //        vc.detach()
         
         
-        if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver"  {
+        if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver" {
             
             location_start_query = "deldr"
             location_end_query = "deliv"

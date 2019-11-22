@@ -174,7 +174,11 @@ class VolunteerSignup: UIViewController {
         } else {
             
             // Display an alert
-            let alert = UIAlertController(title: "", message: "Please select a type of activity!", preferredStyle: .alert)
+            var alert = UIAlertController(title: "", message: "Please select a type of activity!", preferredStyle: .alert)
+            
+            if Locale.current.languageCode == "fr"{
+                    alert = UIAlertController(title: "", message: "Veuillez sélectionner un type d'activité!", preferredStyle: .alert)
+                }
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
@@ -265,7 +269,7 @@ class KitchenChoice: UIViewController {
         
         self.subViewMorning.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        data = "Kitchen AM"
+                  data = "Kitchen AM"
         
         morningSelected = true
         afternoonSelected = false
@@ -283,7 +287,9 @@ class KitchenChoice: UIViewController {
         
         self.subViewAfternoon.backgroundColor = UIColor(red:208/255, green:127/255, blue:206/255, alpha: 1)
         
-        data = "Kitchen PM"
+
+                   data = "Kitchen PM"
+
         
         morningSelected = false
         afternoonSelected = true
@@ -452,24 +458,16 @@ class DeliveryChoice: UIViewController {
         
         if driverSelected == true {
             
-            if Locale.current.languageCode == "fr"{
-                data = "Livraison Conduceur"
-            }
-            else{
                 data = "Meal Delivery Driver"
-            }
+ 
           
             performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
             
             
         } else if nonDriverSelected == true {
             
-            if Locale.current.languageCode == "fr"{
-                data = "Livraison Non-Conducteur"
-            }
-            else{
+ 
                 data = "Meal Delivery Non-Driver"
-            }
            
             performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self)
             

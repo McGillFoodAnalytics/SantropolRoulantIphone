@@ -110,11 +110,46 @@ class ConfirmationPage: UIViewController {
         if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver" {
             
             self.eventTypeLbl.text = "Meal Delivery"
-
-        } else {
             
-            self.eventTypeLbl.text = typecontroller
+                if Locale.current.languageCode == "fr"{
+                
+                self.eventTypeLbl.text = "Livraison"
+                
+                }
+            
+            
+
+        } else if typecontroller == "Kitchen AM" {
+            
+            self.eventTypeLbl.text = "Kitchen AM"
+            
+                if Locale.current.languageCode == "fr"{
+                
+                self.eventTypeLbl.text = "Cuisine AM"
+                
+                }
+            
+        } else {
+    
+            self.eventTypeLbl.text = "Kitchen PM"
+            
+                if Locale.current.languageCode == "fr"{
+                
+                self.eventTypeLbl.text = "Cuisine PM"
+                
+                }
+    
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         self.eventSlotLbl.text = eventSlot
         
         var image = UIImage(named: "home")

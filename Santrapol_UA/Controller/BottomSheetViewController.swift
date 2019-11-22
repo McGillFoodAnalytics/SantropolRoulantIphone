@@ -156,7 +156,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                 
                 if Locale.current.languageCode == "fr"{
                     self.currentVolunteersLbl.text = "Bénévoles actuels:"
-                    self.spotsAvailableLbl.text = "places disponibles"
+                    self.spotsAvailableLbl.text = "places dispos"
                 }
                 else{
                     self.currentVolunteersLbl.text = "Current Volunteers:"

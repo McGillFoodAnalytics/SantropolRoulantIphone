@@ -171,8 +171,21 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let test = Calendar.current.date(from: dateComponents)
         let weekday = Calendar.current.component(.weekday, from: test!)
         
+        
+        if Locale.current.languageCode == "fr"{
+            
+            
+                    delegate?.didTapDate(date: "\(weekdaysArr[weekday-1]), \(calcDate) \(monthsArr[currentMonthIndex-1]) \(currentYear)", dateInt: "\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))", available: true)
+            
+            
+            
+        } else {
+            
+                    delegate?.didTapDate(date: "\(weekdaysArr[weekday-1]), \(monthsArr[currentMonthIndex-1]) \(calcDate), \(currentYear)", dateInt: "\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))", available: true)
+            
+        }
         // Prints the date in the chosen format (may change for different languages)
-        delegate?.didTapDate(date: "\(weekdaysArr[weekday-1]), \(monthsArr[currentMonthIndex-1]) \(calcDate), \(currentYear)", dateInt: "\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))", available: true)
+
         
    /*     if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
             cell?.backgroundColor=UIColor.clear

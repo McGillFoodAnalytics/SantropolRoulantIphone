@@ -79,9 +79,9 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
         
     
         if Locale.current.languageCode == "fr"{
-            options = ["Bénévole", "Mon horaire", "Profil", "Nous joindre"]
+            options = ["Bénévolat", "Mon horaire", "Profil", "Nous joindre"]
             
-            subtitle = ["Faites du bien", "Vérifiez votre horaire", "Votre information", "Notre information"]
+            subtitle = ["Faites le bien", "Voir votre horaire", "Vos informations", "Nos informations"]
         }
         
         navigationController?.navigationBar.isTranslucent = true

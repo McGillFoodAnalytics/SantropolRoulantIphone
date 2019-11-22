@@ -263,7 +263,7 @@ class LogInEnvironment: UIViewController {
     
     func showAlert(message:String){
         
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
         
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         
