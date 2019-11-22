@@ -304,28 +304,80 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 
                 let eventid = childSnapshot?.key // Gives the folder in which the event is contained
                 
-                let date = dict?["event_date_txt"] as? String
+                let date = dict?["event_date"] as? Int
                 let event_time_start = dict?["event_time_start"] as? String
                 let event_time_end = dict?["event_time_end"] as? String
                 
                 let type = dict?["event_type"] as? String
                 
+                // Format the date
+                let dateFormatterGet = DateFormatter()
+                           dateFormatterGet.dateFormat = "yyyyMMdd"
+                           
+                           let dateFormatterPrint = DateFormatter()
+                           dateFormatterPrint.dateFormat = "MMMM dd,yyyy"
+                           
+                           if Locale.current.languageCode == "fr"{
+                               
+                               dateFormatterPrint.dateFormat = "dd MMMM yyyy"
+                           }
+                
+                
+                // Create a variable for the date
+                
+                let date_date_format = dateFormatterGet.date(from: String(date!))
+                
+                let date_text_format = dateFormatterPrint.string(from: date_date_format ?? Date())
+                
+                                /*let dob = dict?["dob"] as? String
+                
+                
+                let dateFormatterGet = DateFormatter()
+                dateFormatterGet.dateFormat = "yyyyMMdd"
+                
+                let dateFormatterPrint = DateFormatter()
+                dateFormatterPrint.dateFormat = "MMMM dd,yyyy"
+                
+                if Locale.current.languageCode == "fr"{
+                    
+                    dateFormatterPrint.dateFormat = "dd MMMM yyyy"
+                }
+                
+                let date = dateFormatterGet.date(from: dob!) */
+                
                 var type1: String? = ""
                 
                 // Make an if statement to determine the type to display
                 
-                if type?.prefix(3) == "del" {
-                    type1 = "Meal Delivery"
-                } else if type?.prefix(4) == "kita" {
-                    type1 = "Kitchen AM"
+                if Locale.current.languageCode == "fr"{
+                                            
+                    if type?.prefix(3) == "del" {
+                        type1 = "Livraison des repas"
+                    } else if type?.prefix(4) == "kita" {
+                        type1 = "Cuisine (matin)"
+                    } else {
+                        type1 = "Cuisine (après-midi)"
+                    }
+                                                      
                 } else {
-                    type1 = "Kitchen PM"
+                    
+                    if type?.prefix(3) == "del" {
+                        type1 = "Meal Delivery"
+                    } else if type?.prefix(4) == "kita" {
+                        type1 = "Kitchen AM"
+                    } else {
+                        type1 = "Kitchen PM"
+                    }
+                    
+                    
                 }
+                
+
                 
                 let slot = event_time_start! + "-" + event_time_end!
                 
                 
-                let event = Model(loc: type1, eventdate: date, slot: slot, event_time_start: event_time_start, event_time_end: event_time_end, eventid: eventid)
+                let event = Model(loc: type1, eventdate: date_text_format, slot: slot, event_time_start: event_time_start, event_time_end: event_time_end, eventid: eventid)
                 
                 self.EventList.append(event)
                 

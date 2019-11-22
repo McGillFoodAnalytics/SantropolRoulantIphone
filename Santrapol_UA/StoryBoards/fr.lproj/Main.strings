@@ -107,7 +107,7 @@
 
 /* Class = "UILabel"; text = "Please choose your time preference"; ObjectID = "DLj-qU-WRi"; */
 //"DLj-qU-WRi.text" = "Please choose your time preference";
-"DLj-qU-WRi.text" = "Veuillez choisir votre préférence de temps";
+"DLj-qU-WRi.text" = "Veuillez choisir votre préférence d'heure";
 
 /* Class = "UIButton"; normalTitle = "Show"; ObjectID = "DRY-KD-1cv"; */
 //"DRY-KD-1cv.normalTitle" = "Show";
@@ -318,7 +318,7 @@
 
 /* Class = "UILabel"; text = "Your upcoming volunteering activities"; ObjectID = "e0g-8C-qHQ"; */
 //"e0g-8C-qHQ.text" = "Your upcoming volunteering activities";
-"e0g-8C-qHQ.text" = "Vos prochaines activités de volontariat";
+"e0g-8C-qHQ.text" = "Vos prochaines activités de bénévolat";
 
 /* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "eJ8-0C-usy"; */
 //"eJ8-0C-usy.normalTitle" = "NEXT";
@@ -338,7 +338,7 @@
 
 /* Class = "UILabel"; text = "Let us know if anything has changed."; ObjectID = "g5Z-No-Tax"; */
 //"g5Z-No-Tax.text" = "Let us know if anything has changed.";
-"g5Z-No-Tax.text" = "Laissez-nous savoir si quelque chose a changé..";
+"g5Z-No-Tax.text" = "Laissez-nous savoir si quelque chose a changé.";
 
 /* Class = "UILabel"; text = "*Your username is made up of the first two letters of your last name followed by your phone number."; ObjectID = "gLw-63-rJm"; */
 //"gLw-63-rJm.text" = "*Your username is made up of the first two letters of your last name followed by your phone number.";
@@ -413,7 +413,7 @@
 
 /* Class = "UILabel"; text = "Are there remarks you want us to know?"; ObjectID = "pxY-Xt-KSX"; */
 //"pxY-Xt-KSX.text" = "Are there remarks you want us to know?";
-"pxY-Xt-KSX.text" = "Avez-vous des remarques?";
+"pxY-Xt-KSX.text" = "Avez-vous des commentaires?";
 
 /* Class = "UIViewController"; title = "goToVolunteerSignUp"; ObjectID = "qnQ-Lz-JwL"; */
 //"qnQ-Lz-JwL.title" = "goToVolunteerSignUp";
@@ -459,7 +459,7 @@
 
 /* Class = "UILabel"; text = "Welcome to  Santropol Roulant!"; ObjectID = "uMV-p9-wrh"; */
 //"uMV-p9-wrh.text" = "Welcome to Santropol Roulant!";
-"uMV-p9-wrh.text" = "Bienvenue au Santropol Roulant!";
+"uMV-p9-wrh.text" = "Bienvenue à Santropol Roulant!";
 
 /* Class = "UILabel"; text = "DATE OF BIRTH"; ObjectID = "uNb-Bz-3SC"; */
 //"uNb-Bz-3SC.text" = "DATE OF BIRTH";
@@ -482,14 +482,14 @@
 
 /* Class = "UILabel"; text = "Are there remarks you want us to know?"; ObjectID = "yHa-WJ-utP"; */
 //"yHa-WJ-utP.text" = "Are there remarks you want us to know?";
-"yHa-WJ-utP.text" = "Avez-vous des remarques";
+"yHa-WJ-utP.text" = "Avez-vous des commentaires?";
 
 /* Class = "UIBarButtonItem"; title = "Forgot Password"; ObjectID = "yja-Tl-HKX"; */
 "yja-Tl-HKX.title" = "Mot de passe oublié";
 
 /* Class = "UILabel"; text = "And, your contact?"; ObjectID = "z5n-gb-nTD"; */
 //"z5n-gb-nTD.text" = "And, your contact?";
-"z5n-gb-nTD.text" = "Et, votre contact?";
+"z5n-gb-nTD.text" = "Et votre contact?";
 
 /* Class = "UILabel"; text = "Powered by the McGill Food Analytics Centre"; ObjectID = "zAa-MO-n8K"; */
 //"zAa-MO-n8K.text" = "Sponsorise par McGill Food Analytics Centre";
@@ -509,10 +509,10 @@
 
 /* Class = "UILabel"; text = "Is this your first time doing this activity?"; ObjectID = "zxf-bk-TLi"; */
 //"zxf-bk-TLi.text" = "Is this your first time doing this activity?";
-"zxf-bk-TLi.text" = "Est-ce votre première fois que vous faites cette activité?";
+"zxf-bk-TLi.text" = "Est-ce la première fois que vous faites cette activité?";
 
 /* Class = "UILabel"; text = "We would love extra help on the days highlighted in purple!"; ObjectID = "nID-SN-dJA"; */
-"nID-SN-dJA.text" = "Nous aimerions de l'aide supplémentaire pour les jours surlignés!";
+"nID-SN-dJA.text" = "Nous aimerions de l'aide supplémentaire pour les jours surlignés en violet!";
 
 /* Class = "UILabel"; text = "spots available"; ObjectID = "uFF-ch-egW"; */
 "uFF-ch-egW.text" = "places disponibles";\

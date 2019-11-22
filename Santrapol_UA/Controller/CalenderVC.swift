@@ -206,7 +206,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             
             let interest = self.datesImportant.filter({$0.is_important_event! == true})
             
-            // BUG FOR KITCHEN AM UNWRAPPING AS NIL
+            // BUG FOR KITCHEN AM UNWRAPPING AS NIL -- UPDATE: FIXED
             CalenderVC.bookedSlotDate = interest.map {($0.event_date ?? 0)}
             
             CalenderVC.bookedSlotDate = CalenderVC.bookedSlotDate.unique()

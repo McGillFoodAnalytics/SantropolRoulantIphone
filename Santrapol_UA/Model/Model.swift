@@ -10,6 +10,7 @@ class Model {
     var cap: Int?
     var loc: String?
     var eventdate: String?
+    var eventdate_int: Int?
     var checked: Bool?
     var availableDate: String?
     var slot: String?
@@ -33,6 +34,15 @@ class Model {
     init(loc:String?, eventdate:String?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?) {
         self.loc = loc
         self.eventdate = eventdate
+        self.slot = slot
+        self.event_time_start = event_time_start
+        self.event_time_end = event_time_end
+        self.eventid = eventid
+    }
+    
+    init(loc:String?, eventdate_int:Int?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?) {
+        self.loc = loc
+        self.eventdate_int = eventdate_int
         self.slot = slot
         self.event_time_start = event_time_start
         self.event_time_end = event_time_end

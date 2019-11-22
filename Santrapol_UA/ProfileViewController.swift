@@ -228,6 +228,11 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
                 let dateFormatterPrint = DateFormatter()
                 dateFormatterPrint.dateFormat = "MMMM dd,yyyy"
                 
+                if Locale.current.languageCode == "fr"{
+                    
+                    dateFormatterPrint.dateFormat = "dd MMMM yyyy"
+                }
+                
                 let date = dateFormatterGet.date(from: dob!)
                 
                 self.dobField.text = dateFormatterPrint.string(from: date ?? Date())
