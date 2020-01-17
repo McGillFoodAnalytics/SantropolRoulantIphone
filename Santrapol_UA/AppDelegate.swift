@@ -21,43 +21,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var storyboard: UIStoryboard?
     let defaults = UserDefaults.standard
+    
 
+    // perfroms options after launching (navigation bar, themeses, etc)
+    
+    // directs user after retrieving
+    /*
+    func defaultDirect(location:String) {
+        
+        //let theClass : AnyClass = NSClassFromString(location)!
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: location) as! HomePage
+        let navigationController = UINavigationController(rootViewController: nextViewController)
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        appdelegate.window!.rootViewController = navigationController
+        
+    }
+    */
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         if #available(iOS 13.0, *) {
-                // prefer a light interface style with this:
+                // forces light mode
                 
             window?.overrideUserInterfaceStyle = .light
         }
         // Override point for customization after application launch.
-        
-  //    UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
-        
+
       UINavigationBar.appearance().barTintColor = UIColor.white
-       UINavigationBar.appearance().tintColor = UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0)
+      UINavigationBar.appearance().tintColor = UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0)
         
-  //   let newFont = UIFont(name: "Avenir Next", size: 17)
-//        newFont?.fontDescriptor.withSymbolicTraits(.traitBold)
         
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0), NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 20)!]
         
         
-        
+        // loads external libraries
         IQKeyboardManager.shared.enable = true
         
-                FirebaseApp.configure()
+        FirebaseApp.configure()
         
         Database.database().isPersistenceEnabled = false
 
-     
-
-
-
-        
+        // retrieves user from firebase
         self.storyboard =  UIStoryboard(name: "Main", bundle: Bundle.main)
         let currentUser = Auth.auth().currentUser
-        if currentUser != nil
-        {
+        
+        // if user exist take them to home page
+        // NOTE: could be consolidated...
+      
+        /*
+        if currentUser != nil {
+            defaultDirect(location: "HomePage")
+        } else if !defaults.bool(forKey: "codeEntered") {
+            defaultDirect(location: "UnlockCode")
+        } else {
+            defaultDirect(location: "IntroPage")
+        }
+        */
+        
+        
+        
+        if currentUser != nil {
           /*  self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomePage") */
             
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -65,8 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = UINavigationController(rootViewController: nextViewController)
             let appdelegate = UIApplication.shared.delegate as! AppDelegate
             appdelegate.window!.rootViewController = navigationController
-        }
-        else if !defaults.bool(forKey: "codeEntered") {
+            
+        } else if !defaults.bool(forKey: "codeEntered") {
             
             // Access code has not been entered, present the page to enter the code
             
@@ -75,11 +99,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = UINavigationController(rootViewController: nextViewController)
             let appdelegate = UIApplication.shared.delegate as! AppDelegate
             appdelegate.window!.rootViewController = navigationController
-            
-            
-        }
-        
-        else {
+    
+        } else {
             
             // Access code has already been entered, present the login environment
             
@@ -89,15 +110,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let appdelegate = UIApplication.shared.delegate as! AppDelegate
             appdelegate.window!.rootViewController = navigationController
             
-            
-            
-            
-           /* self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginScreen") */
-            
-
-            
-            
         }
+            
         /*window = UIWindow()
         window?.makeKeyAndVisible()
         let navController = UINavigationController(rootViewController: EventSection())
@@ -114,6 +128,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // other URL handling goes here.
         return false
     }
+    
+    
+    
+    //------------------------DEFAULT FUNCTIONS------------------------------
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

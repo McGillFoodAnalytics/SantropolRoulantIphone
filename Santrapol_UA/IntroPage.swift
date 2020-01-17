@@ -39,7 +39,7 @@ class IntroPage: UIViewController {
         
         // Creates a border for the buttons
       
-    createAccountButton.layer.cornerRadius = 2
+        createAccountButton.layer.cornerRadius = 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.white.cgColor
         
@@ -96,7 +96,7 @@ class PersonalInformation: UIViewController {
     var error2: Bool = false
     var error3: Bool = false
     
-        @IBOutlet weak var firstNameField: UITextField!
+    @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var dobField: UITextField!
     
@@ -119,8 +119,7 @@ class PersonalInformation: UIViewController {
     override func viewDidAppear(_ animated: Bool){
         
         firstNameField.becomeFirstResponder()
-        
-        
+
     }
     
     override func viewDidLoad() {
@@ -142,6 +141,7 @@ firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
         
     }
     
+    // provides the user input to the personal contact class
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "goToContactInfo") {
             let vc = segue.destination as! PersonalContact
@@ -217,6 +217,7 @@ firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
             
         }
         
+        // raises alert if any errors occured
         
         if error1 == true || error2 == true || error3 == true {
             
@@ -229,7 +230,7 @@ firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
                 alert = UIAlertController(title: "Error", message: "Some fields are missing or were entered incorrectly", preferredStyle: .alert)
             }
             
-            
+            // create action for alert
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
             alert.addAction(OKAction)
@@ -248,6 +249,7 @@ firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
         last_name = lastNameField.text!
         dob = "\(year)\(String(format: "%02d", month))\(String(format: "%02d", day))" as String
         
+        // go to next page
         self.performSegue(withIdentifier: "goToContactInfo", sender: self)
 
     }
@@ -265,7 +267,7 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
     var last_name: String = ""
     var dob: String = ""
     
-    // Created this View Controller
+    // Created in this View Controller
     var email: String = ""
     var phone_number: String = ""
     
@@ -302,6 +304,7 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
             
             self.registeredUsersFull.removeAll()
             
+            // get email and phone number from firebase
             for child in snapshot.children {
                 
                 let childSnapshot = child as? DataSnapshot
@@ -312,6 +315,7 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
                 
                 let registeredUser = UserInformation(email: email, phone_number: phone_number)
                 
+                // array of all users emails and phone numbers
                 self.registeredUsersFull.append(registeredUser)
                 
             }
@@ -357,38 +361,22 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
         // Check if the email is contained
         
         let email_array = self.registeredUsersFull.map {$0.email}
-        if isValidEmail(testStr: emailField.text!) == false {
+        if isValidEmail(testStr: emailField.text!) == false { // checks format
             
             self.error1 = true
             self.emailField.setBottomBorder(withColor: UIColor.red)
             
-        } else if email_array.contains(self.emailField.text!) {
+        } else if email_array.contains(self.emailField.text!) { // checks if exists
             
             self.error1 = true
             self.emailField.setBottomBorder(withColor: UIColor.red)
             
-        } else {
+        } else { // all good
             
             self.error1 = false
             self.emailField.setBottomBorder(withColor: UIColor.white)
             
         }
-
-            // Check if the email is in the right format and/or already in use
-         /*   Auth.auth().fetchProviders(forEmail: emailField.text!, completion: {
-                (providers, error) in
-                
-                if let error = error {
-                    self.error1 = true
-                    self.emailField.setBottomBorder(withColor: UIColor.red)
-                } else if email_array.contains(self.emailField.text!) {
-
-                } else {
-                    self.error1 = false
-                    self.emailField.setBottomBorder(withColor: UIColor.white)
-                    
-                }
-            }) */
         
         print(isValidEmail(testStr: emailField.text!))
         // Check if the phone number is contained
