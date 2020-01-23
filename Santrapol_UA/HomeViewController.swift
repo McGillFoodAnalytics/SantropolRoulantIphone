@@ -259,6 +259,8 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.allowsSelection = false
+
         // Disables caching in the Firebase (useful if the user changes his personal info, perviously deleted events won't reappear in the page)
         Database.database().reference().keepSynced(true)
 
