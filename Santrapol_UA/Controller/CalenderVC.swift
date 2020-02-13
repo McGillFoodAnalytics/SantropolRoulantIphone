@@ -158,7 +158,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
          if isBeingPresented || isMovingToParent {
             
             firstWeekDayOfMonth = getFirstWeekDay()
-            
+                        
             // This selects today's date by default in the app
             let indexPathForFirstRow = IndexPath(row: Calendar.current.component(.day, from: Date()) + firstWeekDayOfMonth - 2, section: 0)
             calenderView.myCollectionView.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionView.ScrollPosition.left)
@@ -388,7 +388,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             stringy = String(dateInt)
             let stringa = String(date)
             
-
             
             //  containerViewController?.viewDidLoad()
 
