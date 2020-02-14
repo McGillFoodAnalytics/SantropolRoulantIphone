@@ -18,6 +18,10 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+    <key>NSCalendarsUsageDescription</key> 
+    <string>App uses a Calendar API in order to manage shifts and improve user experience.</string> 
+    <key>NSLocationWhenInUseUsageDescription</key> 
+    <string>Location used for iPhone maps app in order to link users to Santropol Roulant if they require assistance or info. Location data is not used without the user permission.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -25,44 +29,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-                
-				<string>&lt;?xml</string>
-				<string>version="1.0"</string>
-				<string>encoding="UTF-8"?&gt;&lt;!DOCTYPE</string>
-				<string>plist</string>
-				<string>PUBLIC</string>
-				<string>"-//Apple//DTD</string>
-				<string>PLIST</string>
-				<string>1.0//EN"</string>
-				<string>http://www.apple.com/DTDs/PropertyList-1.0.dtd</string>
-				<string>http://com.googleusercontent.apps.294633065513-ahleipbjj35emhdrvog5llupkqcgr0e9</string>
-                
+				<string>d</string>
 			</array>
 		</dict>
 	</array>
-    
-<!--
-<key>CFBundleURLTypes</key>
-<array>
-    <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>http://com.googleusercontent.apps.294633065513-ahleipbjj35emhdrvog5llupkqcgr0e9</string>
-        </array>
-    </dict>
-    <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>sixsquarepc08.GoogleIntegration</string>
-        </array>
-    </dict>
-</array>
-
--->
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
