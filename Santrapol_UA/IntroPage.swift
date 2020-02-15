@@ -880,35 +880,89 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             
             //Check error and show error message
 
-            let key = Auth.auth().currentUser!.uid
+            let key = Auth.auth().currentUser?.uid
 
-            print(key)
             
-            let dictionary: NSDictionary = [
-                "first_name" : self.first_name as Any,
-                "last_name" : self.last_name,
-                "email": self.email as Any,
-                "dob": self.dob,
-                "phone_number": self.phone_number,
-                "address_city": self.address_city,
-                "address_number": self.address_number,
-                "address_postal_code": self.address_postal_code,
-                "address_street": self.address_street,
-                "key": key,
-                "signup_date": self.signup_date,
-                "no_show": 0
-                
-                // Write more information about the user in the future
-                
-            ]
+                               
             
-            // Insert the information in the database
-            Database.database().reference().child("user").child(self.uid).setValue(dictionary)
+            if key != nil {
+                
+                       let dictionary: NSDictionary = [
+                            "first_name" : self.first_name as Any,
+                            "last_name" : self.last_name,
+                            "email": self.email as Any,
+                            "dob": self.dob,
+                            "phone_number": self.phone_number,
+                            "address_city": self.address_city,
+                            "address_number": self.address_number,
+                            "address_postal_code": self.address_postal_code,
+                            "address_street": self.address_street,
+                            "key": key,
+                            "signup_date": self.signup_date,
+                            "no_show": 0
+                            
+                            // Write more information about the user in the future
+                            
+                        ]
+                        
+                        // Insert the information in the database
+                        Database.database().reference().child("user").child(self.uid).setValue(dictionary)
+                print(key)
+                
+                
+            } else {
+                
+                   var alert = UIAlertController(title: "", message: "", preferredStyle: .alert);
+                   
+                   if Locale.current.languageCode == "fr"{
+                       alert = UIAlertController(title: "Oops!", message: "Nous n'avons pas pu créer votre compte. Assurez-vous d'être connecté à l'internet!", preferredStyle: .alert)
+                   }
+                   else{
+                       alert = UIAlertController(title: "Oops!", message: "We couldn't create your account. Make sure you are connected to the internet!", preferredStyle: .alert)
+                   }
+                
+                
+                var RetryAction = UIAlertAction(title: "Retry", style: .default) { (action) in
+                           
+                           self.addUsers()
+                           
+                       }
+
+                
+                if Locale.current.languageCode == "fr"{
+                    
+                    
+                    
+                     RetryAction = UIAlertAction(title: "Réessayer", style: .default) { (action) in
+                        
+                        self.addUsers()
+                        
+                    } } else {
+                    
+                        
+                     RetryAction = UIAlertAction(title: "Retry", style: .default) { (action) in
+                        
+                        self.addUsers()
+                        
+                        
+                    }}
+  
+                   alert.addAction(RetryAction)
+                
+                   self.present(alert, animated: true, completion: nil)
+                
+                
+                print(key)
+                
+                
+            }
             
             
             
             }
             
+           
+ 
             
         }
     }
