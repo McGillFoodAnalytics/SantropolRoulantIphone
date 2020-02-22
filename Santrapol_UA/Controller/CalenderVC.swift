@@ -174,7 +174,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     
     func getFirstWeekDay() -> Int {
         let day = ("\(currentYear)-\(currentMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
-        return day == 7 ? 1 : day
+        return day == 8 ? 1 : day
     }
     
     
