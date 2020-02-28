@@ -230,7 +230,7 @@ class ConfirmationPage: UIViewController {
         
     } // Ends viewDidLoad
 
-    
+
     @IBAction func newSwitchTapped(_ sender: UISwitch) {
         
         if (sender.isOn == true){
