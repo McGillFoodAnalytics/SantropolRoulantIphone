@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48EF2035241033BD009497CA /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF2034241033BD009497CA /* AboutUs.swift */; };
 		516DFA712321D0150056A40B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F04071D52319BB640023E5E2 /* LaunchScreen.storyboard */; };
 		A026ACFF22F029F70099DD30 /* ConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */; };
 		A084301D22C88E48004492F5 /* ListVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084301C22C88E48004492F5 /* ListVolunteer.swift */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		1081E7A98A95B7EEC9482BC8 /* Pods-Santrapol_UA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Santrapol_UA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Santrapol_UA/Pods-Santrapol_UA.debug.xcconfig"; sourceTree = "<group>"; };
+		48EF2034241033BD009497CA /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
 		51C8A5AE23F6253A006D7151 /* Santrapol_UA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Santrapol_UA.entitlements; sourceTree = "<group>"; };
 		A026ACFE22F029F70099DD30 /* ConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPage.swift; sourceTree = "<group>"; };
 		A084301C22C88E48004492F5 /* ListVolunteer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListVolunteer.swift; path = "New Group/ListVolunteer.swift"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				F04071C72319BAEC0023E5E2 /* Calendar Underlying */,
 				F04071D42319BB640023E5E2 /* StoryBoards */,
 				F0C9EC6C233998E200C660A5 /* BottomSheetController.swift */,
+				48EF2034241033BD009497CA /* AboutUs.swift */,
 				E9138B68220BBF1300C6F1E0 /* AppDelegate.swift */,
 				F0C9EC6A233998E200C660A5 /* Extensions.swift */,
 				F0C9EC6B233998E200C660A5 /* Pannable.swift */,
@@ -404,6 +407,7 @@
 				F0C9EC6D233998E200C660A5 /* BottomSheetController.swift in Sources */,
 				F04071C42319B9D00023E5E2 /* BottomSheetViewController.swift in Sources */,
 				F097073523184D61002AE653 /* UnlockCode.swift in Sources */,
+				48EF2035241033BD009497CA /* AboutUs.swift in Sources */,
 				F042692D22FBDD9A00A0594F /* ContactPage.swift in Sources */,
 				E9138B6B220BBF1300C6F1E0 /* FirstViewController.swift in Sources */,
 				A084301D22C88E48004492F5 /* ListVolunteer.swift in Sources */,
