@@ -10,12 +10,25 @@ import UIKit
 
 class AboutUs: UIViewController {
 
+    // height constraint of first view
+    @IBOutlet weak var FirstViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var ContainerStackTop: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // sets the height of first view equal to height of phone screen
+        FirstViewHeight.constant = UIScreen.main.bounds.height
+        
+        let xBarHeight = (self.navigationController?.navigationBar.frame.size.height ?? 0.0) + (self.navigationController?.navigationBar.frame.origin.y ?? 0.0)
+        
+        ContainerStackTop.constant = xBarHeight
+        
     }
     
+    // takes user to website
     @IBAction func GoToWebsite(_ sender: Any) {
     
         if let url = URL(string: "https://www.mcfac.org/") {
@@ -23,6 +36,7 @@ class AboutUs: UIViewController {
         }
     
     }
+    
     
     /*
     // MARK: - Navigation
