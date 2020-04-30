@@ -79,22 +79,8 @@ class ConfirmationPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*
-        let background = UIImage(named: "confirmationBackground")
-        var imageView : UIImageView!
-        imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = background
-        imageView.center = view.center
-        view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
-        */
-        
         print(typecontroller)
         
-       //var event_type_register: String = ""
         var user_first_name: String?
         var user_last_name: String?
         var user_key: String?
@@ -161,43 +147,7 @@ class ConfirmationPage: UIViewController {
         
         borderView.layer.borderColor = UIColor(red: 104.0/255.0, green: 23.0/255.0, blue: 104.0/255.0, alpha: 1.0).cgColor
 
-        // Do any additional setup after loading the view.
-        
-        
-        /*
-        if typecontroller != "Meal Delivery" {
-            
-            switchDriver.isHidden = true
-            driverLbl1.isHidden = true
-            driverLbl2.isHidden = true
-        }
-        */
-        
-        //additionalNotes.delegate = self
-        
-        //   listName.delegate = self
-        //  listName.dataSource = self
-        
-        // Create the namesRegistered Array here
-        
- /*       if typecontroller == "Meal Delivery" {
-            
-            location_start_query = "deldr"
-            location_end_query = "deliv"
-            
-            
-        } else if typecontroller == "Kitchen AM" {
-            
-            location_start_query = "kitam"
-            location_end_query = "kitas"
-            
-        } else {
-            
-            location_start_query = "kitpm"
-            location_end_query = "kitps"
-            
-        } */
-        
+      
         Database.database().reference().child("user").queryOrdered(byChild: "key").queryEqual(toValue: userid).observe(.value, with: { (snapshot) in
             
             self.userInformation.removeAll()
@@ -261,11 +211,6 @@ class ConfirmationPage: UIViewController {
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         
         var event_type_register: String = ""
-        //var user_first_name: String?
-        //var user_last_name: String?
-        //var user_key: String?
-        //var user_uid: String?
-        
         
         if typecontroller == "Meal Delivery Non-Driver" || typecontroller == "Meal Delivery Driver" {
             
@@ -314,40 +259,6 @@ class ConfirmationPage: UIViewController {
                 
             }
             
-            
-            // In the namesRegistered array, need to filter out all entries corresponding to the event_type_register
-            
-           // let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
-            
-            //let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
-            
-            
-            // Lookup for the first index which corresponds to an empty string in the names position
-            
- /*           guard let firstIndexNil = event_type_array.firstIndex(of: "nan")
-                
-                else {
-                    
-                    // Returns an alert if the first index of the chosen string does not exist
-                    
-                    let alert = UIAlertController(title: "Note", message: "Space unavailable for your given choice!", preferredStyle: .alert)
-                    
-                    let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
-                    alert.addAction(OKAction)
-                    
-                    self.present(alert, animated: true, completion: nil)
-                    
-                    return
-            } */
-            
-            // Write data in the corresponding slot
-            
-            // Data to write: First name, last name, key (internal user id from Firebase)
-            
-            
-            
-            // Do a query from the internal user id to write the information about registered users to the firebase
             
             
             let updateRef = Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", slotNumberSelected))
@@ -425,48 +336,6 @@ class ConfirmationPage: UIViewController {
                 }
                 
             }
-            
-            
-            
-            // In the namesRegistered array, need to filter out all entries corresponding to the event_type_register
-            
-            //let interest = namesRegistered.filter({$0.event_type_user == event_type_register})
-            
-            //let event_type_array = interest.map {$0.uid} // Creates a new array containing only the uid of the users registered for the chosen event type based on the user selection
-            
-            
-            // Lookup for the first index which corresponds to an empty string in the names position
-
-   /*         guard let firstIndexNil = event_type_array.firstIndex(of: "nan")
-                
-                else {
-                    
-                    // Returns an alert if the first index of the chosen string does not exist
-                    
-                    let alert = UIAlertController(title: "Note", message: "Space unavailable for your given choice!", preferredStyle: .alert)
-                    
-                    let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
-                    alert.addAction(OKAction)
-                    
-                    self.present(alert, animated: true, completion: nil)
-                    
-                    return
-            } */
-            
-            // Write data in the corresponding slot
-            
-            // Data to write: First name, last name, key (internal user id from Firebase)
-            
-            
-            
-            // Do a query from the internal user id to write the information about registered users to the firebase
-            
-            
-                   // Call the information to transfer in the database
-                    
-                        
-                        // Write more information about the user in the future
                     
                     let updateRef = Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", slotNumberSelected))
                     
@@ -484,35 +353,6 @@ class ConfirmationPage: UIViewController {
                     
                     updateRef.updateChildValues(childUpdates)
                     
-                 /*   // User key
-                    Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", firstIndexNil + 1)).child("key").setValue(user_key)
-                    
-                    // User ID
-                    Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", firstIndexNil + 1)).child("uid").setValue(user_uid)
-                    
-                    
-                    // User First Name
-                    Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", firstIndexNil + 1)).child("first_name").setValue(user_first_name)
-                    
-                    // User Last Name
-                    Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", firstIndexNil + 1)).child("last_name").setValue(user_last_name)
-                    
-                    
-                    // Adds additional notes to the Firebase database
-                    Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", firstIndexNil + 1)).child("note").setValue(self.additionalNotes.text)
-                    
-                    // Is the user new?
-                    Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", firstIndexNil + 1)).child("first_shift").setValue(self.isOn) */
-            
-            
-            /* let DisplayVC: ViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DisplayVC") as! ViewController
-             
-             DisplayVC.location = typecontroller
-             DisplayVC.dummy = dummy
-             DisplayVC.registered = "yes"
-             
-             self.present(DisplayVC, animated: true, completion: nil) */
-            
             
             let viewControllers = self.navigationController!.viewControllers
             for aViewController in viewControllers

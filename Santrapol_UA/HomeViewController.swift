@@ -37,47 +37,6 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return EventList.count
     }
-
-    
-   /*  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // Action to delete the entry from the firebase database
-        
-        let details = EventList[indexPath.row]
-        
-        let eventid = details.eventid ?? nil
-        let idofuser = userid
-        
-        let key = eventid! + userid
-  
-        
-        let testalert = UIAlertController(title: "Unregister", message: "Are you sure you want to unregister from this shift?", preferredStyle: .alert)
-        
-        let testOKAction = UIAlertAction(title: "Confirm", style: .default) { (action) in
-            
-          //  Database.database().reference().child("event").child(eventid!).child("uid").removeValue()
-            
-            Database.database().reference().child("event").child(eventid!).child("uid").setValue("nan")
-            
-            Database.database().reference().child("event").child(eventid!).child("note").setValue("nan")
-            
-        Database.database().reference().child("event").child(eventid!).child("first_shift").setValue("false")
-
-            
-            
-            let secondViewController = self.storyboard!.instantiateViewController(withIdentifier: "Home")
-            self.present(secondViewController, animated: false, completion: nil)
-            
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        testalert.addAction(testOKAction)
-        testalert.addAction(cancelAction)
-        
-        self.present(testalert, animated: true, completion: nil)
-
-    } */
     
     private func tableView(tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -221,11 +180,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 
                 }
             }
-            
-            //  let YesAction = UIAlertAction(title: "Yes", style: .cancel, handler: nil)
-            
-            
-            
+     
             alert.addAction(YesAction)
             alert.addAction(NoAction)
             
@@ -265,14 +220,6 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
         Database.database().reference().keepSynced(true)
 
         self.navigationItem.title = ""
-        
-        /*
-         var imageView = UIImageView(frame: CGRectMake(100, 150, 150, 150)); // set as you want
-         var image = UIImage(named: "myImage.png");
-         imageView.image = image;
-         self.view.addSubview(imageView);
-        */
-        
         
         
         // Sets up the right button of the navigation bar --- Can change the image at any time
@@ -330,22 +277,6 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 let date_date_format = dateFormatterGet.date(from: String(date!))
                 
                 let date_text_format = dateFormatterPrint.string(from: date_date_format ?? Date())
-                
-                                /*let dob = dict?["dob"] as? String
-                
-                
-                let dateFormatterGet = DateFormatter()
-                dateFormatterGet.dateFormat = "yyyyMMdd"
-                
-                let dateFormatterPrint = DateFormatter()
-                dateFormatterPrint.dateFormat = "MMMM dd,yyyy"
-                
-                if Locale.current.languageCode == "fr"{
-                    
-                    dateFormatterPrint.dateFormat = "dd MMMM yyyy"
-                }
-                
-                let date = dateFormatterGet.date(from: dob!) */
                 
                 var type1: String? = ""
                 

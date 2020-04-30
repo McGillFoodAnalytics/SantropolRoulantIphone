@@ -22,23 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var storyboard: UIStoryboard?
     let defaults = UserDefaults.standard
     
-
-    // perfroms options after launching (navigation bar, themeses, etc)
-    
-    // directs user after retrieving
-    /*
-    func defaultDirect(location:String) {
-        
-        //let theClass : AnyClass = NSClassFromString(location)!
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: location) as! HomePage
-        let navigationController = UINavigationController(rootViewController: nextViewController)
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        appdelegate.window!.rootViewController = navigationController
-        
-    }
-    */
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         if #available(iOS 13.0, *) {

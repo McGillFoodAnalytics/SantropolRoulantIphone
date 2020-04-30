@@ -296,39 +296,6 @@ class KitchenChoice: UIViewController {
         
         performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
     }
-    
-/*    @IBAction func nextTapped(_ sender: UIButton) {
-        
-        
-        if morningSelected == true {
-            
-            data = "Kitchen AM"
-            performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
-            
-            
-        } else if afternoonSelected == true {
-            
-            data = "Kitchen PM"
-            performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
-            
-            
-        } else {
-            
-            // Display an alert
-            let alert = UIAlertController(title: "Error", message: "Please select a time preference!", preferredStyle: .alert)
-            
-            let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            
-            alert.addAction(OKAction)
-            
-            self.present(alert, animated: true, completion: nil)
-            
-        }
-        
-        
-        
-    }*/
-    
 
 }
 
@@ -421,9 +388,6 @@ class DeliveryChoice: UIViewController {
             informationDriverLbl.text = "Choisissez cette option si vous souhaitez desservir la route Notre-Dame-de-Grâce (NDG) ou Côte-des-Neiges (CDN)."
         }
         
-     /*   data = "Meal Delivery Driver"
-        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */
-        
         driverSelected = true
         nonDriverSelected = false
     }
@@ -444,10 +408,7 @@ class DeliveryChoice: UIViewController {
         else{
              informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
         }
-        
-     /*   data = "Meal Delivery Non-Driver"
-        performSegue(withIdentifier: "goToCalendarFromDelivery", sender: self) */
-        
+
         driverSelected = false
         nonDriverSelected = true
     }
@@ -491,152 +452,5 @@ class DeliveryChoice: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
         }
-        
-        
-        
     }
-    
-    
 }
-
-
-
-
-    
-    
-    // Dummy variable allows to identify from which ViewController the user comes from
- /*   var dummy: String!
-    var data: String!
-
-    //@IBOutlet weak var PageHeader: UINavigationBar!
-    @IBOutlet weak var PageHeader: UINavigationItem!
-    
-    
-    @objc func didTapEditButton(sender: AnyObject) {
-        
-        
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc : HomePage = storyboard.instantiateViewController(withIdentifier: "HomePage") as! HomePage
-        
-        let navigationController = UINavigationController(rootViewController: vc)
-        
-        self.present(navigationController, animated: true, completion: nil)
-    }
-    
-   func willMove(toParentViewController parent: HomePage?) {
-        super.willMove(toParent:parent)
-        if parent == nil {
-            navigationController?.navigationBar.shadowImage = UIImage()
-            navigationController?.navigationBar.isTranslucent = true
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        self.navigationItem.title = "Volunteering"
-        
-        // Sets up the right button of the navigation bar --- Can change the image at any time
-        var image = UIImage(named: "Screen Shot 2019-01-27 at 1.05.03 PM")
-        image = image?.withRenderingMode(.alwaysOriginal)
-        
-        let editButton   = UIBarButtonItem(image: image,  style: .plain, target: self, action: #selector(didTapEditButton))
-        
-        self.navigationItem.rightBarButtonItem = editButton
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "goToCalendar") {
-            let vc = segue.destination as! CalenderVC
-            vc.typecontroller = data
-        }
-    }
-    
-    
-    @IBAction func KitchenAMTapped(_ sender: UIButton) {
-        
- 
-        data = "Kitchen AM"
-        performSegue(withIdentifier: "goToCalendar", sender: self)
-        
-    }
-    
-    
-    
-    @IBAction func KitchenPMTapped(_ sender: UIButton) {
-        
-        data = "Kitchen PM"
-        performSegue(withIdentifier: "goToCalendar", sender: self)
-        
-    }
-    
-    
-
-    @IBAction func MealDeliveryTapped(_ sender: UIButton) {
-        
-        data = "Meal Delivery"
-        performSegue(withIdentifier: "goToCalendar", sender: self)
-        
-        
-    }
-    
-    
-    @IBAction func BackTapped(_ sender: Any) {
-        
-        if dummy == "ComesFromHomePage" {
-            
-            let transition = CATransition()
-            transition.duration = 0.25
-            transition.type = CATransitionType.reveal
-            transition.subtype = CATransitionSubtype.fromBottom
-            transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-            view.window!.layer.add(transition, forKey: kCATransition)
-            
-            
-            let HomePage: HomePage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomePage") as! HomePage
-            
-            present(HomePage, animated:false, completion: nil)
-            
-            
-        } else {
-            
-            let transition = CATransition()
-            transition.duration = 0.25
-            transition.type = CATransitionType.reveal
-            transition.subtype = CATransitionSubtype.fromLeft
-            transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-            view.window!.layer.add(transition, forKey: kCATransition)
-            
-            
-            let Home: HomeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Home") as! HomeViewController
-            
-            present(Home, animated:false, completion: nil)
-            
-            
-            
-            
-        }
-        
-
-
-    }
-    
-    
-    
-    
-    
-    
-    }
-   
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */ */
-

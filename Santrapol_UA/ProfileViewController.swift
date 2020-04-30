@@ -25,13 +25,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-/*        profileView.layer.borderWidth = 1
-        profileView.layer.masksToBounds = false
-       // profileView.frame.size.height = screenSize.height * 0.2
-        profileView.layer.borderColor = UIColor.gray.cgColor
-        profileView.layer.cornerRadius = screenSize.height * 0.15
-        profileView.clipsToBounds = true */
-        
         self.navigationItem.title = ""
         
     navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -686,95 +679,3 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
     
     
 } // Ends the class
-
-
-
-    /*
-    @IBOutlet weak var PageHeader: UINavigationItem!
-    let userid = Auth.auth().currentUser!.uid
-    
-    
-    @IBOutlet weak var BarCode: UIImageView!
-    @IBAction func EditProfileTapped(_ sender: Any) {
-    }
-    
-    @IBAction func AttendanceTapped(_ sender: Any) {
-        
-        
-        self.performSegue(withIdentifier: "goToHomefromPr", sender: self)
-    }
-    
-    
-    //
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationItem.title = "Profile"
-
-         BarCode.image = generateBarcode(from: userid)
-        // Do any additional setup after loading the view.
-        
-        // Allows to dismiss keyboard by tapping anywhere on the screen
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
-        
-    }
-    
-    @IBAction func LogoutTapped(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            performSegue(withIdentifier: "SignOutSegue", sender: nil)
-        } catch {
-            print(error)
-        }
-    }
-    
-    
-    @IBAction func backTapped(_ sender: Any) {
-        
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-        
-        
-        let HomePage: HomePage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomePage") as! HomePage
-        
-        present(HomePage, animated:false, completion: nil)
-        
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-     */
-    func generateBarcode(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
-        
-        if let filter = CIFilter(name: "CICode128BarcodeGenerator") {
-            filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 3, y: 3)
-            
-            if let output = filter.outputImage?.transformed(by: transform) {
-                return UIImage(ciImage: output)
-            }
-        }
-        
-        return nil
-    }
-    
-    
-    
-    
-*/
-

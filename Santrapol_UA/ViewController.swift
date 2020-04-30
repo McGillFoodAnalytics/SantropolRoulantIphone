@@ -16,8 +16,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     @IBOutlet weak var tblList: UITableView!
-   /* var Home: UIImage? = UIImage(named:"Screen Shot 2019-01-27 at 1.05.03 PM")?.withRenderingMode(.alwaysOriginal)
-    var Profile: UIImage? = UIImage(named: "icons8-customer-filled-50-2")?.withRenderingMode(.alwaysOriginal) */
     
     var location: String!
     var dummy: String!
@@ -57,13 +55,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if registered == "yes"{
             
-          /*  let alert = UIAlertController(title: "Success", message: "Registered successfully! Do you want to register for another event?", preferredStyle: .alert)
-            
-            
-            let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            
-            alert.addAction(OKAction)
-            present(alert, animated: true, completion: nil) */
             var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
             
             
@@ -143,22 +134,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         UIApplication.shared.isNetworkActivityIndicatorVisible = true // Displays a loading spinner
         tblList.dataSource = self
         
-
-        
-        
-        
         ref = Database.database().reference().child("event")
-        
 
-        
-        //var reftype = Database.database().reference().child("type")
-        //var refattendee = Database.database().reference().child("attendee")
-        //Retrieve the events list
-        //print(ref)
-        
-  //   reftype.child(location).child("slot").observeSingleEvent(of: .value, with: { (snapshot) in
-        
-    //    var slottime = snapshot.value as? String
         
         
         if location == "Meal Delivery" {

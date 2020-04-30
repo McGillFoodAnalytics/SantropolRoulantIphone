@@ -33,8 +33,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func JoinNowTapped(_ sender: UIButton) {
         addUsers()
-        //to add new user in database and create new user for authentication
-        //print("Calling function addUsers ")
     }
     
     override func viewDidLoad() {
@@ -67,9 +65,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     
     func addUsers() {
-        //useref = Database.database().reference().child("Users")
-        //let key = useref.child(user.uid).key
-        
         if let email = Email.text,
         let pass = Password.text, let _ = FirstName.text
         { Auth.auth().createUser(withEmail: email, password: pass)  { (user, error) in

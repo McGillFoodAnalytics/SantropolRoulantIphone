@@ -334,9 +334,6 @@ class PersonalContact: UIViewController, UITextFieldDelegate  {
         }
     }
     
-/*    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return range.location < 10
-    } */
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -819,23 +816,6 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
             confirmPasswordLbl.setBottomBorder(withColor: UIColor.white)
             
         }
-        
-     /*   // Created in past View Controllers
-        var first_name: String = ""
-        var last_name: String = ""
-        var dob: String = ""
-        var email: String = ""
-        var phone_number: String = ""
-        var address_city: String = ""
-        var address_number: Int = 0
-        var address_postal_code: String = ""
-        var address_street: String = ""
-        
-        // Created this View Controller
-        var password: String = ""
-        var uid: String = ""
-        var key: String = ""
-        var signup_date: String = Date().string(format: "yy/MM/dd") */
         
         addUsers()
         

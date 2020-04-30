@@ -66,18 +66,6 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     override func viewDidLoad() {
         
-        // Language debug information
-        /*
-        print("####################");
-        print("####################");
-        print("Current local language is:");
-        print(Locale.current.languageCode);
-        print("####################");
-        print("####################");
-        */
-        
-        
-    
         if Locale.current.languageCode == "fr"{
             options = ["Bénévolat", "Mon horaire", "Profil", "Nous joindre"]
             
@@ -141,67 +129,33 @@ class HomePage: UIViewController, UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let dummy = optionsgeneral[indexPath.item]
-        // print(dummy)
-        // let options = ["Volunteer", "My Schedule", "Profile", "Contact Us"]
+     
         if dummy == "1" {
             
             performSegue(withIdentifier: "goToSignUp", sender: self)
-            
-            
-           /* let VolunteerSignupScreen: VolunteerSignup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VolunteerSignupScreen") as! VolunteerSignup
-          
-            VolunteerSignupScreen.dummy = "ComesFromHomePage"
-            
-
-            self.present(VolunteerSignupScreen, animated: true, completion: nil) */
-            
-            
         } else if dummy == "2" {
             
             performSegue(withIdentifier: "goToSchedule", sender: self)
-            
-            
-        /*    let Home: HomeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Home") as! HomeViewController
-            
-            self.present(Home, animated: true, completion: nil) */
-            
             
         } else if dummy == "3" {
             
         performSegue(withIdentifier: "goToProfileHome", sender: self)
             
-          /*  let Profile: ProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Profile") as! ProfileViewController
-            
-            self.present(Profile, animated: true, completion: nil) */
-            
-            
         } else if dummy == "4" {
             
         performSegue(withIdentifier: "goToContact", sender: self)
-            
-         /*   let Home: HomeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Home") as! HomeViewController
-            
-            
-            
-            self.present(Home, animated: true, completion: nil) */
-            
-            
         }
         
         
         
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderColor = UIColor.gray.cgColor
-       // cell?.layer.borderWidth = 2
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderColor = UIColor.lightGray.cgColor
-     //   cell?.layer.borderWidth = 0.5
-        
     }
     
 
