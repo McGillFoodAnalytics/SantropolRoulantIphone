@@ -154,7 +154,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         
         
         // These lines of code are unstable
-        
          if isBeingPresented || isMovingToParent {
             
             firstWeekDayOfMonth = getFirstWeekDay()
