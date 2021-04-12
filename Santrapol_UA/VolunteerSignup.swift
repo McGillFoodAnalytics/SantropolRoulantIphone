@@ -274,7 +274,6 @@ class KitchenChoice: UIViewController {
         morningSelected = true
         afternoonSelected = false
         
-        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
     }
     
     @IBAction func afternoonTapped(_ sender: UIButton) {
@@ -294,9 +293,44 @@ class KitchenChoice: UIViewController {
         morningSelected = false
         afternoonSelected = true
         
-        performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
     }
-
+    
+    @IBAction func nextTapped(_ sender: UIButton) {
+        if morningSelected == true {
+            
+                data = "Kitchen AM"
+ 
+          
+            performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
+            
+            
+        } else if afternoonSelected == true {
+            
+ 
+                data = "Kitchen PM"
+           
+            performSegue(withIdentifier: "goToCalendarFromKitchen", sender: self)
+            
+            
+        } else {
+            
+            // Display an alert
+            var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+            
+            if Locale.current.languageCode == "fr"{
+                alert = UIAlertController(title: "", message: "S'il vous plaît sélectionnez une préférence de temps!", preferredStyle: .alert)
+            }
+            else{
+                alert = UIAlertController(title: "", message: "Please select a time preference!", preferredStyle: .alert)
+            }
+            
+            let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            
+            alert.addAction(OKAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 
@@ -413,10 +447,7 @@ class DeliveryChoice: UIViewController {
         nonDriverSelected = true
     }
     
-    
     @IBAction func nextTapped(_ sender: UIButton) {
-        
-        
         if driverSelected == true {
             
                 data = "Meal Delivery Driver"
@@ -439,10 +470,10 @@ class DeliveryChoice: UIViewController {
             var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
             
             if Locale.current.languageCode == "fr"{
-                alert = UIAlertController(title: "", message: "S'il vous plaît sélectionnez une préférence de temps!", preferredStyle: .alert)
+                alert = UIAlertController(title: "", message: "S'il vous plaît sélectionnez une préférence de mode de transport!", preferredStyle: .alert)
             }
             else{
-                alert = UIAlertController(title: "", message: "Please select a time preference!", preferredStyle: .alert)
+                alert = UIAlertController(title: "", message: "Please select a transporation preference!", preferredStyle: .alert)
             }
             
             let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)

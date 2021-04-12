@@ -163,9 +163,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         cell?.backgroundColor=Colors.darkRed
         
-        if cell!.subviews.count >=  2 {
-            let lbl = cell?.subviews[1] as? UILabel
-            lbl?.textColor=UIColor.white
+        if cell != nil {
+            if cell!.subviews.count >=  2 {
+                let lbl = cell?.subviews[1] as? UILabel
+                lbl?.textColor=UIColor.white
+            }
         }
         
         // Compute the corresponding weekday for the selected date
