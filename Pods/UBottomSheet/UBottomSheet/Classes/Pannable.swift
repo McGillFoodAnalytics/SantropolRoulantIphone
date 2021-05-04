@@ -4,7 +4,7 @@
 //
 //  Created by ugur on 19.09.2019.
 //
-//test
+
 import UIKit
 
 public protocol Pannable {

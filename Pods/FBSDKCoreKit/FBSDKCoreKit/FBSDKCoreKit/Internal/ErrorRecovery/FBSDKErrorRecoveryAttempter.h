@@ -18,17 +18,18 @@
 
 #import <Foundation/Foundation.h>
 
+#if SWIFT_PACKAGE
+#import "FBSDKConstants.h"
+#else
 #import <FBSDKCoreKit/FBSDKConstants.h>
+#endif
 
 @class FBSDKErrorRecoveryConfiguration;
 
+NS_SWIFT_NAME(ErrorRecoveryAttempter)
 @interface FBSDKErrorRecoveryAttempter : NSObject<FBSDKErrorRecoveryAttempting>
 
 // can return nil if configuration is not supported.
 + (instancetype)recoveryAttempterFromConfiguration:(FBSDKErrorRecoveryConfiguration *)configuration;
 
-@end
-
-@interface FBSDKErrorRecoveryAttempter (Protected)
-- (void)completeRecovery:(BOOL)didRecover delegate:(id)delegate didRecoverSelector:(SEL)didRecoverSelector contextInfo:(void *)contextInfo;
 @end

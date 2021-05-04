@@ -95,8 +95,8 @@ public class CalendarView: UIView {
     
     internal var todayIndexPath: IndexPath?
 
-    var selectedIndexPaths    = [IndexPath]()
-    var selectedDates         = [Date]()
+    internal(set) var selectedIndexPaths    = [IndexPath]()
+    internal(set) var selectedDates         = [Date]()
     
     internal var monthInfoForSection = [Int:(firstDay: Int, daysTotal: Int)]()
     internal var eventsByIndexPath = [IndexPath: [CalendarEvent]]()

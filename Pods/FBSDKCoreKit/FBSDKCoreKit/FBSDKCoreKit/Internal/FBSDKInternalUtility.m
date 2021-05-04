@@ -18,39 +18,78 @@
 
 #import "FBSDKInternalUtility.h"
 
-#import <sys/time.h>
-
 #import <mach-o/dyld.h>
+#import <sys/time.h>
 
 #import "FBSDKCoreKit+Internal.h"
 #import "FBSDKError.h"
-#import "FBSDKSettings+Internal.h"
+#import "FBSDKInfoDictionaryProviding.h"
 #import "FBSDKSettings.h"
-#import "FBSDKUtility.h"
+#import "FBSDKSettings+Internal.h"
 
-typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionMask)
-{
+typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionMask) {
   FBSDKInternalUtilityMajorVersionMask = 0xFFFF0000,
-  //FBSDKInternalUtilityMinorVersionMask = 0x0000FF00, // unused
-  //FBSDKInternalUtilityPatchVersionMask = 0x000000FF, // unused
+  // FBSDKInternalUtilityMinorVersionMask = 0x0000FF00, // unused
+  // FBSDKInternalUtilityPatchVersionMask = 0x000000FF, // unused
 };
 
-typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionShift)
-{
+typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionShift) {
   FBSDKInternalUtilityMajorVersionShift = 16,
-  //FBSDKInternalUtilityMinorVersionShift = 8, // unused
-  //FBSDKInternalUtilityPatchVersionShift = 0, // unused
+  // FBSDKInternalUtilityMinorVersionShift = 8, // unused
+  // FBSDKInternalUtilityPatchVersionShift = 0, // unused
 };
 
 @implementation FBSDKInternalUtility
 
+static id<FBSDKInfoDictionaryProviding> _infoDictionaryProvider;
+
+// These are stored at the class level so that they can be reset in unit tests
+static dispatch_once_t fetchApplicationQuerySchemesToken;
+static dispatch_once_t checkIfFacebookAppInstalledToken;
+static dispatch_once_t checkIfMessengerAppInstalledToken;
+static dispatch_once_t checkIfMSQRDPlayerAppInstalledToken;
+static dispatch_once_t checkRegisteredCanOpenUrlSchemesToken;
+static dispatch_once_t checkOperatingSystemVersionToken;
+static dispatch_once_t fetchUrlSchemesToken;
+static dispatch_once_t sharedUtilityNonce;
+
+static BOOL ShouldOverrideHostWithGamingDomain(NSString *hostPrefix)
+{
+  return [FBSDKAuthenticationToken.currentAuthenticationToken respondsToSelector:@selector(graphDomain)]
+  && [FBSDKAuthenticationToken.currentAuthenticationToken.graphDomain isEqualToString:@"gaming"]
+  && ([hostPrefix isEqualToString:@"graph."] || [hostPrefix isEqualToString:@"graph-video."]);
+}
+
+// Transitional singleton introduced as a way to change the usage semantics
+// from a type-based interface to an instance-based interface.
++ (instancetype)sharedUtility
+{
+  static id instance;
+  dispatch_once(&sharedUtilityNonce, ^{
+    instance = [[self alloc] init];
+  });
+  return instance;
+}
+
 #pragma mark - Class Methods
+
++ (void)configureWithInfoDictionaryProvider:(id<FBSDKInfoDictionaryProviding>)infoDictionaryProvider
+{
+  if (self == FBSDKInternalUtility.class) {
+    _infoDictionaryProvider = infoDictionaryProvider;
+  }
+}
+
++ (id<FBSDKInfoDictionaryProviding>)infoDictionaryProvider
+{
+  return _infoDictionaryProvider;
+}
 
 + (NSString *)appURLScheme
 {
   NSString *appID = ([FBSDKSettings appID] ?: @"");
   NSString *suffix = ([FBSDKSettings appURLSchemeSuffix] ?: @"");
-  return [[NSString alloc] initWithFormat: @"fb%@%@", appID, suffix];
+  return [[NSString alloc] initWithFormat:@"fb%@%@", appID, suffix];
 }
 
 + (NSURL *)appURLWithHost:(NSString *)host
@@ -65,26 +104,19 @@ typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionShift)
                        error:errorRef];
 }
 
-+ (NSDictionary *)dictionaryFromFBURL:(NSURL *)url
++ (NSDictionary *)parametersFromFBURL:(NSURL *)url
 {
   // version 3.2.3 of the Facebook app encodes the parameters in the query but
   // version 3.3 and above encode the parameters in the fragment;
   // merge them together with fragment taking priority.
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params addEntriesFromDictionary:[FBSDKUtility dictionaryWithQueryString:url.query]];
+  [params addEntriesFromDictionary:[FBSDKBasicUtility dictionaryWithQueryString:url.query]];
 
   // Only get the params from the fragment if it has authorize as the host
   if ([url.host isEqualToString:@"authorize"]) {
-    [params addEntriesFromDictionary:[FBSDKUtility dictionaryWithQueryString:url.fragment]];
+    [params addEntriesFromDictionary:[FBSDKBasicUtility dictionaryWithQueryString:url.fragment]];
   }
   return params;
-}
-
-+ (void)array:(NSMutableArray *)array addObject:(id)object
-{
-  if (object) {
-    [array addObject:object];
-  }
 }
 
 + (NSBundle *)bundleForStrings
@@ -100,16 +132,6 @@ typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionShift)
   return bundle;
 }
 
-+ (id)convertRequestValue:(id)value
-{
-  if ([value isKindOfClass:[NSNumber class]]) {
-    value = ((NSNumber *)value).stringValue;
-  } else if ([value isKindOfClass:[NSURL class]]) {
-    value = ((NSURL *)value).absoluteString;
-  }
-  return value;
-}
-
 + (uint64_t)currentTimeInMilliseconds
 {
   struct timeval time;
@@ -117,43 +139,27 @@ typedef NS_ENUM(NSUInteger, FBSDKInternalUtilityVersionShift)
   return ((uint64_t)time.tv_sec * 1000) + (time.tv_usec / 1000);
 }
 
-+ (BOOL)dictionary:(NSMutableDictionary *)dictionary
-setJSONStringForObject:(id)object
-            forKey:(id<NSCopying>)key
-             error:(NSError *__autoreleasing *)errorRef
-{
-  if (!object || !key) {
-    return YES;
-  }
-  NSString *JSONString = [self JSONStringForObject:object error:errorRef invalidObjectHandler:NULL];
-  if (!JSONString) {
-    return NO;
-  }
-  [self dictionary:dictionary setObject:JSONString forKey:key];
-  return YES;
-}
-
-+ (void)dictionary:(NSMutableDictionary *)dictionary setObject:(id)object forKey:(id<NSCopying>)key
-{
-  if (object && key) {
-    dictionary[key] = object;
-  }
-}
-
 + (void)extractPermissionsFromResponse:(NSDictionary *)responseObject
                     grantedPermissions:(NSMutableSet *)grantedPermissions
                    declinedPermissions:(NSMutableSet *)declinedPermissions
+                    expiredPermissions:(NSMutableSet *)expiredPermissions
 {
-  NSArray *resultData = responseObject[@"data"];
+  NSArray *resultData = [FBSDKTypeUtility dictionary:responseObject objectForKey:@"data" ofType:NSArray.class];
   if (resultData.count > 0) {
     for (NSDictionary *permissionsDictionary in resultData) {
-      NSString *permissionName = permissionsDictionary[@"permission"];
-      NSString *status = permissionsDictionary[@"status"];
+      NSString *permissionName = [FBSDKTypeUtility dictionary:permissionsDictionary objectForKey:@"permission" ofType:NSString.class];
+      NSString *status = [FBSDKTypeUtility dictionary:permissionsDictionary objectForKey:@"status" ofType:NSString.class];
+
+      if (!permissionName || !status) {
+        continue;
+      }
 
       if ([status isEqualToString:@"granted"]) {
         [grantedPermissions addObject:permissionName];
       } else if ([status isEqualToString:@"declined"]) {
         [declinedPermissions addObject:permissionName];
+      } else if ([status isEqualToString:@"expired"]) {
+        [expiredPermissions addObject:permissionName];
       }
     }
   }
@@ -167,7 +173,7 @@ setJSONStringForObject:(id)object
   return [self facebookURLWithHostPrefix:hostPrefix
                                     path:path
                          queryParameters:queryParameters
-                          defaultVersion:nil
+                          defaultVersion:@""
                                    error:errorRef];
 }
 
@@ -177,28 +183,57 @@ setJSONStringForObject:(id)object
                       defaultVersion:(NSString *)defaultVersion
                                error:(NSError *__autoreleasing *)errorRef
 {
+  NSString *version = (defaultVersion.length > 0) ? defaultVersion : [FBSDKSettings graphAPIVersion];
+  if (version.length) {
+    version = [@"/" stringByAppendingString:version];
+  }
+
+  return [self _facebookURLWithHostPrefix:hostPrefix
+                                     path:path
+                          queryParameters:queryParameters
+                           defaultVersion:version
+                                    error:errorRef];
+}
+
++ (NSURL *)unversionedFacebookURLWithHostPrefix:(NSString *)hostPrefix
+                                           path:(NSString *)path
+                                queryParameters:(NSDictionary *)queryParameters
+                                          error:(NSError *__autoreleasing *)errorRef
+{
+  return [self _facebookURLWithHostPrefix:hostPrefix
+                                     path:path
+                          queryParameters:queryParameters
+                           defaultVersion:@""
+                                    error:errorRef];
+}
+
++ (NSURL *)_facebookURLWithHostPrefix:(NSString *)hostPrefix
+                                 path:(NSString *)path
+                      queryParameters:(NSDictionary *)queryParameters
+                       defaultVersion:(NSString *)version
+                                error:(NSError *__autoreleasing *)errorRef
+{
   if (hostPrefix.length && ![hostPrefix hasSuffix:@"."]) {
     hostPrefix = [hostPrefix stringByAppendingString:@"."];
   }
 
-  NSString *host = @"facebook.com";
+  NSString *host =
+  ShouldOverrideHostWithGamingDomain(hostPrefix)
+  ? @"fb.gg"
+  : @"facebook.com";
+
   NSString *domainPart = [FBSDKSettings facebookDomainPart];
   if (domainPart.length) {
     host = [[NSString alloc] initWithFormat:@"%@.%@", domainPart, host];
   }
   host = [NSString stringWithFormat:@"%@%@", hostPrefix ?: @"", host ?: @""];
 
-  NSString *version = defaultVersion ?: [FBSDKSettings graphAPIVersion];
-  if (version.length) {
-    version = [@"/" stringByAppendingString:version];
-  }
-
   if (path.length) {
     NSScanner *versionScanner = [[NSScanner alloc] initWithString:path];
-    if ([versionScanner scanString:@"/v" intoString:NULL] &&
-        [versionScanner scanInteger:NULL] &&
-        [versionScanner scanString:@"." intoString:NULL] &&
-        [versionScanner scanInteger:NULL]) {
+    if ([versionScanner scanString:@"/v" intoString:NULL]
+        && [versionScanner scanInteger:NULL]
+        && [versionScanner scanString:@"." intoString:NULL]
+        && [versionScanner scanInteger:NULL]) {
       [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
                              logEntry:[NSString stringWithFormat:@"Invalid Graph API version:%@, assuming %@ instead",
                                        version,
@@ -226,79 +261,17 @@ setJSONStringForObject:(id)object
 
 + (BOOL)isFacebookBundleIdentifier:(NSString *)bundleIdentifier
 {
-  return ([bundleIdentifier hasPrefix:@"com.facebook."] ||
-          [bundleIdentifier hasPrefix:@".com.facebook."]);
-}
-
-+ (BOOL)isOSRunTimeVersionAtLeast:(NSOperatingSystemVersion)version
-{
-  return ([self _compareOperatingSystemVersion:[self operatingSystemVersion] toVersion:version] != NSOrderedAscending);
+  return ([bundleIdentifier hasPrefix:@"com.facebook."]
+    || [bundleIdentifier hasPrefix:@".com.facebook."]);
 }
 
 + (BOOL)isSafariBundleIdentifier:(NSString *)bundleIdentifier
 {
-  return ([bundleIdentifier isEqualToString:@"com.apple.mobilesafari"] ||
-          [bundleIdentifier isEqualToString:@"com.apple.SafariViewService"]);
+  return ([bundleIdentifier isEqualToString:@"com.apple.mobilesafari"]
+    || [bundleIdentifier isEqualToString:@"com.apple.SafariViewService"]);
 }
 
-+ (BOOL)isUIKitLinkTimeVersionAtLeast:(FBSDKUIKitVersion)version
-{
-  static int32_t linkTimeMajorVersion;
-  static dispatch_once_t getVersionOnce;
-  dispatch_once(&getVersionOnce, ^{
-    int32_t linkTimeVersion = NSVersionOfLinkTimeLibrary("UIKit");
-    linkTimeMajorVersion = [self getMajorVersionFromFullLibraryVersion:linkTimeVersion];
-  });
-  return (version <= linkTimeMajorVersion);
-}
-
-+ (BOOL)isUIKitRunTimeVersionAtLeast:(FBSDKUIKitVersion)version
-{
-  static int32_t runTimeMajorVersion;
-  static dispatch_once_t getVersionOnce;
-  dispatch_once(&getVersionOnce, ^{
-    int32_t runTimeVersion = NSVersionOfRunTimeLibrary("UIKit");
-    runTimeMajorVersion = [self getMajorVersionFromFullLibraryVersion:runTimeVersion];
-  });
-  return (version <= runTimeMajorVersion);
-}
-
-+ (int32_t)getMajorVersionFromFullLibraryVersion:(int32_t)version
-{
-  // Negative values returned by NSVersionOfRunTimeLibrary/NSVersionOfLinkTimeLibrary
-  // are still valid version numbers, as long as it's not -1.
-  // After bitshift by 16, the negatives become valid positive major version number.
-  // We ran into this first time with iOS 12.
-  if (version != -1) {
-    return ((version & FBSDKInternalUtilityMajorVersionMask) >> FBSDKInternalUtilityMajorVersionShift);
-  } else {
-    return 0;
-  }
-}
-
-+ (NSString *)JSONStringForObject:(id)object
-                            error:(NSError *__autoreleasing *)errorRef
-             invalidObjectHandler:(id(^)(id object, BOOL *stop))invalidObjectHandler
-{
-  if (invalidObjectHandler || ![NSJSONSerialization isValidJSONObject:object]) {
-    object = [self _convertObjectToJSONObject:object invalidObjectHandler:invalidObjectHandler stop:NULL];
-    if (![NSJSONSerialization isValidJSONObject:object]) {
-      if (errorRef != NULL) {
-        *errorRef = [NSError fbInvalidArgumentErrorWithName:@"object"
-                                                       value:object
-                                                     message:@"Invalid object for JSON serialization."];
-      }
-      return nil;
-    }
-  }
-  NSData *data = [NSJSONSerialization dataWithJSONObject:object options:0 error:errorRef];
-  if (!data) {
-    return nil;
-  }
-  return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-}
-
-+ (BOOL)object:(id)object isEqualToObject:(id)other;
++ (BOOL)object:(id)object isEqualToObject:(id)other
 {
   if (object == other) {
     return YES;
@@ -309,18 +282,6 @@ setJSONStringForObject:(id)object
   return [object isEqual:other];
 }
 
-+ (id)objectForJSONString:(NSString *)string error:(NSError *__autoreleasing *)errorRef
-{
-  NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-  if (!data) {
-    if (errorRef != NULL) {
-      *errorRef = nil;
-    }
-    return nil;
-  }
-  return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:errorRef];
-}
-
 + (NSOperatingSystemVersion)operatingSystemVersion
 {
   static NSOperatingSystemVersion operatingSystemVersion = {
@@ -328,77 +289,10 @@ setJSONStringForObject:(id)object
     .minorVersion = 0,
     .patchVersion = 0,
   };
-  static dispatch_once_t getVersionOnce;
-  dispatch_once(&getVersionOnce, ^{
-    if ([NSProcessInfo instancesRespondToSelector:@selector(operatingSystemVersion)]) {
-      operatingSystemVersion = [NSProcessInfo processInfo].operatingSystemVersion;
-    } else {
-      NSArray *components = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-      switch (components.count) {
-        default:
-        case 3:
-          operatingSystemVersion.patchVersion = [components[2] integerValue];
-          // fall through
-        case 2:
-          operatingSystemVersion.minorVersion = [components[1] integerValue];
-          // fall through
-        case 1:
-          operatingSystemVersion.majorVersion = [components[0] integerValue];
-          break;
-        case 0:
-          operatingSystemVersion.majorVersion = ([self isUIKitLinkTimeVersionAtLeast:FBSDKUIKitVersion_7_0] ? 7 : 6);
-          break;
-      }
-    }
+  dispatch_once(&checkOperatingSystemVersionToken, ^{
+    operatingSystemVersion = [NSProcessInfo processInfo].operatingSystemVersion;
   });
   return operatingSystemVersion;
-}
-
-+ (NSString *)queryStringWithDictionary:(NSDictionary *)dictionary
-                                  error:(NSError *__autoreleasing *)errorRef
-                   invalidObjectHandler:(id(^)(id object, BOOL *stop))invalidObjectHandler
-{
-  NSMutableString *queryString = [[NSMutableString alloc] init];
-  __block BOOL hasParameters = NO;
-  if (dictionary) {
-    NSMutableArray<NSString *> *keys = [dictionary.allKeys mutableCopy];
-    // remove non-string keys, as they are not valid
-    [keys filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-      return [evaluatedObject isKindOfClass:[NSString class]];
-    }]];
-    // sort the keys so that the query string order is deterministic
-    [keys sortUsingSelector:@selector(compare:)];
-    BOOL stop = NO;
-    for (NSString *key in keys) {
-      id value = [self convertRequestValue:dictionary[key]];
-      if ([value isKindOfClass:[NSString class]]) {
-        value = [FBSDKUtility URLEncode:value];
-      }
-      if (invalidObjectHandler && ![value isKindOfClass:[NSString class]]) {
-        value = invalidObjectHandler(value, &stop);
-        if (stop) {
-          break;
-        }
-      }
-      if (value) {
-        if (hasParameters) {
-          [queryString appendString:@"&"];
-        }
-        [queryString appendFormat:@"%@=%@", key, value];
-        hasParameters = YES;
-      }
-    }
-  }
-  if (errorRef != NULL) {
-    *errorRef = nil;
-  }
-  return (queryString.length ? [queryString copy] : nil);
-}
-
-+ (BOOL)shouldManuallyAdjustOrientation
-{
-  return (![self isUIKitLinkTimeVersionAtLeast:FBSDKUIKitVersion_8_0] ||
-          ![self isUIKitRunTimeVersionAtLeast:FBSDKUIKitVersion_8_0]);
 }
 
 + (NSURL *)URLWithScheme:(NSString *)scheme
@@ -414,11 +308,15 @@ setJSONStringForObject:(id)object
   NSString *queryString = nil;
   if (queryParameters.count) {
     NSError *queryStringError;
-    queryString = [@"?" stringByAppendingString:[FBSDKUtility queryStringWithDictionary:queryParameters
-                                                                                  error:&queryStringError]];
+    NSString *queryStringFromParams = [FBSDKBasicUtility queryStringWithDictionary:queryParameters
+                                                                             error:&queryStringError
+                                                              invalidObjectHandler:NULL];
+    if (queryStringFromParams) {
+      queryString = [@"?" stringByAppendingString:queryStringFromParams];
+    }
     if (!queryString) {
       if (errorRef != NULL) {
-        *errorRef = [NSError fbInvalidArgumentErrorWithName:@"queryParameters"
+        *errorRef = [FBSDKError invalidArgumentErrorWithName:@"queryParameters"
                                                        value:queryParameters
                                                      message:nil
                                              underlyingError:queryStringError];
@@ -427,17 +325,17 @@ setJSONStringForObject:(id)object
     }
   }
 
-  NSURL *URL = [[NSURL alloc] initWithString:[NSString stringWithFormat:
-                                              @"%@://%@%@%@",
-                                              scheme ?: @"",
-                                              host ?: @"",
-                                              path ?: @"",
-                                              queryString ?: @""]];
+  NSURL *const URL = [NSURL URLWithString:[NSString stringWithFormat:
+                                           @"%@://%@%@%@",
+                                           scheme ?: @"",
+                                           host ?: @"",
+                                           path ?: @"",
+                                           queryString ?: @""]];
   if (errorRef != NULL) {
     if (URL) {
       *errorRef = nil;
     } else {
-      *errorRef = [NSError fbUnknownErrorWithMessage:@"Unknown error building URL."];
+      *errorRef = [FBSDKError unknownErrorWithMessage:@"Unknown error building URL."];
     }
   }
   return URL;
@@ -448,7 +346,7 @@ setJSONStringForObject:(id)object
   NSHTTPCookieStorage *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
   NSArray *facebookCookies = [cookies cookiesForURL:[self facebookURLWithHostPrefix:@"m."
                                                                                path:@"/dialog/"
-                                                                    queryParameters:nil
+                                                                    queryParameters:@{}
                                                                               error:NULL]];
 
   for (NSHTTPCookie *cookie in facebookCookies) {
@@ -502,8 +400,7 @@ static NSMapTable *_transientObjects;
 
 + (BOOL)isFacebookAppInstalled
 {
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
+  dispatch_once(&checkIfFacebookAppInstalledToken, ^{
     [FBSDKInternalUtility checkRegisteredCanOpenURLScheme:FBSDK_CANOPENURL_FACEBOOK];
   });
   return [self _canOpenURLScheme:FBSDK_CANOPENURL_FACEBOOK];
@@ -511,8 +408,7 @@ static NSMapTable *_transientObjects;
 
 + (BOOL)isMessengerAppInstalled
 {
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
+  dispatch_once(&checkIfMessengerAppInstalledToken, ^{
     [FBSDKInternalUtility checkRegisteredCanOpenURLScheme:FBSDK_CANOPENURL_MESSENGER];
   });
   return [self _canOpenURLScheme:FBSDK_CANOPENURL_MESSENGER];
@@ -520,8 +416,7 @@ static NSMapTable *_transientObjects;
 
 + (BOOL)isMSQRDPlayerAppInstalled
 {
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
+  dispatch_once(&checkIfMSQRDPlayerAppInstalledToken, ^{
     [FBSDKInternalUtility checkRegisteredCanOpenURLScheme:FBSDK_CANOPENURL_MSQRD_PLAYER];
   });
   return [self _canOpenURLScheme:FBSDK_CANOPENURL_MSQRD_PLAYER];
@@ -529,69 +424,22 @@ static NSMapTable *_transientObjects;
 
 #pragma mark - Helper Methods
 
-+ (NSComparisonResult)_compareOperatingSystemVersion:(NSOperatingSystemVersion)version1
-                                           toVersion:(NSOperatingSystemVersion)version2
-{
-  if (version1.majorVersion < version2.majorVersion) {
-    return NSOrderedAscending;
-  } else if (version1.majorVersion > version2.majorVersion) {
-    return NSOrderedDescending;
-  } else if (version1.minorVersion < version2.minorVersion) {
-    return NSOrderedAscending;
-  } else if (version1.minorVersion > version2.minorVersion) {
-    return NSOrderedDescending;
-  } else if (version1.patchVersion < version2.patchVersion) {
-    return NSOrderedAscending;
-  } else if (version1.patchVersion > version2.patchVersion) {
-    return NSOrderedDescending;
-  } else {
-    return NSOrderedSame;
-  }
-}
-
-+ (id)_convertObjectToJSONObject:(id)object
-            invalidObjectHandler:(id(^)(id object, BOOL *stop))invalidObjectHandler
-                            stop:(BOOL *)stopRef
-{
-  __block BOOL stop = NO;
-  if ([object isKindOfClass:[NSString class]] || [object isKindOfClass:[NSNumber class]]) {
-    // good to go, keep the object
-  } else if ([object isKindOfClass:[NSURL class]]) {
-    object = ((NSURL *)object).absoluteString;
-  } else if ([object isKindOfClass:[NSDictionary class]]) {
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    [(NSDictionary *)object enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *dictionaryStop) {
-      [self dictionary:dictionary
-             setObject:[self _convertObjectToJSONObject:obj invalidObjectHandler:invalidObjectHandler stop:&stop]
-                forKey:[FBSDKTypeUtility stringValue:key]];
-      if (stop) {
-        *dictionaryStop = YES;
-      }
-    }];
-    object = dictionary;
-  } else if ([object isKindOfClass:[NSArray class]]) {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (id obj in (NSArray *)object) {
-      id convertedObj = [self _convertObjectToJSONObject:obj invalidObjectHandler:invalidObjectHandler stop:&stop];
-      [self array:array addObject:convertedObj];
-      if (stop) {
-        break;
-      }
-    }
-    object = array;
-  } else {
-    object = invalidObjectHandler(object, stopRef);
-  }
-  if (stopRef != NULL) {
-    *stopRef = stop;
-  }
-  return object;
-}
-
 + (BOOL)_canOpenURLScheme:(NSString *)scheme
 {
+  scheme = [FBSDKTypeUtility stringValue:scheme];
+  if (!scheme) {
+    return NO;
+  }
+
   NSURLComponents *components = [[NSURLComponents alloc] init];
-  components.scheme = scheme;
+  @try {
+    components.scheme = scheme;
+  } @catch (NSException *exception) {
+    [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
+                       formatString:@"Invalid URL scheme provided: %@", scheme];
+    return NO;
+  }
+
   components.path = @"/";
   return [[UIApplication sharedApplication] canOpenURL:components.URL];
 }
@@ -600,12 +448,13 @@ static NSMapTable *_transientObjects;
 {
   if (![FBSDKSettings appID]) {
     NSString *reason = @"App ID not found. Add a string value with your app ID for the key "
-                       @"FacebookAppID to the Info.plist or call [FBSDKSettings setAppID:].";
+    @"FacebookAppID to the Info.plist or call [FBSDKSettings setAppID:].";
     @throw [NSException exceptionWithName:@"InvalidOperationException" reason:reason userInfo:nil];
   }
 }
 
-+ (NSString *)validateRequiredClientAccessToken {
++ (NSString *)validateRequiredClientAccessToken
+{
   if (![FBSDKSettings clientToken]) {
     NSString *reason = @"ClientToken is required to be set for this operation. "
     @"Set the FacebookClientToken in the Info.plist or call [FBSDKSettings setClientToken:]. "
@@ -627,7 +476,7 @@ static NSMapTable *_transientObjects;
 
 + (void)validateFacebookReservedURLSchemes
 {
-  for (NSString * fbUrlScheme in @[FBSDK_CANOPENURL_FACEBOOK, FBSDK_CANOPENURL_MESSENGER, FBSDK_CANOPENURL_FBAPI, FBSDK_CANOPENURL_SHARE_EXTENSION]) {
+  for (NSString *fbUrlScheme in @[FBSDK_CANOPENURL_FACEBOOK, FBSDK_CANOPENURL_MESSENGER, FBSDK_CANOPENURL_FBAPI, FBSDK_CANOPENURL_SHARE_EXTENSION]) {
     if ([self isRegisteredURLScheme:fbUrlScheme]) {
       NSString *reason = [NSString stringWithFormat:@"%@ is registered as a URL scheme. Please move the entry from CFBundleURLSchemes in your Info.plist to LSApplicationQueriesSchemes. If you are trying to resolve \"canOpenURL: failed\" warnings, those only indicate that the Facebook app is not installed on your device or simulator and can be ignored.", fbUrlScheme];
       @throw [NSException exceptionWithName:@"InvalidOperationException" reason:reason userInfo:nil];
@@ -635,28 +484,58 @@ static NSMapTable *_transientObjects;
   }
 }
 
-+ (UIWindow *)findWindow
+- (UIWindow *)findWindow
 {
-  UIWindow *window = [UIApplication sharedApplication].keyWindow;
-  if (window == nil || window.windowLevel != UIWindowLevelNormal) {
-    for (window in [UIApplication sharedApplication].windows) {
-      if (window.windowLevel == UIWindowLevelNormal) {
-        break;
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  UIWindow *topWindow = [UIApplication sharedApplication].keyWindow;
+  #pragma clang diagnostic pop
+  if (topWindow == nil || topWindow.windowLevel < UIWindowLevelNormal) {
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+      if (window.windowLevel >= topWindow.windowLevel && !window.isHidden) {
+        topWindow = window;
       }
     }
   }
-  if (window == nil) {
+
+  if (topWindow != nil) {
+    return topWindow;
+  }
+
+  // Find active key window from UIScene
+  if (@available(iOS 13.0, tvOS 13, *)) {
+    NSSet *scenes = [[UIApplication sharedApplication] valueForKey:@"connectedScenes"];
+    for (id scene in scenes) {
+      id activationState = [scene valueForKeyPath:@"activationState"];
+      BOOL isActive = activationState != nil && [activationState integerValue] == 0;
+      if (isActive) {
+        Class WindowScene = NSClassFromString(@"UIWindowScene");
+        if ([scene isKindOfClass:WindowScene]) {
+          NSArray<UIWindow *> *windows = [scene valueForKeyPath:@"windows"];
+          for (UIWindow *window in windows) {
+            if (window.isKeyWindow) {
+              return window;
+            } else if (window.windowLevel >= topWindow.windowLevel && !window.isHidden) {
+              topWindow = window;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (topWindow == nil) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
                        formatString:@"Unable to find a valid UIWindow", nil];
   }
-  return window;
+  return topWindow;
 }
 
 + (UIViewController *)topMostViewController
 {
-  UIWindow *keyWindow = [self findWindow];
+  UIWindow *keyWindow = [self.sharedUtility findWindow];
   // SDK expects a key window at this point, if it is not, make it one
-  if (keyWindow !=  nil && !keyWindow.isKeyWindow) {
+  if (keyWindow != nil && !keyWindow.isKeyWindow) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
                        formatString:@"Unable to obtain a key window, marking %@ as keyWindow", keyWindow.description];
     [keyWindow makeKeyWindow];
@@ -669,6 +548,22 @@ static NSMapTable *_transientObjects;
   return topController;
 }
 
+#if !TARGET_OS_TV
++ (UIInterfaceOrientation)statusBarOrientation
+{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+  if (@available(iOS 13.0, *)) {
+    return [self.sharedUtility findWindow].windowScene.interfaceOrientation;
+  } else {
+    return UIInterfaceOrientationUnknown;
+  }
+#else
+  return UIApplication.sharedApplication.statusBarOrientation;
+#endif
+}
+
+#endif
+
 + (NSString *)hexadecimalStringFromData:(NSData *)data
 {
   NSUInteger dataLength = data.length;
@@ -677,19 +572,18 @@ static NSMapTable *_transientObjects;
   }
 
   const unsigned char *dataBuffer = data.bytes;
-  NSMutableString *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
+  NSMutableString *hexString = [NSMutableString stringWithCapacity:(dataLength * 2)];
   for (int i = 0; i < dataLength; ++i) {
     [hexString appendFormat:@"%02x", dataBuffer[i]];
   }
   return [hexString copy];
 }
 
-+ (BOOL)isRegisteredURLScheme:(NSString *)urlScheme {
-  static dispatch_once_t fetchBundleOnce;
++ (BOOL)isRegisteredURLScheme:(NSString *)urlScheme
+{
   static NSArray *urlTypes = nil;
-
-  dispatch_once(&fetchBundleOnce, ^{
-    urlTypes = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleURLTypes"];
+  dispatch_once(&fetchUrlSchemesToken, ^{
+    urlTypes = [self.infoDictionaryProvider.infoDictionary valueForKey:@"CFBundleURLTypes"];
   });
   for (NSDictionary *urlType in urlTypes) {
     NSArray *urlSchemes = [urlType valueForKey:@"CFBundleURLSchemes"];
@@ -702,10 +596,8 @@ static NSMapTable *_transientObjects;
 
 + (void)checkRegisteredCanOpenURLScheme:(NSString *)urlScheme
 {
-  static dispatch_once_t initCheckedSchemesOnce;
   static NSMutableSet *checkedSchemes = nil;
-
-  dispatch_once(&initCheckedSchemesOnce, ^{
+  dispatch_once(&checkRegisteredCanOpenUrlSchemesToken, ^{
     checkedSchemes = [NSMutableSet set];
   });
 
@@ -717,19 +609,17 @@ static NSMapTable *_transientObjects;
     }
   }
 
-  if (![self isRegisteredCanOpenURLScheme:urlScheme]){
-    NSString *reason = [NSString stringWithFormat:@"%@ is missing from your Info.plist under LSApplicationQueriesSchemes and is required for iOS 9.0", urlScheme];
+  if (![self isRegisteredCanOpenURLScheme:urlScheme]) {
+    NSString *reason = [NSString stringWithFormat:@"%@ is missing from your Info.plist under LSApplicationQueriesSchemes and is required.", urlScheme];
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors logEntry:reason];
   }
 }
 
 + (BOOL)isRegisteredCanOpenURLScheme:(NSString *)urlScheme
 {
-  static dispatch_once_t fetchBundleOnce;
   static NSArray *schemes = nil;
-
-  dispatch_once(&fetchBundleOnce, ^{
-    schemes = [[NSBundle mainBundle].infoDictionary valueForKey:@"LSApplicationQueriesSchemes"];
+  dispatch_once(&fetchApplicationQuerySchemesToken, ^{
+    schemes = [self.infoDictionaryProvider.infoDictionary valueForKey:@"LSApplicationQueriesSchemes"];
   });
 
   return [schemes containsObject:urlScheme];
@@ -737,44 +627,11 @@ static NSMapTable *_transientObjects;
 
 + (BOOL)isPublishPermission:(NSString *)permission
 {
-  return [permission hasPrefix:@"publish"] ||
-  [permission hasPrefix:@"manage"] ||
-  [permission isEqualToString:@"ads_management"] ||
-  [permission isEqualToString:@"create_event"] ||
-  [permission isEqualToString:@"rsvp_event"];
-}
-
-+ (BOOL)areAllPermissionsReadPermissions:(NSSet *)permissions
-{
-  for (NSString *permission in permissions) {
-    if ([[self class] isPublishPermission:permission]) {
-      return NO;
-    }
-  }
-  return YES;
-}
-
-+ (BOOL)areAllPermissionsPublishPermissions:(NSSet *)permissions
-{
-  for (NSString *permission in permissions) {
-    if (![[self class] isPublishPermission:permission]) {
-      return NO;
-    }
-  }
-  return YES;
-}
-
-+ (Class)resolveBoltsClassWithName:(NSString *)className;
-{
-  Class clazz = NSClassFromString(className);
-  if (clazz == nil) {
-    NSString *message = [NSString stringWithFormat:@"Unable to load class %@. Did you link Bolts.framework?", className];
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:message
-                                 userInfo:nil];
-  }
-
-  return clazz;
+  return [permission hasPrefix:@"publish"]
+  || [permission hasPrefix:@"manage"]
+  || [permission isEqualToString:@"ads_management"]
+  || [permission isEqualToString:@"create_event"]
+  || [permission isEqualToString:@"rsvp_event"];
 }
 
 + (BOOL)isUnity
@@ -785,5 +642,47 @@ static NSMapTable *_transientObjects;
   }
   return NO;
 }
+
+#pragma mark - Testability
+
+#if DEBUG
+ #if FBSDKTEST
+
++ (void)reset
+{
+  if (fetchApplicationQuerySchemesToken) {
+    fetchApplicationQuerySchemesToken = 0;
+  }
+  if (checkRegisteredCanOpenUrlSchemesToken) {
+    checkRegisteredCanOpenUrlSchemesToken = 0;
+  }
+  if (checkIfFacebookAppInstalledToken) {
+    checkIfFacebookAppInstalledToken = 0;
+  }
+  if (checkIfMessengerAppInstalledToken) {
+    checkIfMessengerAppInstalledToken = 0;
+  }
+  if (checkIfMSQRDPlayerAppInstalledToken) {
+    checkIfMSQRDPlayerAppInstalledToken = 0;
+  }
+  if (checkOperatingSystemVersionToken) {
+    checkOperatingSystemVersionToken = 0;
+  }
+  if (fetchUrlSchemesToken) {
+    fetchUrlSchemesToken = 0;
+  }
+  if (sharedUtilityNonce) {
+    sharedUtilityNonce = 0;
+  }
+  _infoDictionaryProvider = nil;
+}
+
++ (void)setInfoDictionaryProvider:(id<FBSDKInfoDictionaryProviding>)provider
+{
+  _infoDictionaryProvider = provider;
+}
+
+ #endif
+#endif
 
 @end

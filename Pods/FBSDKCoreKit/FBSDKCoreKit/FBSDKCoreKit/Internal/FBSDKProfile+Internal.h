@@ -16,11 +16,41 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKProfile.h"
+#import "FBSDKAccessTokenProtocols.h"
+#import "FBSDKDataPersisting.h"
+#import "TargetConditionals.h"
 
-@interface FBSDKProfile(Internal)
+#if !TARGET_OS_TV
 
-+ (void)cacheProfile:(FBSDKProfile *) profile;
-+ (FBSDKProfile *)fetchCachedProfile;
+ #import "FBSDKCoreKit+Internal.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^FBSDKParseProfileBlock)(id result, FBSDKProfile *_Nonnull *_Nullable profileRef);
+
+@interface FBSDKProfile (Internal)
+
++ (void)cacheProfile:(nullable FBSDKProfile *)profile;
++ (nullable FBSDKProfile *)fetchCachedProfile;
+
++ (NSURL *)imageURLForProfileID:(NSString *)profileId
+                    PictureMode:(FBSDKProfilePictureMode)mode
+                           size:(CGSize)size;
+
++ (void)loadProfileWithToken:(FBSDKAccessToken *)token
+                  completion:(FBSDKProfileBlock)completion
+                graphRequest:(id<FBSDKGraphRequest>)request
+                  parseBlock:(FBSDKParseProfileBlock)parseBlock;
+
++ (void)loadProfileWithToken:(FBSDKAccessToken *)token completion:(_Nullable FBSDKProfileBlock)completion;
+
++ (void)observeChangeAccessTokenChange:(NSNotification *)notification;
++ (void)configureWithStore:(id<FBSDKDataPersisting>)store
+       accessTokenProvider:(Class<FBSDKAccessTokenProviding>)accessTokenProvider
+NS_SWIFT_NAME(configure(store:accessTokenProvider:));
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif

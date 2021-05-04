@@ -107,6 +107,7 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
   self = [super init];
   if (self) {
     _auth = auth;
+    _interactiveDismissEnabled = YES;
   }
   return self;
 }
@@ -124,14 +125,17 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
 }
 
 - (UINavigationController *)authViewController {
-  UIViewController *controller;
+  static UINavigationController *authViewController;
 
+  UIViewController *controller;
   if ([self.delegate respondsToSelector:@selector(authPickerViewControllerForAuthUI:)]) {
     controller = [self.delegate authPickerViewControllerForAuthUI:self];
   } else {
     controller = [[FUIAuthPickerViewController alloc] initWithAuthUI:self];
   }
-  return [[UINavigationController alloc] initWithRootViewController:controller];
+  authViewController = [[UINavigationController alloc] initWithRootViewController:controller];
+
+  return authViewController;
 }
 
 - (BOOL)signOutWithError:(NSError *_Nullable *_Nullable)error {
@@ -175,7 +179,7 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
     if (self.auth.currentUser.isAnonymous && !credential) {
       if (result) {
         result(self.auth.currentUser, nil);
-      };
+      }
       // Hide Auth Picker Controller which was presented modally.
       if (isAuthPickerShown && presentingViewController.presentingViewController) {
         [presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -194,9 +198,9 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
                                   credential:credential
                               resultCallback:result];
     } else {
-      [self.auth signInAndRetrieveDataWithCredential:credential
-                                          completion:^(FIRAuthDataResult *_Nullable authResult,
-                                                       NSError *_Nullable error) {
+      [self.auth signInWithCredential:credential
+                           completion:^(FIRAuthDataResult *_Nullable authResult,
+                                        NSError *_Nullable error) {
         if (error && error.code == FIRAuthErrorCodeAccountExistsWithDifferentCredential) {
           NSString *email = error.userInfo[kErrorUserInfoEmailKey];
           [self.emailAuthProvider handleAccountLinkingForEmail:email
@@ -227,21 +231,17 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
                               credential:(nullable FIRAuthCredential *)credential
                           resultCallback:(nullable FIRAuthResultCallback)callback {
   [self.auth.currentUser
-      linkAndRetrieveDataWithCredential:credential
-                             completion:^(FIRAuthDataResult *_Nullable authResult,
-                                          NSError * _Nullable error) {
+      linkWithCredential:credential
+              completion:^(FIRAuthDataResult *_Nullable authResult,
+                           NSError * _Nullable error) {
     if (error) {
       // Check for "credential in use" conflict error and handle appropriately.
       if (error.code == FIRAuthErrorCodeCredentialAlreadyInUse) {
-        FIRAuthCredential *newCredential = credential;
-        // Check for and handle special case for Phone Auth Provider.
-        if (providerUI.providerID == FIRPhoneAuthProviderID) {
-          // Obtain temporary Phone Auth credential.
-          newCredential = error.userInfo[FIRAuthUpdatedCredentialKey];
+        FIRAuthCredential *newCredential = error.userInfo[FIRAuthErrorUserInfoUpdatedCredentialKey];
+        NSDictionary *userInfo = @{ };
+        if (newCredential) {
+          userInfo = @{ FUIAuthCredentialKey : newCredential };
         }
-        NSDictionary *userInfo = @{
-          FUIAuthCredentialKey : newCredential,
-        };
         NSError *mergeError = [FUIAuthErrorUtils mergeConflictErrorWithUserInfo:userInfo
                                                                 underlyingError:error];
         [self completeSignInWithResult:authResult
@@ -280,9 +280,9 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
               return;
             }
 
-            [authResult.user linkAndRetrieveDataWithCredential:credential
-                                                    completion:^(FIRAuthDataResult *authResult,
-                                                                 NSError *linkError) {
+            [authResult.user linkWithCredential:credential
+                                     completion:^(FIRAuthDataResult *authResult,
+                                                  NSError *linkError) {
               if (linkError) {
                 [self completeSignInWithResult:nil
                                          error:linkError
@@ -335,6 +335,11 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
   } else {
     [self invokeResultCallbackWithAuthDataResult:authResult URL:nil error:error];
   }
+}
+
+- (void)useEmulatorWithHost:(NSString *)host port:(NSInteger)port {
+  [self.auth useEmulatorWithHost:host port:port];
+  self.emulatorEnabled = YES;
 }
 
 #pragma mark - Internal Methods

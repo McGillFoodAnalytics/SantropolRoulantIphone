@@ -111,6 +111,10 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
   [_termsOfServiceView useFooterMessage];
 
   [self enableDynamicCellHeightForTableView:_tableView];
+  
+  if (@available(iOS 13.0, *)) {
+    _tableView.backgroundColor = [UIColor systemBackgroundColor];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -129,6 +133,12 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
                                      style:UIBarButtonItemStylePlain
                                     target:nil
                                     action:nil];
+
+    if (@available(iOS 13, *)) {
+      if (!self.authUI.isInteractiveDismissEnabled) {
+        self.modalInPresentation = YES;
+      }
+    }
   }
 }
 
@@ -168,7 +178,8 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
             return;
         }
       }
-      [self.navigationController dismissViewControllerAnimated:YES completion:^{
+
+      [self dismissNavigationControllerAnimated:YES completion:^{
         if (self->_onDismissCallback) {
           self->_onDismissCallback(authResult, error);
         }
@@ -178,9 +189,9 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
   // Check for the presence of an anonymous user and whether automatic upgrade is enabled.
   if (self.auth.currentUser.isAnonymous && self.authUI.shouldAutoUpgradeAnonymousUsers) {
     [self.auth.currentUser
-        linkAndRetrieveDataWithCredential:credential
-                               completion:^(FIRAuthDataResult *_Nullable authResult,
-                                            NSError *_Nullable error) {
+        linkWithCredential:credential
+                completion:^(FIRAuthDataResult *_Nullable authResult,
+                             NSError *_Nullable error) {
       if (error) {
         if (error.code == FIRAuthErrorCodeEmailAlreadyInUse) {
           NSDictionary *userInfo = @{ FUIAuthCredentialKey : credential };
@@ -195,7 +206,7 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
       completeSignInBlock(authResult, nil);
     }];
   } else {
-    [self.auth signInAndRetrieveDataWithCredential:credential completion:completeSignInBlock];
+    [self.auth signInWithCredential:credential completion:completeSignInBlock];
   }
 }
 
@@ -248,6 +259,7 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
   cell.textField.delegate = self;
   if (indexPath.row == 0) {
     cell.label.text = FUILocalizedString(kStr_Email);
+    cell.textField.enabled = _email == nil;
     _emailField = cell.textField;
     _emailField.text = _email;
     _emailField.placeholder = FUILocalizedString(kStr_EnterYourEmail);

@@ -20,6 +20,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "FUIAuthBaseViewController.h"
+#import "FUIAuth_Internal.h"
 #import "FUIAuthErrorUtils.h"
 #import "FUIAuthBaseViewController_Internal.h"
 #import "FUIAuthStrings.h"
@@ -50,6 +51,20 @@ static NSString *const kFacebookAppId = @"FacebookAppID";
  */
 static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
 
+@interface FUIFacebookAuth () <FUIAuthProvider>
+
+/** @property authUI
+    @brief FUIAuth instance of the application.
+ */
+@property(nonatomic, strong) FUIAuth *authUI;
+
+/** @property providerForEmulator
+    @brief The OAuth provider to be used when the emulator is enabled.
+ */
+@property(nonatomic, strong) FIROAuthProvider *providerForEmulator;
+
+@end
+
 @implementation FUIFacebookAuth {
 
   /** @var _pendingSignInCallback
@@ -68,6 +83,23 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
   NSString *_email;
 }
 
+- (instancetype)initWithAuthUI:(FUIAuth *)authUI
+                   permissions:(NSArray *)permissions {
+  self = [super init];
+  if (self != nil) {
+    _authUI = authUI;
+    _scopes = permissions;
+    [self configureProvider];
+  }
+  return self;
+}
+
+- (instancetype)initWithAuthUI:(FUIAuth *)authUI {
+  return [self initWithAuthUI:authUI permissions:@[ @"email" ]];
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - (instancetype)initWithPermissions:(NSArray *)permissions {
   self = [super init];
   if (self != nil) {
@@ -80,6 +112,7 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
 - (instancetype)init {
   return [self initWithPermissions:@[ @"email" ]];
 }
+#pragma clang diagnostic pop
 
 
 #pragma mark - FUIAuthProvider
@@ -89,6 +122,9 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
 }
 
 - (nullable NSString *)accessToken {
+  if (self.authUI.isEmulatorEnabled) {
+    return nil;
+  }
   return [FBSDKAccessToken currentAccessToken].tokenString;
 }
 
@@ -136,10 +172,17 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
   _pendingSignInCallback = completion;
   _presentingViewController = presentingViewController;
 
-  [_loginManager logInWithReadPermissions:_scopes
-                       fromViewController:presentingViewController
-                                  handler:^(FBSDKLoginManagerLoginResult *result,
-                                            NSError *error) {
+  if (self.authUI.isEmulatorEnabled) {
+    [self signInWithOAuthProvider:self.providerForEmulator
+         presentingViewController:presentingViewController
+                       completion:completion];
+    return;
+  }
+
+  [_loginManager logInWithPermissions:_scopes
+                   fromViewController:presentingViewController
+                              handler:^(FBSDKLoginManagerLoginResult *result,
+                                        NSError *error) {
     if (error) {
       NSError *newError =
           [FUIAuthErrorUtils providerErrorWithUnderlyingError:error
@@ -161,15 +204,51 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
   }];
 }
 
+- (void)signInWithOAuthProvider:(FIROAuthProvider *)oauthProvider
+       presentingViewController:(nullable UIViewController *)presentingViewController
+                     completion:(nullable FUIAuthProviderSignInCompletionBlock)completion {
+  oauthProvider.scopes = self.scopes;
+
+  [oauthProvider getCredentialWithUIDelegate:nil
+                                  completion:^(FIRAuthCredential *_Nullable credential,
+                                               NSError *_Nullable error) {
+    if (error) {
+      [FUIAuthBaseViewController showAlertWithMessage:error.localizedDescription
+                             presentingViewController:presentingViewController];
+      if (completion) {
+        completion(nil, error, nil, nil);
+      }
+      return;
+    }
+    if (completion) {
+      UIActivityIndicatorView *activityView =
+          [FUIAuthBaseViewController addActivityIndicator:presentingViewController.view];
+      [activityView startAnimating];
+      FIRAuthResultCallback result = ^(FIRUser *_Nullable user,
+                                       NSError *_Nullable error) {
+        [activityView stopAnimating];
+        [activityView removeFromSuperview];
+      };
+      completion(credential, nil, result, nil);
+    }
+  }];
+}
+
 - (NSString *)email {
   return _email;
 }
 
 - (void)signOut {
+  if (self.authUI.isEmulatorEnabled) {
+    return;
+  }
   [_loginManager logOut];
 }
 
 - (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication {
+  if (self.authUI.isEmulatorEnabled) {
+    return NO;
+  }
   return [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
                                                         openURL:URL
                                               sourceApplication:sourceApplication
@@ -226,6 +305,12 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
   NSString *facebookAppId = [bundle objectForInfoDictionaryKey:kFacebookAppId];
   NSString *facebookDisplayName = [bundle objectForInfoDictionaryKey:kFacebookDisplayName];
 
+  if (facebookAppId == nil || facebookDisplayName == nil) {
+    bundle = [FUIAuthUtils bundleNamed:nil];
+    facebookAppId = [bundle objectForInfoDictionaryKey:kFacebookAppId];
+    facebookDisplayName = [bundle objectForInfoDictionaryKey:kFacebookDisplayName];
+  }
+
   if (!(facebookAppId && facebookDisplayName)) {
     [NSException raise:NSInternalInconsistencyException
                 format:@"Please set FacebookAppID, FacebookDisplayName, and\nURL types > Url "
@@ -233,7 +318,11 @@ static NSString *const kFacebookDisplayName = @"FacebookDisplayName";
      @"https://developers.facebook.com/docs/ios/getting-started"];
   }
 
-  _loginManager = [self createLoginManager];
+  if (self.authUI.isEmulatorEnabled) {
+    _providerForEmulator = [FIROAuthProvider providerWithProviderID:self.providerID];
+  } else {
+    _loginManager = [self createLoginManager];
+  }
 }
 
 #pragma mark - Private methods

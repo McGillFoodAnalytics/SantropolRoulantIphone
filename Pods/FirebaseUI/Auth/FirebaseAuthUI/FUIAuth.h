@@ -121,17 +121,19 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
     @return an instance of @c FUIPasswordSignInViewController subclass.
  */
 - (FUIPasswordSignInViewController *)passwordSignInViewControllerForAuthUI:(FUIAuth *)authUI
-                                                                     email:(NSString *)email;
+                                                                     email:(nullable NSString *)email;
 
 /** @fn passwordSignInViewControllerForAuthUI:email:
     @brief Sent to the receiver to ask for an instance of @c FUIPasswordSignUpViewController subclass
     to allow sign-up UI customizations.
     @param authUI The @c FUIAuth instance sending the message.
     @param email The email user is using for sin-in.
+    @param requireDisplayName Whether the displayname field is required .
     @return an instance of @c FUIPasswordSignUpViewController subclass.
  */
 - (FUIPasswordSignUpViewController *)passwordSignUpViewControllerForAuthUI:(FUIAuth *)authUI
-                                                                     email:(NSString *)email;
+                                                                     email:(nullable NSString *)email
+                                                        requireDisplayName:(BOOL)requireDisplayName;
 
 /** @fn passwordRecoveryViewControllerForAuthUI:email:
     @brief Sent to the receiver to ask for an instance of @c FUIPasswordRecoveryViewController subclass
@@ -141,7 +143,7 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
     @return an instance of @c FUIPasswordRecoveryViewController subclass.
  */
 - (FUIPasswordRecoveryViewController *)passwordRecoveryViewControllerForAuthUI:(FUIAuth *)authUI
-                                                                         email:(NSString *)email;
+                                                                         email:(nullable NSString *)email;
 
 /** @fn passwordVerificationViewControllerForAuthUI:email:newCredential:
     @brief Sent to the receiver to ask for an instance of @c FUIPasswordVerificationViewController subclass
@@ -152,7 +154,7 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
     @return an instance of @c FUIPasswordVerificationViewController subclass.
  */
 - (FUIPasswordVerificationViewController *)passwordVerificationViewControllerForAuthUI:(FUIAuth *)authUI
-                                                                                 email:(NSString *)email
+                                                                                 email:(nullable NSString *)email
                                                                          newCredential:(FIRAuthCredential *)newCredential;
 @end
 
@@ -186,9 +188,14 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
 @property(nonatomic, copy) NSArray<id<FUIAuthProvider>> *providers;
 
 /** @property shouldHideCancelButton
- @brief Whether to hide the canel button, defaults to NO.
+    @brief Whether to hide the cancel button, defaults to NO.
  */
 @property(nonatomic, assign) BOOL shouldHideCancelButton;
+
+/** @property interactiveDismissEnabled
+    @brief Whether or not interactive dismiss should be enabled on iOS 13 and above devices.
+ */
+@property(nonatomic, assign, getter=isInteractiveDismissEnabled) BOOL interactiveDismissEnabled API_AVAILABLE(ios(13));
 
 /** @property customStringsBundle
     @brief Custom strings bundle supplied by the developer. Nil when there is no custom strings
@@ -255,6 +262,11 @@ __attribute__((deprecated("Instead use authUI:didSignInWithAuthDataResult:error:
         will contain more information about the error encountered.
  */
 - (BOOL)signOutWithError:(NSError *_Nullable *_Nullable)error;
+
+/** @fn useEmulatorWithHost:port
+    @brief Configures Firebase Auth to connect to an emulated host instead of the remote backend.
+ */
+- (void)useEmulatorWithHost:(NSString *)host port:(NSInteger)port;
 
 @end
 
