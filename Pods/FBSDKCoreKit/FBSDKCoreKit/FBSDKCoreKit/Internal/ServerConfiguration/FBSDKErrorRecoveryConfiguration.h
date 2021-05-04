@@ -18,9 +18,16 @@
 
 #import <Foundation/Foundation.h>
 
+#if SWIFT_PACKAGE
+#import "FBSDKConstants.h"
+#else
 #import <FBSDKCoreKit/FBSDKConstants.h>
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
 
 //immutable
+NS_SWIFT_NAME(ErrorRecoveryConfiguration)
 @interface FBSDKErrorRecoveryConfiguration : NSObject<NSCopying, NSSecureCoding>
 
 @property (nonatomic, readonly) NSString *localizedRecoveryDescription;
@@ -36,3 +43,5 @@
                                    category:(FBSDKGraphRequestError)category
                          recoveryActionName:(NSString *)recoveryActionName NS_DESIGNATED_INITIALIZER;
 @end
+
+NS_ASSUME_NONNULL_END

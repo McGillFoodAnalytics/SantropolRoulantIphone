@@ -221,9 +221,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
         if  CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
-          //  cell?.backgroundColor=UIColor.clear
+            cell?.backgroundColor=UIColor.clear
+            if cell!.subviews.count >=  2 {
             let lbl = cell?.subviews[1] as! UILabel
-            lbl.textColor=UIColor.white
+                lbl.textColor=UIColor.white
+            }
             cell?.backgroundColor = Colors.backgroundImportant
         } else {
             cell?.backgroundColor=UIColor.clear
@@ -374,8 +376,6 @@ class dateCVCell: UICollectionViewCell {
         label.minimumScaleFactor = 0.5
         return label
     }()
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

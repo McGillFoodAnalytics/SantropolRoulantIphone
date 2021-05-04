@@ -18,6 +18,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_SWIFT_NAME(Base64)
 @interface FBSDKBase64 : NSObject
 
 /**
@@ -47,5 +48,12 @@
  @return The base-64 encoded string.
  */
 + (NSString *)encodeString:(NSString *)string;
+
+/**
+  Encodes URL string into a base-64 representation.
+ @param base64Url The URL string to be encoded.
+ @return The base-64 encoded string.
+ */
++ (NSString *)base64FromBase64Url:(NSString *)base64Url;
 
 @end

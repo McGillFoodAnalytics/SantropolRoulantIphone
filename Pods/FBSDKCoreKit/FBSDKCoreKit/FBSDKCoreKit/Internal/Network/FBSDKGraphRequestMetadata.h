@@ -18,22 +18,29 @@
 
 #import <Foundation/Foundation.h>
 
+#if SWIFT_PACKAGE
+#import "FBSDKGraphRequestConnection.h"
+#else
 #import <FBSDKCoreKit/FBSDKGraphRequestConnection.h>
+#endif
+
+@protocol FBSDKGraphRequest;
 
 // Internal only class to facilitate FBSDKGraphRequest processing, specifically
-// associating FBSDKGraphRequest and FBSDKGraphRequestHandler instances and necessary
+// associating FBSDKGraphRequest and FBSDKGraphRequestBlock instances and necessary
 // data for retry processing.
+NS_SWIFT_NAME(GraphRequestMetadata)
 @interface FBSDKGraphRequestMetadata : NSObject
 
-@property (nonatomic, retain) FBSDKGraphRequest *request;
-@property (nonatomic, copy) FBSDKGraphRequestHandler completionHandler;
+@property (nonatomic, retain) id<FBSDKGraphRequest> request;
+@property (nonatomic, copy) FBSDKGraphRequestBlock completionHandler;
 @property (nonatomic, copy) NSDictionary *batchParameters;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-- (instancetype)initWithRequest:(FBSDKGraphRequest *)request
-              completionHandler:(FBSDKGraphRequestHandler)handler
+- (instancetype)initWithRequest:(id<FBSDKGraphRequest>)request
+              completionHandler:(FBSDKGraphRequestBlock)handler
                 batchParameters:(NSDictionary *)batchParameters
 NS_DESIGNATED_INITIALIZER;
 

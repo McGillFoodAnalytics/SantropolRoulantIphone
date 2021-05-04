@@ -22,9 +22,16 @@
 @class FBSDKGraphRequestDataAttachment;
 @class FBSDKLogger;
 
+NS_SWIFT_NAME(GraphRequestBody)
 @interface FBSDKGraphRequestBody : NSObject
 
 @property (nonatomic, retain, readonly) NSData *data;
+
+/**
+  Determines whether to use multipart/form-data or application/json as the Content-Type.
+  If binary attachments are added, this will default to YES.
+ */
+@property (nonatomic, assign) BOOL requiresMultipartDataFormat;
 
 - (void)appendWithKey:(NSString *)key
             formValue:(NSString *)value
@@ -43,5 +50,7 @@
                logger:(FBSDKLogger *)logger;
 
 - (NSString *)mimeContentType;
+
+- (NSData *)compressedData;
 
 @end

@@ -21,29 +21,43 @@
 
 #import <objc/runtime.h>
 
-#if !TARGET_OS_TV
-#import <SafariServices/SafariServices.h>
-#endif
-
 #import "FBSDKAppEvents+Internal.h"
+#import "FBSDKAppEventsConfigurationManager.h"
+#import "FBSDKBridgeAPI+ApplicationObserving.h"
 #import "FBSDKConstants.h"
 #import "FBSDKDynamicFrameworkLoader.h"
 #import "FBSDKError.h"
+#import "FBSDKEventDeactivationManager.h"
+#import "FBSDKEventLogger.h"
+#import "FBSDKFeatureManager+FeatureChecking.h"
 #import "FBSDKGateKeeperManager.h"
+#import "FBSDKGraphRequestFactory.h"
+#import "FBSDKGraphRequestPiggybackManager+Internal.h"
+#import "FBSDKInstrumentManager.h"
 #import "FBSDKInternalUtility.h"
-#import "FBSDKLogger.h"
+#import "FBSDKLogger+Logging.h"
 #import "FBSDKServerConfiguration.h"
-#import "FBSDKServerConfigurationManager.h"
+#import "FBSDKServerConfigurationManager+ServerConfigurationProviding.h"
 #import "FBSDKSettings+Internal.h"
+#import "FBSDKSettingsLogging.h"
 #import "FBSDKTimeSpentData.h"
-#import "FBSDKUtility.h"
+#import "FBSDKTokenCache.h"
+#import "GraphAPI/FBSDKGraphRequest.h"
+#import "NSBundle+InfoDictionaryProviding.h"
+#import "NSNotificationCenter+Extensions.h"
+#import "NSUserDefaults+FBSDKDataPersisting.h"
 
 #if !TARGET_OS_TV
-#import "FBSDKBoltsMeasurementEventListener.h"
-#import "FBSDKBridgeAPIRequest.h"
-#import "FBSDKBridgeAPIResponse.h"
-#import "FBSDKContainerViewController.h"
-#import "FBSDKProfile+Internal.h"
+ #import "FBSDKAppLinkUtility+Internal.h"
+ #import "FBSDKCodelessIndexer+Internal.h"
+ #import "FBSDKContainerViewController.h"
+ #import "FBSDKMeasurementEventListener.h"
+ #import "FBSDKProfile+Internal.h"
+ #import "FBSDKSKAdNetworkReporter+Internal.h"
+ #import "FBSDKURLOpener.h"
+ #import "FBSDKWebDialogView.h"
+ #import "FBSDKWebViewFactory.h"
+ #import "UIApplication+URLOpener.h"
 #endif
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
@@ -57,117 +71,161 @@ NSString *const FBSDKApplicationDidBecomeActiveNotification = @"com.facebook.sdk
 #endif
 
 static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
-
-typedef void (^FBSDKAuthenticationCompletionHandler)(NSURL *_Nullable callbackURL, NSError *_Nullable error);
-
-@protocol FBSDKAuthenticationSession <NSObject>
-
-- (instancetype)initWithURL:(NSURL *)URL callbackURLScheme:(nullable NSString *)callbackURLScheme completionHandler:(FBSDKAuthenticationCompletionHandler)completionHandler;
-- (BOOL)start;
-- (void)cancel;
-
-@end
+static NSString *const FBSDKKitsBitmaskKey = @"com.facebook.sdk.kits.bitmask";
+static BOOL hasInitializeBeenCalled = NO;
+static UIApplicationState _applicationState;
 
 @implementation FBSDKApplicationDelegate
 {
-#if !TARGET_OS_TV
-    FBSDKBridgeAPIRequest *_pendingRequest;
-    FBSDKBridgeAPICallbackBlock _pendingRequestCompletionBlock;
-    id<FBSDKURLOpening> _pendingURLOpen;
-    id<FBSDKAuthenticationSession> _authenticationSession NS_AVAILABLE_IOS(11_0);
-    FBSDKAuthenticationCompletionHandler _authenticationSessionCompletionHandler NS_AVAILABLE_IOS(11_0);
-#endif
-    BOOL _expectingBackground;
-    BOOL _isRequestingSFAuthenticationSession;
-    UIViewController *_safariViewController;
-    BOOL _isDismissingSafariViewController;
-    BOOL _isAppLaunched;
+  NSHashTable<id<FBSDKApplicationObserving>> *_applicationObservers;
+  BOOL _isAppLaunched;
+  id<FBSDKNotificationObserving> _notificationObserver;
+  Class<FBSDKAccessTokenProviding, FBSDKAccessTokenSetting> _tokenWallet;
+  Class<FBSDKSettingsLogging> _settings;
 }
 
 #pragma mark - Class Methods
 
-+ (void)load
++ (void)initializeSDK:(NSDictionary<UIApplicationLaunchOptionsKey, id> *)launchOptions
 {
-    // when the app becomes active by any means,  kick off the initialization.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(initializeWithLaunchData:)
-                                                 name:UIApplicationDidFinishLaunchingNotification
-                                               object:nil];
+  [self.sharedInstance initializeSDKWithLaunchOptions:launchOptions];
 }
 
-// Initialize SDK listeners
-// Don't call this function in any place else. It should only be called when the class is loaded.
-+ (void)initializeWithLaunchData:(NSNotification *)note
++ (FBSDKApplicationDelegate *)sharedInstance
 {
-    NSDictionary *launchData = note.userInfo;
-
-    [[self sharedInstance] application:[UIApplication sharedApplication] didFinishLaunchingWithOptions:launchData];
-
-#if !TARGET_OS_TV
-    // Register Listener for Bolts measurement events
-    [FBSDKBoltsMeasurementEventListener defaultListener];
-#endif
-    // Set the SourceApplication for time spent data. This is not going to update the value if the app has already launched.
-    [FBSDKTimeSpentData setSourceApplication:launchData[UIApplicationLaunchOptionsSourceApplicationKey]
-                                     openURL:launchData[UIApplicationLaunchOptionsURLKey]];
-    // Register on UIApplicationDidEnterBackgroundNotification events to reset source application data when app backgrounds.
-    [FBSDKTimeSpentData registerAutoResetSourceApplication];
-
-    [FBSDKInternalUtility validateFacebookReservedURLSchemes];
-    // Remove the observer
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-+ (instancetype)sharedInstance
-{
-    static FBSDKApplicationDelegate *_sharedInstance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedInstance = [[self alloc] _init];
-    });
-    return _sharedInstance;
+  static FBSDKApplicationDelegate *_sharedInstance;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _sharedInstance = [self new];
+  });
+  return _sharedInstance;
 }
 
 #pragma mark - Object Lifecycle
 
-- (instancetype)_init
-{
-    if ((self = [super init]) != nil) {
-        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-
-        [[FBSDKAppEvents singleton] registerNotifications];
-    }
-    return self;
-}
-
 - (instancetype)init
 {
-    return nil;
+  return [self initWithNotificationObserver:NSNotificationCenter.defaultCenter
+                                tokenWallet:FBSDKAccessToken.class
+                                   settings:FBSDKSettings.class];
+}
+
+- (instancetype)initWithNotificationObserver:(id<FBSDKNotificationObserving>)observer
+                                 tokenWallet:(Class<FBSDKAccessTokenProviding, FBSDKAccessTokenSetting>)tokenWallet
+                                    settings:(Class<FBSDKSettingsLogging>)settings
+{
+  if ((self = [super init]) != nil) {
+    _applicationObservers = [[NSHashTable alloc] init];
+    _notificationObserver = observer;
+    _tokenWallet = tokenWallet;
+    _settings = settings;
+  }
+  return self;
+}
+
+- (void)initializeSDKWithLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> *)launchOptions
+{
+  if (hasInitializeBeenCalled) {
+    // Do nothing if initialized already
+    return;
+  } else {
+    hasInitializeBeenCalled = YES;
+  }
+  [self configureDependencies];
+
+  Class<FBSDKSettingsLogging> const settingsLogger = self.settings;
+  [settingsLogger logWarnings];
+  [settingsLogger logIfSDKSettingsChanged];
+  [settingsLogger recordInstall];
+
+  [self addObservers];
+
+  [[FBSDKAppEvents singleton] registerNotifications];
+
+  [self application:[UIApplication sharedApplication] didFinishLaunchingWithOptions:launchOptions];
+
+  // In case of sdk autoInit enabled sdk expects one appDidBecomeActive notification after app launch and has some logic to ignore it.
+  // if sdk autoInit disabled app won't receive appDidBecomeActive on app launch and will ignore the first one it gets instead of handling it.
+  // Send first applicationDidBecomeActive notification manually
+  if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+    [self applicationDidBecomeActive:nil];
+  }
+
+  [FBSDKFeatureManager checkFeature:FBSDKFeatureInstrument completionBlock:^(BOOL enabled) {
+    if (enabled) {
+      [FBSDKInstrumentManager enable];
+    }
+  }];
+
+#if !TARGET_OS_TV
+  // Register Listener for App Link measurement events
+  [FBSDKMeasurementEventListener defaultListener];
+  [self _logIfAutoAppLinkEnabled];
+#endif
+  // Set the SourceApplication for time spent data. This is not going to update the value if the app has already launched.
+  [FBSDKTimeSpentData setSourceApplication:launchOptions[UIApplicationLaunchOptionsSourceApplicationKey]
+                                   openURL:launchOptions[UIApplicationLaunchOptionsURLKey]];
+  // Register on UIApplicationDidEnterBackgroundNotification events to reset source application data when app backgrounds.
+  [FBSDKTimeSpentData registerAutoResetSourceApplication];
+
+  [FBSDKInternalUtility validateFacebookReservedURLSchemes];
+}
+
+- (void)addObservers
+{
+  id<FBSDKNotificationObserving> const observer = self.notificationObserver;
+  [observer addObserver:self
+               selector:@selector(applicationDidEnterBackground:)
+                   name:UIApplicationDidEnterBackgroundNotification
+                 object:nil];
+  [observer addObserver:self
+               selector:@selector(applicationDidBecomeActive:)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
+  [observer addObserver:self
+               selector:@selector(applicationWillResignActive:)
+                   name:UIApplicationWillResignActiveNotification
+                 object:nil];
+#if !TARGET_OS_TV
+  [self addObserver:FBSDKBridgeAPI.sharedInstance];
+#endif
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [_notificationObserver removeObserver:self];
+}
+
+- (id<FBSDKNotificationObserving>)notificationObserver
+{
+  return _notificationObserver;
+}
+
+- (Class<FBSDKAccessTokenProviding, FBSDKAccessTokenSetting>)tokenWallet
+{
+  return _tokenWallet;
+}
+
+- (Class<FBSDKSettingsLogging>)settings
+{
+  return _settings;
 }
 
 #pragma mark - UIApplicationDelegate
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_9_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED> __IPHONE_9_0
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    if (@available(iOS 9.0, *)) {
-        return [self application:application
-                         openURL:url
-               sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                      annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-    }
+  return [self application:application
+                    openURL:url
+          sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                 annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
 
-    return NO;
+  return NO;
 }
+
 #endif
 
 - (BOOL)application:(UIApplication *)application
@@ -175,461 +233,319 @@ typedef void (^FBSDKAuthenticationCompletionHandler)(NSURL *_Nullable callbackUR
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    if (sourceApplication != nil && ![sourceApplication isKindOfClass:[NSString class]]) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:@"Expected 'sourceApplication' to be NSString. Please verify you are passing in 'sourceApplication' from your app delegate (not the UIApplication* parameter). If your app delegate implements iOS 9's application:openURL:options:, you should pass in options[UIApplicationOpenURLOptionsSourceApplicationKey]. "
-                                     userInfo:nil];
-    }
-    [FBSDKTimeSpentData setSourceApplication:sourceApplication openURL:url];
+  if (sourceApplication != nil && ![sourceApplication isKindOfClass:[NSString class]]) {
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:@"Expected 'sourceApplication' to be NSString. Please verify you are passing in 'sourceApplication' from your app delegate (not the UIApplication* parameter). If your app delegate implements iOS 9's application:openURL:options:, you should pass in options[UIApplicationOpenURLOptionsSourceApplicationKey]. "
+                                 userInfo:nil];
+  }
+  [FBSDKTimeSpentData setSourceApplication:sourceApplication openURL:url];
 
-#if !TARGET_OS_TV
-    id<FBSDKURLOpening> pendingURLOpen = _pendingURLOpen;
-
-    void (^completePendingOpenURLBlock)(void) = ^{
-        self->_pendingURLOpen = nil;
-        [pendingURLOpen application:application
-                            openURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
-        self->_isDismissingSafariViewController = NO;
-    };
-    // if they completed a SFVC flow, dismiss it.
-    if (_safariViewController) {
-        _isDismissingSafariViewController = YES;
-        [_safariViewController.presentingViewController dismissViewControllerAnimated:YES
-                                                                           completion:completePendingOpenURLBlock];
-        _safariViewController = nil;
-    } else if (@available(iOS 11.0, *)) {
-        if (_authenticationSession != nil) {
-            [_authenticationSession cancel];
-            _authenticationSession = nil;
-        }
-        completePendingOpenURLBlock();
+  BOOL handled = NO;
+  NSArray<id<FBSDKApplicationObserving>> *observers = [_applicationObservers allObjects];
+  for (id<FBSDKApplicationObserving> observer in observers) {
+    if ([observer respondsToSelector:@selector(application:openURL:sourceApplication:annotation:)]) {
+      if ([observer application:application
+                        openURL:url
+              sourceApplication:sourceApplication
+                     annotation:annotation]) {
+        handled = YES;
+      }
     }
+  }
 
-    if ([pendingURLOpen canOpenURL:url
-                    forApplication:application
-                 sourceApplication:sourceApplication
-                        annotation:annotation]) {
-        return YES;
-    }
-    if ([self _handleBridgeAPIResponseURL:url sourceApplication:sourceApplication]) {
-        return YES;
-    }
-#endif
-    [self _logIfAppLinkEvent:url];
+  if (handled) {
+    return YES;
+  }
 
-    return NO;
+  [self _logIfAppLinkEvent:url];
+
+  return NO;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if (_isAppLaunched) {
-        return NO;
-    }
-
-    _isAppLaunched = YES;
-    FBSDKAccessToken *cachedToken = [FBSDKSettings accessTokenCache].accessToken;
-    [FBSDKAccessToken setCurrentAccessToken:cachedToken];
-    // fetch app settings
-    [FBSDKServerConfigurationManager loadServerConfigurationWithCompletionBlock:NULL];
-    // fetch gate keepers
-    [FBSDKGateKeeperManager loadGateKeepers];
-
-    if ([FBSDKSettings autoLogAppEventsEnabled].boolValue) {
-        [self _logSDKInitialize];
-    }
-#if !TARGET_OS_TV
-    FBSDKProfile *cachedProfile = [FBSDKProfile fetchCachedProfile];
-    [FBSDKProfile setCurrentProfile:cachedProfile];
-
-    NSURL *launchedURL = launchOptions[UIApplicationLaunchOptionsURLKey];
-    NSString *sourceApplication = launchOptions[UIApplicationLaunchOptionsSourceApplicationKey];
-
-    if (launchedURL &&
-        sourceApplication) {
-        Class loginManagerClass = NSClassFromString(@"FBSDKLoginManager");
-        if (loginManagerClass) {
-            id annotation = launchOptions[UIApplicationLaunchOptionsAnnotationKey];
-            id<FBSDKURLOpening> loginManager = [[loginManagerClass alloc] init];
-            return [loginManager application:application
-                                     openURL:launchedURL
-                           sourceApplication:sourceApplication
-                                  annotation:annotation];
-        }
-    }
-#endif
+  if (_isAppLaunched) {
     return NO;
+  }
+
+  if (!hasInitializeBeenCalled) {
+    [self initializeSDKWithLaunchOptions:launchOptions];
+  }
+
+  _isAppLaunched = YES;
+
+  // Retrieve cached tokens
+  FBSDKAccessToken *cachedToken = [[self.tokenWallet tokenCache] accessToken];
+  [self.tokenWallet setCurrentAccessToken:cachedToken];
+
+  // fetch app settings
+  [FBSDKServerConfigurationManager loadServerConfigurationWithCompletionBlock:NULL];
+
+  if (FBSDKSettings.isAutoLogAppEventsEnabled) {
+    [self _logSDKInitialize];
+  }
+#if !TARGET_OS_TV
+  FBSDKProfile *cachedProfile = [FBSDKProfile fetchCachedProfile];
+  [FBSDKProfile setCurrentProfile:cachedProfile];
+
+  FBSDKAuthenticationToken *cachedAuthToken = FBSDKAuthenticationToken.tokenCache.authenticationToken;
+  [FBSDKAuthenticationToken setCurrentAuthenticationToken:cachedAuthToken];
+  [FBSDKAuthenticationStatusUtility checkAuthenticationStatus];
+#endif
+  NSArray<id<FBSDKApplicationObserving>> *observers = [_applicationObservers allObjects];
+  BOOL handled = NO;
+  for (id<FBSDKApplicationObserving> observer in observers) {
+    if ([observer respondsToSelector:@selector(application:didFinishLaunchingWithOptions:)]) {
+      if ([observer application:application didFinishLaunchingWithOptions:launchOptions]) {
+        handled = YES;
+      }
+    }
+  }
+
+  return handled;
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
 {
-    _isRequestingSFAuthenticationSession = NO;
-    _active = NO;
-    _expectingBackground = NO;
+  [self setApplicationState:UIApplicationStateBackground];
+  NSArray<id<FBSDKApplicationObserving>> *observers = [_applicationObservers allObjects];
+  for (id<FBSDKApplicationObserving> observer in observers) {
+    if ([observer respondsToSelector:@selector(applicationDidEnterBackground:)]) {
+      [observer applicationDidEnterBackground:notification.object];
+    }
+  }
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    // Auto log basic events in case autoLogAppEventsEnabled is set
-    if ([FBSDKSettings autoLogAppEventsEnabled].boolValue) {
-        [FBSDKAppEvents activateApp];
-    }
-    //  _expectingBackground can be YES if the caller started doing work (like login)
-    // within the app delegate's lifecycle like openURL, in which case there
-    // might have been a "didBecomeActive" event pending that we want to ignore.
-    BOOL notExpectingBackground = !_expectingBackground && !_safariViewController && !_isDismissingSafariViewController && !_isRequestingSFAuthenticationSession;
+  [self setApplicationState:UIApplicationStateActive];
+  // Auto log basic events in case autoLogAppEventsEnabled is set
+  if (FBSDKSettings.isAutoLogAppEventsEnabled) {
+    [FBSDKAppEvents activateApp];
+  }
 #if !TARGET_OS_TV
-    if (@available(iOS 11.0, *)) {
-        if (notExpectingBackground && _authenticationSessionCompletionHandler != nil) {
-            _authenticationSessionCompletionHandler(nil, nil);
-        }
+  [FBSDKSKAdNetworkReporter checkAndRevokeTimer];
+#endif
 
-        notExpectingBackground = notExpectingBackground && !_authenticationSession;
+  NSArray<id<FBSDKApplicationObserving>> *observers = [_applicationObservers copy];
+  for (id<FBSDKApplicationObserving> observer in observers) {
+    if ([observer respondsToSelector:@selector(applicationDidBecomeActive:)]) {
+      [observer applicationDidBecomeActive:notification.object];
     }
-#endif
-    if (notExpectingBackground) {
-        _active = YES;
-#if !TARGET_OS_TV
-        [_pendingURLOpen applicationDidBecomeActive:notification.object];
-        [self _cancelBridgeRequest];
-#endif
-        [[NSNotificationCenter defaultCenter] postNotificationName:FBSDKApplicationDidBecomeActiveNotification object:self];
+  }
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification
+{
+  [self setApplicationState:UIApplicationStateInactive];
+  NSArray<id<FBSDKApplicationObserving>> *const observers = [_applicationObservers copy];
+  for (id<FBSDKApplicationObserving> observer in observers) {
+    if ([observer respondsToSelector:@selector(applicationWillResignActive:)]) {
+      [observer applicationWillResignActive:notification.object];
     }
+  }
 }
 
 #pragma mark - Internal Methods
 
-#pragma mark -- (non-tvos)
+#pragma mark - FBSDKApplicationObserving
 
-#if !TARGET_OS_TV
-
-- (void)openURL:(NSURL *)url sender:(id<FBSDKURLOpening>)sender handler:(void(^)(BOOL, NSError *))handler
+- (void)addObserver:(id<FBSDKApplicationObserving>)observer
 {
-    _expectingBackground = YES;
-    _pendingURLOpen = sender;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // Dispatch openURL calls to prevent hangs if we're inside the current app delegate's openURL flow already
-        NSOperatingSystemVersion iOS10Version = { .majorVersion = 10, .minorVersion = 0, .patchVersion = 0 };
-        if ([FBSDKInternalUtility isOSRunTimeVersionAtLeast:iOS10Version]) {
-            if (@available(iOS 10.0, *)) {
-                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-                    handler(success, nil);
-                }];
-            }
-        } else {
-            BOOL opened = [[UIApplication sharedApplication] openURL:url];
-
-            if ([url.scheme hasPrefix:@"http"] && !opened) {
-                NSOperatingSystemVersion iOS8Version = { .majorVersion = 8, .minorVersion = 0, .patchVersion = 0 };
-                if (![FBSDKInternalUtility isOSRunTimeVersionAtLeast:iOS8Version]) {
-                    // Safari openURL calls can wrongly return NO on iOS 7 so manually overwrite that case to YES.
-                    // Otherwise we would rather trust in the actual result of openURL
-                    opened = YES;
-                }
-            }
-            if (handler) {
-                handler(opened, nil);
-            }
-        }
-    });
+  if (![_applicationObservers containsObject:observer]) {
+    [_applicationObservers addObject:observer];
+  }
 }
 
-- (void)openBridgeAPIRequest:(FBSDKBridgeAPIRequest *)request
-     useSafariViewController:(BOOL)useSafariViewController
-          fromViewController:(UIViewController *)fromViewController
-             completionBlock:(FBSDKBridgeAPICallbackBlock)completionBlock
+- (void)removeObserver:(id<FBSDKApplicationObserving>)observer
 {
-    if (!request) {
-        return;
-    }
-    NSError *error;
-    NSURL *requestURL = [request requestURL:&error];
-    if (!requestURL) {
-        FBSDKBridgeAPIResponse *response = [FBSDKBridgeAPIResponse bridgeAPIResponseWithRequest:request error:error];
-        completionBlock(response);
-        return;
-    }
-    _pendingRequest = request;
-    _pendingRequestCompletionBlock = [completionBlock copy];
-    void (^handler)(BOOL, NSError *) = ^(BOOL openedURL, NSError *anError) {
-        if (!openedURL) {
-            self->_pendingRequest = nil;
-            self->_pendingRequestCompletionBlock = nil;
-            NSError *openedURLError;
-            if ([request.scheme hasPrefix:@"http"]) {
-                openedURLError = [NSError fbErrorWithCode:FBSDKErrorBrowserUnavailable
-                                                  message:@"the app switch failed because the browser is unavailable"];
-            } else {
-                openedURLError = [NSError fbErrorWithCode:FBSDKErrorAppVersionUnsupported
-                                                  message:@"the app switch failed because the destination app is out of date"];
-            }
-            FBSDKBridgeAPIResponse *response = [FBSDKBridgeAPIResponse bridgeAPIResponseWithRequest:request
-                                                                                              error:openedURLError];
-            completionBlock(response);
-            return;
-        }
-    };
-    if (useSafariViewController) {
-        [self openURLWithSafariViewController:requestURL sender:nil fromViewController:fromViewController handler:handler];
-    } else {
-        [self openURL:requestURL sender:nil handler:handler];
-    }
+  if ([_applicationObservers containsObject:observer]) {
+    [_applicationObservers removeObject:observer];
+  }
 }
 
-- (void)openURLWithSafariViewController:(NSURL *)url
-                                 sender:(id<FBSDKURLOpening>)sender
-                     fromViewController:(UIViewController *)fromViewController
-                                handler:(void(^)(BOOL, NSError *))handler
++ (UIApplicationState)applicationState
 {
-    if (![url.scheme hasPrefix:@"http"]) {
-        [self openURL:url sender:sender handler:handler];
-        return;
-    }
-
-    _expectingBackground = NO;
-    _pendingURLOpen = sender;
-
-    if (@available(iOS 11.0, *)) {
-        if ([sender isAuthenticationURL:url]) {
-            [self _setSessionCompletionHandlerFromHandler:handler];
-            [self _openURLWithAuthenticationSession:url];
-            return;
-        }
-    }
-
-    // trying to dynamically load SFSafariViewController class
-    // so for the cases when it is available we can send users through Safari View Controller flow
-    // in cases it is not available regular flow will be selected
-    Class SFSafariViewControllerClass = fbsdkdfl_SFSafariViewControllerClass();
-
-    if (SFSafariViewControllerClass) {
-        UIViewController *parent = fromViewController ?: [FBSDKInternalUtility topMostViewController];
-        if (parent == nil) {
-            [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                               formatString:@"There are no valid ViewController to present SafariViewController with", nil];
-            return;
-        }
-
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        NSURLQueryItem *sfvcQueryItem = [[NSURLQueryItem alloc] initWithName:@"sfvc" value:@"1"];
-        components.queryItems = [components.queryItems arrayByAddingObject:sfvcQueryItem];
-        url = components.URL;
-        FBSDKContainerViewController *container = [[FBSDKContainerViewController alloc] init];
-        container.delegate = self;
-        if (parent.transitionCoordinator != nil) {
-            // Wait until the transition is finished before presenting SafariVC to avoid a blank screen.
-            [parent.transitionCoordinator animateAlongsideTransition:NULL completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-                // Note SFVC init must occur inside block to avoid blank screen.
-                self->_safariViewController = [[SFSafariViewControllerClass alloc] initWithURL:url];
-                // Disable dismissing with edge pan gesture
-                self->_safariViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                [self->_safariViewController performSelector:@selector(setDelegate:) withObject:self];
-                [container displayChildController:self->_safariViewController];
-                [parent presentViewController:container animated:YES completion:nil];
-            }];
-        } else {
-            _safariViewController = [[SFSafariViewControllerClass alloc] initWithURL:url];
-            // Disable dismissing with edge pan gesture
-            _safariViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [_safariViewController performSelector:@selector(setDelegate:) withObject:self];
-            [container displayChildController:_safariViewController];
-            [parent presentViewController:container animated:YES completion:nil];
-        }
-
-        // Assuming Safari View Controller always opens
-        if (handler) {
-            handler(YES, nil);
-        }
-    } else {
-        [self openURL:url sender:sender handler:handler];
-    }
+  return _applicationState;
 }
 
-- (void)_openURLWithAuthenticationSession:(NSURL *)url
+- (void)setApplicationState:(UIApplicationState)state
 {
-    Class AuthenticationSessionClass = fbsdkdfl_ASWebAuthenticationSessionClass();
-
-    if (!AuthenticationSessionClass) {
-        AuthenticationSessionClass = fbsdkdfl_SFAuthenticationSessionClass();
-    }
-
-    if (AuthenticationSessionClass != nil) {
-        if (_authenticationSession != nil) {
-            [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                               formatString:@"There is already a request for authenticated session. Cancelling active SFAuthenticationSession before starting the new one.", nil];
-            [_authenticationSession cancel];
-        }
-        _authenticationSession = [[AuthenticationSessionClass alloc] initWithURL:url
-                                                                   callbackURLScheme:[FBSDKInternalUtility appURLScheme]
-                                                                   completionHandler:_authenticationSessionCompletionHandler];
-        _isRequestingSFAuthenticationSession = YES;
-        [_authenticationSession start];
-    }
+  _applicationState = state;
+  [FBSDKAppEvents setApplicationState:state];
 }
-
-- (void)_setSessionCompletionHandlerFromHandler:(void(^)(BOOL, NSError *))handler
-{
-    __weak typeof(self) weakSelf = self;
-    _authenticationSessionCompletionHandler = ^ (NSURL *aURL, NSError *error) {
-        typeof(self) strongSelf = weakSelf;
-        strongSelf->_isRequestingSFAuthenticationSession = NO;
-        handler(error == nil, error);
-        if (error == nil) {
-            [strongSelf application:[UIApplication sharedApplication] openURL:aURL sourceApplication:@"com.apple" annotation:nil];
-        }
-        strongSelf->_authenticationSession = nil;
-        strongSelf->_authenticationSessionCompletionHandler = nil;
-    };
-}
-
-#pragma mark -- SFSafariViewControllerDelegate
-
-// This means the user tapped "Done" which we should treat as a cancellation.
-- (void)safariViewControllerDidFinish:(UIViewController *)safariViewController
-{
-    if (_pendingURLOpen) {
-        id<FBSDKURLOpening> pendingURLOpen = _pendingURLOpen;
-
-        _pendingURLOpen = nil;
-
-        [pendingURLOpen application:nil
-                            openURL:nil
-                  sourceApplication:nil
-                         annotation:nil];
-
-    }
-    [self _cancelBridgeRequest];
-    _safariViewController = nil;
-}
-
-#pragma mark -- FBSDKContainerViewControllerDelegate
-
-- (void)viewControllerDidDisappear:(FBSDKContainerViewController *)viewController animated:(BOOL)animated
-{
-    if (_safariViewController) {
-        [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                               logEntry:@"**ERROR**:\n The SFSafariViewController's parent view controller was dismissed.\n"
-         "This can happen if you are triggering login from a UIAlertController. Instead, make sure your top most view "
-         "controller will not be prematurely dismissed."];
-        [self safariViewControllerDidFinish:_safariViewController];
-    }
-}
-
-#endif
 
 #pragma mark - Helper Methods
 
 - (void)_logIfAppLinkEvent:(NSURL *)url
 {
-    if (!url) {
-        return;
-    }
-    NSDictionary *params = [FBSDKUtility dictionaryWithQueryString:url.query];
-    NSString *applinkDataString = params[@"al_applink_data"];
-    if (!applinkDataString) {
-        return;
-    }
+  if (!url) {
+    return;
+  }
+  NSDictionary<NSString *, NSString *> *params = [FBSDKBasicUtility dictionaryWithQueryString:url.query];
+  NSString *applinkDataString = params[@"al_applink_data"];
+  if (!applinkDataString) {
+    return;
+  }
 
-    NSDictionary *applinkData = [FBSDKInternalUtility objectForJSONString:applinkDataString error:NULL];
-    if (!applinkData) {
-        return;
-    }
+  NSDictionary<id, id> *applinkData = [FBSDKTypeUtility dictionaryValue:[FBSDKBasicUtility objectForJSONString:applinkDataString error:NULL]];
+  if (!applinkData) {
+    return;
+  }
 
-    NSString *targetURLString = applinkData[@"target_url"];
-    NSURL *targetURL = [targetURLString isKindOfClass:[NSString class]] ? [NSURL URLWithString:targetURLString] : nil;
+  NSString *targetURLString = applinkData[@"target_url"];
+  NSURL *targetURL = [targetURLString isKindOfClass:[NSString class]] ? [NSURL URLWithString:targetURLString] : nil;
 
-    NSMutableDictionary *logData = [[NSMutableDictionary alloc] init];
-    [FBSDKInternalUtility dictionary:logData setObject:targetURL.absoluteString forKey:@"targetURL"];
-    [FBSDKInternalUtility dictionary:logData setObject:targetURL.host forKey:@"targetURLHost"];
+  NSMutableDictionary *logData = [[NSMutableDictionary alloc] init];
+  [FBSDKTypeUtility dictionary:logData setObject:targetURL.absoluteString forKey:@"targetURL"];
+  [FBSDKTypeUtility dictionary:logData setObject:targetURL.host forKey:@"targetURLHost"];
 
-    NSDictionary *refererData = applinkData[@"referer_data"];
-    if (refererData) {
-        [FBSDKInternalUtility dictionary:logData setObject:refererData[@"target_url"] forKey:@"referralTargetURL"];
-        [FBSDKInternalUtility dictionary:logData setObject:refererData[@"url"] forKey:@"referralURL"];
-        [FBSDKInternalUtility dictionary:logData setObject:refererData[@"app_name"] forKey:@"referralAppName"];
-    }
-    [FBSDKInternalUtility dictionary:logData setObject:url.absoluteString forKey:@"inputURL"];
-    [FBSDKInternalUtility dictionary:logData setObject:url.scheme forKey:@"inputURLScheme"];
+  NSDictionary *refererData = applinkData[@"referer_data"];
+  if (refererData) {
+    [FBSDKTypeUtility dictionary:logData setObject:refererData[@"target_url"] forKey:@"referralTargetURL"];
+    [FBSDKTypeUtility dictionary:logData setObject:refererData[@"url"] forKey:@"referralURL"];
+    [FBSDKTypeUtility dictionary:logData setObject:refererData[@"app_name"] forKey:@"referralAppName"];
+  }
+  [FBSDKTypeUtility dictionary:logData setObject:url.absoluteString forKey:@"inputURL"];
+  [FBSDKTypeUtility dictionary:logData setObject:url.scheme forKey:@"inputURLScheme"];
 
-    [FBSDKAppEvents logImplicitEvent:FBSDKAppLinkInboundEvent
-                          valueToSum:nil
-                          parameters:logData
-                         accessToken:nil];
+  [FBSDKAppEvents logInternalEvent:FBSDKAppLinkInboundEvent
+                        parameters:logData
+                isImplicitlyLogged:YES];
 }
 
 - (void)_logSDKInitialize
 {
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    params[@"core_lib_included"] = @1;
-    if (objc_lookUpClass("FBSDKShareDialog") != nil) {
-        params[@"share_lib_included"] = @1;
+  NSDictionary *metaInfo = [NSDictionary dictionaryWithObjects:@[@"login_lib_included",
+                                                                 @"marketing_lib_included",
+                                                                 @"messenger_lib_included",
+                                                                 @"places_lib_included",
+                                                                 @"share_lib_included",
+                                                                 @"tv_lib_included"]
+                                                       forKeys:@[@"FBSDKLoginManager",
+                                                                 @"FBSDKAutoLog",
+                                                                 @"FBSDKMessengerButton",
+                                                                 @"FBSDKPlacesManager",
+                                                                 @"FBSDKShareDialog",
+                                                                 @"FBSDKTVInterfaceFactory"]];
+
+  NSInteger bitmask = 0;
+  NSInteger bit = 0;
+  NSMutableDictionary<NSString *, NSNumber *> *params = NSMutableDictionary.new;
+  [FBSDKTypeUtility dictionary:params setObject:@1 forKey:@"core_lib_included"];
+  for (NSString *className in metaInfo.allKeys) {
+    NSString *keyName = [FBSDKTypeUtility dictionary:metaInfo objectForKey:className ofType:NSObject.class];
+    if (objc_lookUpClass([className UTF8String])) {
+      [FBSDKTypeUtility dictionary:params setObject:@1 forKey:keyName];
+      bitmask |= 1 << bit;
     }
-    if (objc_lookUpClass("FBSDKLoginManager") != nil) {
-        params[@"login_lib_included"] = @1;
-    }
-    if (objc_lookUpClass("FBSDKPlacesManager") != nil) {
-        params[@"places_lib_included"] = @1;
-    }
-    if (objc_lookUpClass("FBSDKMessengerButton") != nil) {
-        params[@"messenger_lib_included"] = @1;
-    }
-    if (objc_lookUpClass("FBSDKMessengerButton") != nil) {
-        params[@"messenger_lib_included"] = @1;
-    }
-    if (objc_lookUpClass("FBSDKTVInterfaceFactory.m") != nil) {
-        params[@"tv_lib_included"] = @1;
-    }
-    if (objc_lookUpClass("FBSDKAutoLog") != nil) {
-        params[@"marketing_lib_included"] = @1;
-    }
-    [FBSDKAppEvents logEvent:@"fb_sdk_initialize" parameters:params];
+    bit++;
+  }
+
+  NSInteger existingBitmask = [[NSUserDefaults standardUserDefaults] integerForKey:FBSDKKitsBitmaskKey];
+  if (existingBitmask != bitmask) {
+    [[NSUserDefaults standardUserDefaults] setInteger:bitmask forKey:FBSDKKitsBitmaskKey];
+    [FBSDKAppEvents logInternalEvent:@"fb_sdk_initialize"
+                          parameters:params
+                  isImplicitlyLogged:NO];
+  }
 }
 
-#pragma mark -- (non-tvos)
+- (void)_logIfAutoAppLinkEnabled
+{
 #if !TARGET_OS_TV
-- (BOOL)_handleBridgeAPIResponseURL:(NSURL *)responseURL sourceApplication:(NSString *)sourceApplication
-{
-    FBSDKBridgeAPIRequest *request = _pendingRequest;
-    FBSDKBridgeAPICallbackBlock completionBlock = _pendingRequestCompletionBlock;
-    _pendingRequest = nil;
-    _pendingRequestCompletionBlock = NULL;
-    if (![responseURL.scheme isEqualToString:[FBSDKInternalUtility appURLScheme]]) {
-        return NO;
+  NSNumber *enabled = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FBSDKAutoAppLinkEnabled"];
+  if (enabled.boolValue) {
+    NSMutableDictionary<NSString *, NSString *> *params = [[NSMutableDictionary alloc] init];
+    if (![FBSDKAppLinkUtility isMatchURLScheme:[NSString stringWithFormat:@"fb%@", [FBSDKSettings appID]]]) {
+      NSString *warning = @"You haven't set the Auto App Link URL scheme: fb<YOUR APP ID>";
+      [FBSDKTypeUtility dictionary:params setObject:warning forKey:@"SchemeWarning"];
+      NSLog(@"%@", warning);
     }
-    if (![responseURL.host isEqualToString:@"bridge"]) {
-        return NO;
-    }
-    if (!request) {
-        return NO;
-    }
-    if (!completionBlock) {
-        return YES;
-    }
-    NSError *error;
-    FBSDKBridgeAPIResponse *response = [FBSDKBridgeAPIResponse bridgeAPIResponseWithRequest:request
-                                                                                responseURL:responseURL
-                                                                          sourceApplication:sourceApplication
-                                                                                      error:&error];
-    if (response) {
-        completionBlock(response);
-        return YES;
-    } else if (error) {
-        completionBlock([FBSDKBridgeAPIResponse bridgeAPIResponseWithRequest:request error:error]);
-        return YES;
-    } else {
-        return NO;
-    }
+    [FBSDKAppEvents logInternalEvent:@"fb_auto_applink" parameters:params isImplicitlyLogged:YES];
+  }
+#endif
 }
 
-- (void)_cancelBridgeRequest
++ (BOOL)isSDKInitialized
 {
-    if (_pendingRequest && _pendingRequestCompletionBlock) {
-        _pendingRequestCompletionBlock([FBSDKBridgeAPIResponse bridgeAPIResponseCancelledWithRequest:_pendingRequest]);
-    }
-    _pendingRequest = nil;
-    _pendingRequestCompletionBlock = NULL;
+  return hasInitializeBeenCalled;
 }
+
+- (void)configureDependencies
+{
+  id<FBSDKGraphRequestProviding> graphRequestProvider = [FBSDKGraphRequestFactory new];
+  id<FBSDKDataPersisting> store = NSUserDefaults.standardUserDefaults;
+  [FBSDKGraphRequest setCurrentAccessTokenStringProvider:FBSDKAccessToken.class];
+  [FBSDKGraphRequestConnection setCanMakeRequests];
+  [FBSDKAppEvents configureWithGateKeeperManager:[FBSDKGateKeeperManager class]
+                  appEventsConfigurationProvider:[FBSDKAppEventsConfigurationManager class]
+                     serverConfigurationProvider:[FBSDKServerConfigurationManager class]
+                            graphRequestProvider:graphRequestProvider
+                                  featureChecker:[FBSDKFeatureManager class]
+                                           store:store
+                                          logger:[FBSDKLogger class]];
+  [FBSDKGateKeeperManager configureWithSettings:FBSDKSettings.class
+                                requestProvider:graphRequestProvider
+                             connectionProvider:[FBSDKGraphRequestConnectionFactory new]
+                                          store:store];
+  FBSDKTokenCache *tokenCache = [FBSDKTokenCache new];
+  [FBSDKAccessToken setTokenCache:tokenCache];
+  [FBSDKAccessToken setConnectionFactory:[FBSDKGraphRequestConnectionFactory new]];
+  [FBSDKAuthenticationToken setTokenCache:tokenCache];
+  [FBSDKSettings configureWithStore:store
+     appEventsConfigurationProvider:FBSDKAppEventsConfigurationManager.class
+             infoDictionaryProvider:NSBundle.mainBundle
+                        eventLogger:[FBSDKEventLogger new]];
+  [FBSDKInternalUtility configureWithInfoDictionaryProvider:NSBundle.mainBundle];
+  [FBSDKGraphRequestPiggybackManager configureWithTokenWallet:FBSDKAccessToken.class];
+  [FBSDKAppEventsConfigurationManager configureWithStore:store];
+#if !TARGET_OS_TV
+  [FBSDKAppLinkUtility configureWithRequestProvider:[FBSDKGraphRequestFactory new]
+                             infoDictionaryProvider:NSBundle.mainBundle];
+  [FBSDKCodelessIndexer configureWithRequestProvider:[FBSDKGraphRequestFactory new]];
+  if (@available(iOS 14.0, *)) {
+    [FBSDKSKAdNetworkReporter configureWithRequestProvider:[FBSDKGraphRequestFactory new]
+                                                     store:store];
+  }
+  [FBSDKProfile configureWithStore:store
+               accessTokenProvider:FBSDKAccessToken.class];
+  [FBSDKWebDialogView configureWithWebViewProvider:[FBSDKWebViewFactory new]
+                                         urlOpener:UIApplication.sharedApplication];
+#endif
+}
+
+// MARK: - Testability
+
+#if DEBUG
+ #if FBSDKTEST
+
++ (void)resetHasInitializeBeenCalled
+{
+  hasInitializeBeenCalled = NO;
+}
+
+- (BOOL)isAppLaunched
+{
+  return _isAppLaunched;
+}
+
+- (void)setIsAppLaunched:(BOOL)isLaunched
+{
+  _isAppLaunched = isLaunched;
+}
+
+- (NSHashTable<id<FBSDKApplicationObserving>> *)applicationObservers
+{
+  return _applicationObservers;
+}
+
+- (void)resetApplicationObserverCache
+{
+  _applicationObservers = [NSHashTable new];
+}
+
+ #endif
 #endif
 
 @end

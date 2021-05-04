@@ -16,6 +16,8 @@
 
 #import "FUIAuthPickerViewController.h"
 
+#import <AuthenticationServices/AuthenticationServices.h>
+
 #import <FirebaseAuth/FirebaseAuth.h>
 #import "FUIAuthBaseViewController_Internal.h"
 #import "FUIAuthSignInButton.h"
@@ -42,12 +44,22 @@ static const CGFloat kSignInButtonVerticalMargin = 24.0f;
 /** @var kButtonContainerBottomMargin
     @brief The magin between sign in buttons and the bottom of the content view.
  */
-static const CGFloat kButtonContainerBottomMargin = 56.0f;
+static const CGFloat kButtonContainerBottomMargin = 48.0f;
 
 /** @var kButtonContainerTopMargin
     @brief The margin between sign in buttons and the top of the content view.
  */
 static const CGFloat kButtonContainerTopMargin = 16.0f;
+
+/** @var kTOSViewBottomMargin
+    @brief The margin between privacy policy and TOS view and the bottom of the content view.
+ */
+static const CGFloat kTOSViewBottomMargin = 24.0f;
+
+/** @var kTOSViewHorizontalMargin
+    @brief The margin between privacy policy and TOS view and the left or right of the content view.
+ */
+static const CGFloat kTOSViewHorizontalMargin = 16.0f;
 
 @implementation FUIAuthPickerViewController {
   UIView *_buttonContainerView;
@@ -55,7 +67,7 @@ static const CGFloat kButtonContainerTopMargin = 16.0f;
   IBOutlet FUIPrivacyAndTermsOfServiceView *_privacyPolicyAndTOSView;
 
   IBOutlet UIView *_contentView;
-  
+
   IBOutlet UIScrollView *_scrollView;
 }
 
@@ -81,6 +93,11 @@ static const CGFloat kButtonContainerTopMargin = 16.0f;
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+  // Makes sure that embedded scroll view properly handles translucent navigation bar
+  if (!self.navigationController.navigationBar.isTranslucent) {
+    self.extendedLayoutIncludesOpaqueBars = true;
+  }
+
   if (!self.authUI.shouldHideCancelButton) {
     UIBarButtonItem *cancelBarButton =
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
@@ -88,6 +105,12 @@ static const CGFloat kButtonContainerTopMargin = 16.0f;
                                                       action:@selector(cancelAuthorization)];
     self.navigationItem.leftBarButtonItem = cancelBarButton;
   }
+  if (@available(iOS 13, *)) {
+    if (!self.authUI.interactiveDismissEnabled) {
+      self.modalInPresentation = YES;
+    }
+  }
+
   self.navigationItem.backBarButtonItem =
       [[UIBarButtonItem alloc] initWithTitle:FUILocalizedString(kStr_Back)
                                        style:UIBarButtonItemStylePlain
@@ -134,18 +157,18 @@ static const CGFloat kButtonContainerTopMargin = 16.0f;
   // old layout behavior.
   if (!_scrollView) {
     CGFloat distanceFromCenterToBottom =
-        CGRectGetHeight(_buttonContainerView.frame) / 2.0f + kButtonContainerBottomMargin;
+        CGRectGetHeight(_buttonContainerView.frame) / 2.0f + kButtonContainerBottomMargin + kTOSViewBottomMargin;
     CGFloat centerY = CGRectGetHeight(self.view.bounds) - distanceFromCenterToBottom;
     // Compensate for bounds adjustment if any.
     centerY += self.view.bounds.origin.y;
     _buttonContainerView.center = CGPointMake(self.view.center.x, centerY);
     return;
   }
-  
+
   CGFloat buttonContainerHeight = CGRectGetHeight(_buttonContainerView.frame);
   CGFloat buttonContainerWidth = CGRectGetWidth(_buttonContainerView.frame);
-  CGFloat contentViewHeight = kButtonContainerTopMargin +
-      buttonContainerHeight + kButtonContainerBottomMargin;
+  CGFloat contentViewHeight = kButtonContainerTopMargin + buttonContainerHeight
+      + kButtonContainerBottomMargin + kTOSViewBottomMargin;
   CGFloat contentViewWidth = CGRectGetWidth(self.view.bounds);
   _scrollView.frame = self.view.frame;
   CGFloat scrollViewHeight;
@@ -168,7 +191,10 @@ static const CGFloat kButtonContainerTopMargin = 16.0f;
                                          buttonContainerWidth,
                                          buttonContainerHeight);
   CGFloat privacyViewHeight = CGRectGetHeight(_privacyPolicyAndTOSView.frame);
-  _privacyPolicyAndTOSView.frame = CGRectMake(0, contentViewHeight - privacyViewHeight, contentViewWidth, privacyViewHeight);
+  _privacyPolicyAndTOSView.frame = CGRectMake(kTOSViewHorizontalMargin, contentViewHeight
+                                              - privacyViewHeight - kTOSViewBottomMargin,
+                                              contentViewWidth - kTOSViewHorizontalMargin*2,
+                                              privacyViewHeight);
 }
 
 #pragma mark - Actions
