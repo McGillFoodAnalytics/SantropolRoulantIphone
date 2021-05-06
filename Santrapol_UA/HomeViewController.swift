@@ -22,15 +22,18 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     var useref = Database.database().reference().child("users");
     var events = Database.database().reference().child("EventRegister")
     
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventSection
-        
         let details: Model
         details = EventList[indexPath.row]
         cell.Date.text = details.eventdate
         cell.Location.text = details.loc
         cell.Slot.text = details.slot
         
+        if let btnDelete = cell.contentView.viewWithTag(102) as? UIButton {
+                    btnDelete.addTarget(self, action: #selector(deleteRow), for: .touchUpInside)
+            }
         return cell
         
     }
@@ -41,10 +44,13 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     private func tableView(tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
+    @objc func deleteRow(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView)
+                guard let indexPath = tableView.indexPathForRow(at: point) else {
+                    return
+                }
             var alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
             var YesAction = UIAlertAction(title: "", style: .default)
             var NoAction = UIAlertAction(title: "", style: .default)
@@ -105,7 +111,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                     
                         self.EventList.remove(at: indexPath.row)
                     
-                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 
                     }
                 }
@@ -170,7 +176,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                     
                         self.EventList.remove(at: indexPath.row)
                     
-                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 
                     }
                 }
@@ -185,8 +191,6 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
             alert.addAction(NoAction)
             
             self.present(alert, animated: true, completion: nil)
-            
-        }
         
     }
     
