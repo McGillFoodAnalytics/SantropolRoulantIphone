@@ -200,9 +200,9 @@
 //"OdM-JB-wmh.text" = "PERSONAL";
 "OdM-JB-wmh.text" = "PERSONNEL";
 
-/* Class = "UILabel"; text = "Non-driver"; ObjectID = "OyH-4O-SJF"; */
-//"OyH-4O-SJF.text" = "Non-driver";
-"OyH-4O-SJF.text" = "Autre";
+/* Class = "UILabel"; text = "Walk/Bike/Bus"; ObjectID = "OyH-4O-SJF; */
+//"OyH-4O-SJF.text" = "Walk/Bike/Bus";
+"OyH-4O-SJF.text" = "Pied/Vélo/Bus";
 
 /* Class = "UILabel"; text = "Current Volunteers:"; ObjectID = "QGE-Oh-CHG"; */
 //"QGE-Oh-CHG.text" = "Current Volunteers:";
