@@ -126,7 +126,7 @@ class PersonalInformation: UIViewController {
         super.viewDidLoad()
         
 
-firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
+        firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
         
         lastNameField.frame.size.width = UIScreen.main.bounds.width - 58
         
@@ -136,10 +136,13 @@ firstNameField.frame.size.width = UIScreen.main.bounds.width - 58
         lastNameField.setBottomBorder(withColor: UIColor.white)
         dobField.setBottomBorder(withColor: UIColor.white)
         
+        if #available(iOS 14, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
+        }
         dobField.inputView = datePicker
-
-        
     }
+    
     
     // provides the user input to the personal contact class
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
