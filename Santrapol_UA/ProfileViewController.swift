@@ -87,6 +87,16 @@ class ProfileEdit: UIViewController, UITextFieldDelegate {
     lazy var datePicker: UIDatePicker = {
         
         let picker = UIDatePicker()
+        
+        // Max date
+        let maxDate = Date()
+        picker.maximumDate = maxDate
+        
+        if #available(iOS 14, *) {
+            picker.preferredDatePickerStyle = .wheels
+            picker.sizeToFit()
+        }
+        
         picker.datePickerMode = .date
         
         picker.addTarget(self, action: #selector(datePickerChanged(_:)), for: .valueChanged)

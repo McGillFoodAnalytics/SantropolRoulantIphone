@@ -136,6 +136,10 @@ class PersonalInformation: UIViewController {
         lastNameField.setBottomBorder(withColor: UIColor.white)
         dobField.setBottomBorder(withColor: UIColor.white)
         
+        // Max date
+        let maxDate = Date()
+        datePicker.maximumDate = maxDate
+        
         if #available(iOS 14, *) {
             datePicker.preferredDatePickerStyle = .wheels
             datePicker.sizeToFit()
