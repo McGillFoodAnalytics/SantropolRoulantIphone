@@ -22,8 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var registered: String! = ""
     var eventtype: String!
     var eventdate: Int!
-    
- 
+    // var note: String!
 
     
     var checked = [Bool]()
@@ -179,6 +178,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let event_time_end = dict?["event_time_end"] as? String
                 let event_int = dict?["event_date"] as? Int ?? 0
                 let event_type = dict?["event_type"] as? String
+                let note = dict?["note"] as? String
                 
                 Database.database().reference().child("event").queryOrderedByKey().queryStarting(atValue: String(event_int) + self.location_start_query_1 + "01").queryEnding(atValue: String(event_int) + self.location_end_query_1 + "99").observe(.value, with: { (snapshot) in
                     
@@ -247,7 +247,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.cap.text = "\(details.cap ?? 0) spots available"
         
-
+        // cell.note.text = details.note
+        
         return cell
     }
     

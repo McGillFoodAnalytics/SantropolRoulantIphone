@@ -21,32 +21,36 @@ class Model {
     var event_time_end: String?
     var is_important_event: Bool?
     var event_date: Int?
+    var note: String?
 
-    init(cap: Int?, loc:String?, eventdate:String?, slot:String?, usercount: Int?, driverCap: Int?) {
+    init(cap: Int?, loc:String?, eventdate:String?, slot:String?, usercount: Int?, driverCap: Int?, note: String?) {
         self.cap = cap
         self.eventdate = eventdate
         self.loc = loc
         self.slot = slot
         self.usercount = usercount
         self.driverCap = driverCap
+        self.note = note
     }
     
-    init(loc:String?, eventdate:String?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?) {
+    init(loc:String?, eventdate:String?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?, note: String?) {
         self.loc = loc
         self.eventdate = eventdate
         self.slot = slot
         self.event_time_start = event_time_start
         self.event_time_end = event_time_end
         self.eventid = eventid
+        self.note = note
     }
     
-    init(loc:String?, eventdate_int:Int?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?) {
+    init(loc:String?, eventdate_int:Int?, slot:String?, event_time_start: String?, event_time_end: String?, eventid: String?, note: String?) {
         self.loc = loc
         self.eventdate_int = eventdate_int
         self.slot = slot
         self.event_time_start = event_time_start
         self.event_time_end = event_time_end
         self.eventid = eventid
+        self.note = note
     }
     
     init(availableDate: String?, slot:String?) {
@@ -67,6 +71,9 @@ class Model {
         self.is_important_event = is_important_event
         self.event_date = event_date
 
+    }
+    init(note: String?) {
+        self.note = note
     }
 }
 
@@ -110,6 +117,7 @@ class EventDisplay {
     var event_int: Int?
     var event_type: String?
     var cap: Int?
+    var note: String?
     
     init(eventdate: String?, event_start: String?, event_end: String?, event_int: Int?, event_type:String?, cap:Int?) {
         self.eventdate = eventdate

@@ -30,6 +30,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
         cell.Date.text = details.eventdate
         cell.Location.text = details.loc
         cell.Slot.text = details.slot
+        cell.Note.text = details.note
         
         if let btnDelete = cell.contentView.viewWithTag(102) as? UIButton {
                     btnDelete.addTarget(self, action: #selector(deleteRow), for: .touchUpInside)
@@ -260,6 +261,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 let date = dict?["event_date"] as? Int
                 let event_time_start = dict?["event_time_start"] as? String
                 let event_time_end = dict?["event_time_end"] as? String
+                let note = dict?["note"] as? String
                 
                 let type = dict?["event_type"] as? String
                 
@@ -314,7 +316,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
                 let slot = event_time_start! + "-" + event_time_end!
                 
                 
-                let event = Model(loc: type1, eventdate: date_text_format, slot: slot, event_time_start: event_time_start, event_time_end: event_time_end, eventid: eventid)
+                let event = Model(loc: type1, eventdate: date_text_format, slot: slot, event_time_start: event_time_start, event_time_end: event_time_end, eventid: eventid, note: note)
                 
                 self.EventList.append(event)
                 

@@ -119,7 +119,6 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
             location_start_query = "deldr"
             location_end_query = "deliv"
             
-            
         } else if typecontroller == "Kitchen AM" {
             
             location_start_query = "kitam"

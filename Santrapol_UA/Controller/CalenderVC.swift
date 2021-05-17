@@ -192,10 +192,8 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         
         
         if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver" {
-            
             location_start_query = "deldr"
             location_end_query = "deliv"
-            
             
         } else if typecontroller == "Kitchen AM" {
             

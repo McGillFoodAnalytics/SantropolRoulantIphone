@@ -18,8 +18,8 @@ class EventSection: UITableViewCell {
     @IBOutlet weak var Location: UILabel!
     
     @IBOutlet weak var Slot: UILabel!
-    
-    
+
+    @IBOutlet weak var Note: UILabel!
     
 }
 
@@ -28,5 +28,4 @@ class AvailableEvents: UITableViewCell{
     @IBOutlet weak var Date: UILabel!
     @IBOutlet weak var slot: UILabel!
     @IBOutlet weak var cap: UILabel!
-    
 }
