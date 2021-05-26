@@ -217,7 +217,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                         let _ = dict?["event_date"] as? Int
                         
                         
-                        let nameAttendee = Names(firstName: first_name, lastName: last_name, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end, note: note)
+                        let nameAttendee = Names(firstName: first_name, lastName: last_name, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end)
                         
                         // Create array here
                         
@@ -287,8 +287,8 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         
         var namesRegistered2 = namesRegistered
         
-        let userdummy1 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "", note: "")
-        let userdummy2 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "", note: "")
+        let userdummy1 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
+        let userdummy2 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
         
         namesRegistered2.append(userdummy1)
         namesRegistered2.append(userdummy2)
