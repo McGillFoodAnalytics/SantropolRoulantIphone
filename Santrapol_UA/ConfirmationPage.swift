@@ -32,7 +32,7 @@ class ConfirmationPage: UIViewController {
     @IBOutlet weak var driverLbl1: UILabel!
     @IBOutlet weak var driverLbl2: UILabel!
     
-    @IBOutlet weak var additionalNotes: UITextField!
+    @IBOutlet weak var additionalNotes: UITextView!
     
     @IBOutlet weak var switchNew: UISwitch!
     @IBOutlet weak var switchDriver: UISwitch!
@@ -88,7 +88,7 @@ class ConfirmationPage: UIViewController {
         
         additionalNotes.frame =  CGRect(x: 30, y: 0, width: (UIScreen.main.bounds.width - 27 - 20 - 10 - 10), height: 30)
         
-        additionalNotes.setBottomBorder(withColor: UIColor.white)
+        // additionalNotes.setBottomBorder(withColor: UIColor.white)
         
         self.navigationItem.title = "Confirmation"
         self.eventDateLbl.text = eventDate
@@ -263,7 +263,6 @@ class ConfirmationPage: UIViewController {
             
             let updateRef = Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", slotNumberSelected))
             
-            
             let childUpdates = [
                 
                 "key": userInformation[0].user_key as Any,
@@ -338,7 +337,6 @@ class ConfirmationPage: UIViewController {
             }
                     
                     let updateRef = Database.database().reference().child("event").child(String(self.eventint) + event_type_register + String(format: "%02d", slotNumberSelected))
-                    
                     
                     let childUpdates = [
                         

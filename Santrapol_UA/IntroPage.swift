@@ -935,9 +935,9 @@ class PersonalPassword: UIViewController, UITextFieldDelegate {
                         
                     }}
   
-                   alert.addAction(RetryAction)
+                   // alert.addAction(RetryAction)
                 
-                   self.present(alert, animated: true, completion: nil)
+                   // self.present(alert, animated: true, completion: nil)
                 
                 
                 print(key)
