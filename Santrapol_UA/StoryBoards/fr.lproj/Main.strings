@@ -412,8 +412,8 @@
 "pi5-2X-Yz3.text" = "Étiquette";
 
 /* Class = "UILabel"; text = "Are there remarks you want us to know?"; ObjectID = "pxY-Xt-KSX"; */
-//"pxY-Xt-KSX.text" = "Are there remarks you want us to know?";
-"pxY-Xt-KSX.text" = "Avez-vous des commentaires?";
+//"pxY-Xt-KSX.text" = "Are there remarks you want us to know? (i.e. bringing your own car, bike, or route preference)";
+"pxY-Xt-KSX.text" = "Avez-vous des commentaires? (ex. apporter votre propre voiture, vélo ou itinéraire préféré)";
 
 /* Class = "UIViewController"; title = "goToVolunteerSignUp"; ObjectID = "qnQ-Lz-JwL"; */
 //"qnQ-Lz-JwL.title" = "goToVolunteerSignUp";
