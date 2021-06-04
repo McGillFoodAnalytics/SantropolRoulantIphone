@@ -191,10 +191,12 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         //        vc.detach()
         
         
-        if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver" {
+        if typecontroller == "Meal Delivery Driver" {
             location_start_query = "deldr"
+            location_end_query = "deldr"
+        } else if typecontroller == "Meal Delivery Non-Driver" {
+            location_start_query = "deliv"
             location_end_query = "deliv"
-            
         } else if typecontroller == "Kitchen AM" {
             
             location_start_query = "kitam"
@@ -204,7 +206,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             
             location_start_query = "kitpm"
             location_end_query = "kitps"
-            
         }
         
         // Load stuff from the firebase and append to the bookedSlotDate array

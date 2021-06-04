@@ -82,7 +82,6 @@ class Names {
     var firstName: String?
     var lastName: String?
     var uid: String?
-    var key: String?
     var driver: Bool?
     var event_type_user: String?
     var event_start: String?
@@ -97,10 +96,9 @@ class Names {
         self.event_type_user = event_type_user
     }
     
-    init(firstName: String?, lastName: String?, key: String?, uid: String?, driver: Bool?, event_type_user: String?, event_start: String?, event_end: String?) {
+    init(firstName: String?, lastName: String?, uid: String?, driver: Bool?, event_type_user: String?, event_start: String?, event_end: String?) {
         self.firstName = firstName
         self.lastName = lastName
-        self.key = key
         self.uid = uid
         self.driver = driver
         self.event_type_user = event_type_user

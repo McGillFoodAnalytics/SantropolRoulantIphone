@@ -206,8 +206,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                         let first_name = dict?["first_name"] as? String
                         let last_name = dict?["last_name"] as? String
                         
-                        let user_key = dict?["key"] as? String
-                        let user_id = dict?["uid"] as? String
+                        let user_id = dict?["key"] as? String
                         
                         let driver = self.isADriver
                         
@@ -217,7 +216,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                         let _ = dict?["event_date"] as? Int
                         
                         
-                        let nameAttendee = Names(firstName: first_name, lastName: last_name, key: user_key, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end)
+                        let nameAttendee = Names(firstName: first_name, lastName: last_name, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end)
                         
                         // Create array here
                         
@@ -288,8 +287,8 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         
         var namesRegisteredDummy = namesRegistered
         
-        let userdummy1 = Names(firstName: "", lastName: "", key: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
-        let userdummy2 = Names(firstName: "", lastName: "", key: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
+        let userdummy1 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
+        let userdummy2 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
         
         namesRegisteredDummy.append(userdummy1)
         namesRegisteredDummy.append(userdummy2)
@@ -384,13 +383,11 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         let number = indexPath.row
         
         
-        let namesRegisteredArrayUid = namesRegistered.map {$0.uid}
-        let namesRegisteredArrayKey = namesRegistered.map {$0.key}
-
+        let namesRegisteredArray = namesRegistered.map {$0.uid}
         
         // The following block of code prevents a user from registering twice to the same event (disabled for now for development purposes)
         
-        if namesRegisteredArrayUid .contains(userid)  {
+        if namesRegisteredArray .contains(userid)  {
          
         // Create an alert blocking the user to register for this event
         
