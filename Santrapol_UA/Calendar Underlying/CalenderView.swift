@@ -137,10 +137,15 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.isHidden=true
         } else {
             let calcDate = indexPath.row-firstWeekDayOfMonth+2
+            let maxDaysInAdvance = 24
             cell.isHidden=false
             cell.dateLbl.text="\(calcDate)"
-            
+            // Past
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
+                cell.isUserInteractionEnabled=false
+                cell.dateLbl.textColor = UIColor.lightGray
+            // Too far in the future
+            } else if (calcDate > todaysDate + maxDaysInAdvance && currentMonthIndex == presentMonthIndex) || (calcDate > (maxDaysInAdvance-(numOfDaysInMonth[currentMonthIndex]-todaysDate)) && currentMonthIndex > presentMonthIndex) && currentYear == presentYear  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){

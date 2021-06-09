@@ -397,7 +397,7 @@
 
 /* Class = "UILabel"; text = "Let's get in touch!"; ObjectID = "oDe-oN-nqI"; */
 //"oDe-oN-nqI.text" = "Let's get in touch!";
-"oDe-oN-nqI.text" = "Contactez nous!";
+"oDe-oN-nqI.text" = "Contactez-nous!";
 
 /* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "oyv-fG-LtF"; */
 //"oyv-fG-LtF.normalTitle" = "Logout";
