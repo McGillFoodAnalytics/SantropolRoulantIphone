@@ -30,6 +30,8 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     var currentMonthIndex = Calendar.current.component(.month, from: Date())
     var firstWeekDayOfMonth = 0
     
+    //static var fullSlotDate = [Int]()
+    //static var noSlotDate = [Int]()
     static var bookedSlotDate = [Int]()
     var location_start_query: String = ""
     var location_end_query: String = ""
@@ -219,17 +221,19 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                 let childSnapshot = child as? DataSnapshot
                 let dict = childSnapshot?.value as? [String:Any]
                 
+                
+                // Important events
                 let is_important_event = dict?["is_important_event"] as? Bool
                 
                 let eventint = dict?["event_date"] as? Int
                 
                 let intEvent = Model(is_important_event: is_important_event, event_date: eventint)
                 
-                
-                
                 self.datesImportant.append(intEvent)
-
                 
+                // Check registered
+                //let first_name = dict?["first_name"] as? String
+                //let last_name = dict?["last_name"] as? String
     
 
                 // Remove duplicates (optional step)

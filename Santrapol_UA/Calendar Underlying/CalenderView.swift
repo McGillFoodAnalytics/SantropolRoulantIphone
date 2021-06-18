@@ -10,7 +10,7 @@ import UIKit
 
 struct Colors {
     static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
-    static var darkRed = #colorLiteral(red: 0.6980392157, green: 0.4, blue: 1, alpha: 1)
+    static var darkRed = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
     static var backgroundImportant = #colorLiteral(red: 0.6980392157, green: 0.4, blue: 1, alpha: 0.3247538527)
 }
 
@@ -121,8 +121,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -141,6 +139,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.isHidden=false
             cell.dateLbl.text="\(calcDate)"
             // Past
+            
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
@@ -153,7 +152,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = UIColor.white
-                
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor
