@@ -31,7 +31,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     var firstWeekDayOfMonth = 0
     
     //static var fullSlotDate = [Int]()
-    //static var noSlotDate = [Int]()
+    static var noSlotDate = [20210615]
     static var bookedSlotDate = [Int]()
     var location_start_query: String = ""
     var location_end_query: String = ""
@@ -39,7 +39,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     
     
      let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
-    
     
     
     @objc func didTapEditButton(sender: AnyObject) {
@@ -64,7 +63,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             SVProgressHUD.show()
         }
     }
-    
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -164,7 +162,8 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             let indexPathForFirstRow = IndexPath(row: Calendar.current.component(.day, from: Date()) + firstWeekDayOfMonth - 2, section: 0)
             calenderView.myCollectionView.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionView.ScrollPosition.left)
             calenderView.collectionView(calenderView.myCollectionView, didSelectItemAt: indexPathForFirstRow)
-            // This is the first time this instance of the view controller will appear
+
+        // This is the first time this instance of the view controller will appear
         } else {
             
             // This controller is appearing because another was just dismissed
@@ -178,7 +177,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         return day == 8 ? 1 : day
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -187,7 +185,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                 //Create a view controller that inherits BottomSheetController and attach to the current viewcontroller
                 //Add bottom sheet to the current viewcontroller
                 vc.attach(to: self)
-       
                 
         //        //Remove sheet from the current viewcontroller
         //        vc.detach()
@@ -248,6 +245,14 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             
             CalenderVC.bookedSlotDate = CalenderVC.bookedSlotDate.unique()
             print(CalenderVC.bookedSlotDate)
+            
+            
+            
+            
+            // Number registered
+            // let vc2 = self.vc
+            // let numberSpots = self.vc.numberSpotsLbl.text
+            // print(numberSpots)
     
             // The next few lines ensure that the view is added AFTER the firebase actions are performed. This allows the important dates to be displayed appropriately as they will ALWAYS be loaded before this view is initiated.
             
@@ -259,9 +264,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             self.calenderView.heightAnchor.constraint(equalToConstant: 365).isActive=true
             
             self.view.sendSubviewToBack(self.calenderView)
-    
-            
-            
             
             // Alert if there are important dates to attract user attention.
             

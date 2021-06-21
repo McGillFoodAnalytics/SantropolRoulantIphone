@@ -11,7 +11,7 @@ import UIKit
 struct Colors {
     static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
     static var darkRed = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-    static var backgroundImportant = #colorLiteral(red: 0.6980392157, green: 0.4, blue: 1, alpha: 0.3247538527)
+    static var backgroundImportant = #colorLiteral(red: 0.3966054916, green: 0, blue: 0.3837408721, alpha: 1)
 }
 
 struct Style {
@@ -81,10 +81,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func changeTheme() {
         myCollectionView.reloadData()
         
-        
-        
-        
-        
         monthView.lblName.textColor = Style.monthViewLblColor
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
@@ -120,6 +116,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
+        
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
@@ -128,8 +125,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
+
         cell.backgroundColor=UIColor.clear
         if indexPath.item <= firstWeekDayOfMonth - 2 {
             cell.isHidden=true
@@ -148,10 +145,13 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
+                print(CalenderVC.bookedSlotDate)
                 cell.backgroundColor = Colors.backgroundImportant
-                
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = UIColor.white
+            //} else if CalenderVC.noSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
+            //   cell.isUserInteractionEnabled=false
+            // cell.dateLbl.textColor = UIColor.lightGray
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor
