@@ -135,7 +135,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             let maxDaysInAdvance = 24
             cell.isHidden=false
             cell.dateLbl.text="\(calcDate)"
-            // Past
             
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
                 cell.isUserInteractionEnabled=false

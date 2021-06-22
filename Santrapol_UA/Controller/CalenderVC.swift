@@ -31,15 +31,14 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     var firstWeekDayOfMonth = 0
     
     //static var fullSlotDate = [Int]()
-    static var noSlotDate = [20210615]
+    // static var noSlotDate = [20210615]
     static var bookedSlotDate = [Int]()
     var location_start_query: String = ""
     var location_end_query: String = ""
     var datesImportant = [Model]()
     
     
-     let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
-    
+    let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
     
     @objc func didTapEditButton(sender: AnyObject) {
         
@@ -175,6 +174,10 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     func getFirstWeekDay() -> Int {
         let day = ("\(currentYear)-\(currentMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
         return day == 8 ? 1 : day
+    }
+    
+    func getReg() -> String {
+        return vc.numberSpotsLbl.text!
     }
     
     override func viewDidLoad() {
