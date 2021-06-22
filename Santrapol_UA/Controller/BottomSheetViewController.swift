@@ -47,7 +47,6 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
     var slotNumberSelected: Int = 0
     
     let userid = Auth.auth().currentUser!.uid
-    
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -114,11 +113,12 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         
         
         // Determine the scope of the Firebase query
-        if typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver"  {
-            
+        if typecontroller == "Meal Delivery Driver" {
             location_start_query = "deldr"
+            location_end_query = "deldr"
+        } else if typecontroller == "Meal Delivery Non-Driver" {
+            location_start_query = "deliv"
             location_end_query = "deliv"
-            
         } else if typecontroller == "Kitchen AM" {
             
             location_start_query = "kitam"
@@ -128,7 +128,6 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
             
             location_start_query = "kitpm"
             location_end_query = "kitps"
-            
         }
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -213,11 +212,11 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                         
                         let event_start = dict?["event_time_start"] as? String
                         let event_end = dict?["event_time_end"] as? String
-                        let note = dict?["note"] as? String
+                        // let note = dict?["note"] as? String
                         let _ = dict?["event_date"] as? Int
                         
                         
-                        let nameAttendee = Names(firstName: first_name, lastName: last_name, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end, note: note)
+                        let nameAttendee = Names(firstName: first_name, lastName: last_name, uid: user_id, driver: driver, event_type_user: event_type, event_start: event_start, event_end: event_end)
                         
                         // Create array here
                         
@@ -279,35 +278,31 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         return namesRegistered.count + 2
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SimpleTableCell", for: indexPath) as! SimpleTableCell
         
         var image:UIImage? = nil
         
-        var namesRegistered2 = namesRegistered
+        var namesRegisteredDummy = namesRegistered
         
-        let userdummy1 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "", note: "")
-        let userdummy2 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "", note: "")
+        let userdummy1 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
+        let userdummy2 = Names(firstName: "", lastName: "", uid: "", driver: false, event_type_user: "", event_start: "", event_end: "")
         
-        namesRegistered2.append(userdummy1)
-        namesRegistered2.append(userdummy2)
-        
+        namesRegisteredDummy.append(userdummy1)
+        namesRegisteredDummy.append(userdummy2)
         
         let details: Names
         
-        details = namesRegistered2[indexPath.row]
+        
+        details = namesRegisteredDummy[indexPath.row]
         
         
-        
-        
-        if indexPath.row < 2 && (typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver") {
+        if indexPath.row < 4 && typecontroller == "Meal Delivery Driver" {
             image = UIImage(named: "suv")
-            
-            
         }
-        
-        
+        /*
         if (typecontroller == "Meal Delivery Driver" && indexPath.row > 1) || (typecontroller == "Meal Delivery Non-Driver" && indexPath.row < 2)  {
             
             
@@ -325,7 +320,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
             }
             
         } else {
-            
+        */
             cell.backgroundColor = UIColor.white
             
             if indexPath.row > namesRegistered.count - 1 {
@@ -338,11 +333,12 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                 
                 
             }
-        }
+       // }
         
         
         // Show the notes if
-        if indexPath.row < 2 && (typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver") && details.note != "" {
+        /*
+        if indexPath.row < 3 && (typecontroller == "Meal Delivery Driver" || typecontroller == "Meal Delivery Non-Driver") && details.note != "" {
             
             if details.lastName == "" {
                 
@@ -359,9 +355,9 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                 
             }
 
-            
+        
         } else  {
-            
+         */
             if details.lastName == "" {
                 
                 let model = SimpleTableCellViewModel(image: image, title: "\(indexPath.row + 1). \(details.firstName ?? "") \(details.lastName?.prefix(1) ?? "")", subtitle: "Subtitle \(indexPath.row)")
@@ -374,11 +370,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
                 cell.configure(model: model)
             }
             
-        }
-        
-        
-        
-        
+        //}
         
         return cell
     }
@@ -395,7 +387,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         
         // The following block of code prevents a user from registering twice to the same event (disabled for now for development purposes)
         
-        if namesRegisteredArray.contains(userid) {
+        if namesRegisteredArray .contains(userid)  {
          
         // Create an alert blocking the user to register for this event
         
@@ -423,6 +415,7 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
             return
         }
         
+       /*
         if typecontroller == "Meal Delivery Non-Driver"{
             
             self.slotNumberSelected = number - 1
@@ -432,15 +425,20 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
             self.slotNumberSelected = number + 1
             
         }
-        
-        
+        */
+        self.slotNumberSelected = number + 1
+        /*
         if typecontroller == "Meal Delivery Driver" && self.slotNumberSelected > 2 {
             
             // do nothing, user selected a non-driver spot
         } else if typecontroller == "Meal Delivery Non-Driver" && self.slotNumberSelected < 1 {
-            
+        
             // do nothing, user selected a driver spot
-        } else if (namesRegistered[number].uid ?? "" == "nan") && number < namesRegistered.count + 1  {
+        
+        
+        }
+         */
+        if (namesRegistered[number].uid ?? "" == "nan") && number < namesRegistered.count + 1  {
             
             performSegue(withIdentifier: "goConfirmationPage", sender: self)
             

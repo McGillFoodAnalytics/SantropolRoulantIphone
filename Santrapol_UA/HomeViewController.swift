@@ -21,6 +21,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     
     var useref = Database.database().reference().child("users");
     var events = Database.database().reference().child("EventRegister")
+
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -214,6 +215,21 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
             // Fallback on earlier versions
         }
         self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.flashScrollIndicators()
+        
+        // Flash again with delays
+        DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(50000)), execute: self.tableView.flashScrollIndicators)
+        
+        DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(50000*2)), execute: self.tableView.flashScrollIndicators)
+        
+        DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(50000*3)), execute: self.tableView.flashScrollIndicators)
+        
+        DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(50000*4)), execute: self.tableView.flashScrollIndicators)
+        
     }
 
     override func viewDidLoad() {

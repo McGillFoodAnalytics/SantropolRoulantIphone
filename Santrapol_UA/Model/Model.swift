@@ -88,7 +88,7 @@ class Names {
     var event_end: String?
     var note: String?
     
-    init(firstName: String?, lastName: String?, uid: String?, driver: Bool?, event_type_user: String?) {
+    init(firstName: String?, lastName: String?, uid: String?,  driver: Bool?, event_type_user: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.uid = uid
@@ -96,7 +96,7 @@ class Names {
         self.event_type_user = event_type_user
     }
     
-    init(firstName: String?, lastName: String?, uid: String?, driver: Bool?, event_type_user: String?, event_start: String?, event_end: String?, note: String?) {
+    init(firstName: String?, lastName: String?, uid: String?, driver: Bool?, event_type_user: String?, event_start: String?, event_end: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.uid = uid
@@ -104,7 +104,6 @@ class Names {
         self.event_type_user = event_type_user
         self.event_start = event_start
         self.event_end = event_end
-        self.note = note
     }
     
 }
