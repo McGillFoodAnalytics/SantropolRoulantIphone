@@ -105,7 +105,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //for leap years, make february month of 29 days
         if currentMonthIndex == 2 && currentYear % 4 == 0 {
             numOfDaysInMonth[currentMonthIndex-1] = 29
-            
         }
         //end
         
@@ -136,6 +135,14 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.isHidden=false
             cell.dateLbl.text="\(calcDate)"
             
+            // Sundays/Thursdays should be blocked off
+            // Compute the corresponding weekday for the selected date
+            let dateComponents = DateComponents(year: currentYear, month: currentMonthIndex, day: calcDate, hour: nil, minute: nil, second: nil)
+            
+            let test = Calendar.current.date(from: dateComponents)
+            let weekday = Calendar.current.component(.weekday, from: test!)
+            print(weekday)
+            
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
@@ -143,14 +150,14 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             } else if (calcDate > todaysDate + maxDaysInAdvance && currentMonthIndex == presentMonthIndex) || (calcDate > (maxDaysInAdvance-(numOfDaysInMonth[currentMonthIndex]-todaysDate)) && currentMonthIndex > presentMonthIndex) && currentYear == presentYear  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
+            } else if (weekday == 5 && CalenderVC.typecontrollerStatic != "Kitchen PM") || weekday == 1 {
+                cell.isUserInteractionEnabled=false
+                cell.dateLbl.textColor = UIColor.lightGray
             } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
                 print(CalenderVC.bookedSlotDate)
                 cell.backgroundColor = Colors.backgroundImportant
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = UIColor.white
-            //} else if CalenderVC.noSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
-            //   cell.isUserInteractionEnabled=false
-            // cell.dateLbl.textColor = UIColor.lightGray
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor

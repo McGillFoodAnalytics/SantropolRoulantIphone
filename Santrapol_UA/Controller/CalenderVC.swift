@@ -33,6 +33,7 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     //static var fullSlotDate = [Int]()
     // static var noSlotDate = [20210615]
     static var bookedSlotDate = [Int]()
+    static var typecontrollerStatic = ""
     var location_start_query: String = ""
     var location_end_query: String = ""
     var datesImportant = [Model]()
@@ -176,10 +177,6 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         return day == 8 ? 1 : day
     }
     
-    func getReg() -> String {
-        return vc.numberSpotsLbl.text!
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -209,6 +206,8 @@ class CalenderVC: UIViewController, CalenderDelegate  {
             location_start_query = "kitpm"
             location_end_query = "kitps"
         }
+        
+        CalenderVC.typecontrollerStatic = typecontroller
         
         // Load stuff from the firebase and append to the bookedSlotDate array
         
