@@ -10,8 +10,9 @@ import UIKit
 
 struct Colors {
     static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
-    static var darkRed = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-    static var backgroundImportant = #colorLiteral(red: 0.3966054916, green: 0, blue: 0.3837408721, alpha: 1)
+    static var current = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    static var backgroundImportant = #colorLiteral(red: 0.585967958, green: 0, blue: 0.5691017509, alpha: 1)
+    static var backgroundNotFull = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
 }
 
 struct Style {
@@ -137,6 +138,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             
             // Sundays/Thursdays should be blocked off
             // Compute the corresponding weekday for the selected date
+            print(currentMonthIndex)
             let dateComponents = DateComponents(year: currentYear, month: currentMonthIndex, day: calcDate, hour: nil, minute: nil, second: nil)
             
             let test = Calendar.current.date(from: dateComponents)
@@ -147,7 +149,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             // Too far in the future
-            } else if (calcDate > todaysDate + maxDaysInAdvance && currentMonthIndex == presentMonthIndex) || (calcDate > (maxDaysInAdvance-(numOfDaysInMonth[currentMonthIndex]-todaysDate)) && currentMonthIndex > presentMonthIndex) && currentYear == presentYear  {
+            } else if (currentYear != presentYear && currentMonthIndex != 12) || (calcDate > todaysDate + maxDaysInAdvance && currentMonthIndex == presentMonthIndex) || (calcDate > (maxDaysInAdvance-(numOfDaysInMonth[currentMonthIndex-1]-todaysDate)) && currentMonthIndex > presentMonthIndex)  || (currentMonthIndex > presentMonthIndex + 1) {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             } else if (weekday == 5 && CalenderVC.typecontrollerStatic != "Kitchen PM") || weekday == 1 {
@@ -156,6 +158,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
                 print(CalenderVC.bookedSlotDate)
                 cell.backgroundColor = Colors.backgroundImportant
+                cell.isUserInteractionEnabled=true
+                cell.dateLbl.textColor = UIColor.white
+            } else if !CalenderVC.fullSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
+                cell.backgroundColor = Colors.backgroundNotFull
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = UIColor.white
             } else {
@@ -170,7 +176,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let cell=collectionView.cellForItem(at: indexPath)
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
         
-        cell?.backgroundColor=Colors.darkRed
+        cell?.backgroundColor=Colors.current
         
         if cell != nil {
             if cell!.subviews.count >=  2 {
@@ -236,6 +242,14 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 lbl.textColor=UIColor.white
             }
             cell?.backgroundColor = Colors.backgroundImportant
+        } else if !CalenderVC.fullSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
+            cell?.backgroundColor=UIColor.clear
+            if cell!.subviews.count >=  2 {
+            let lbl = cell?.subviews[1] as! UILabel
+                lbl.textColor=UIColor.black
+            }
+            cell?.backgroundColor = Colors.backgroundNotFull
+        
         } else {
             cell?.backgroundColor=UIColor.clear
             if cell!.subviews.count >=  2 {
