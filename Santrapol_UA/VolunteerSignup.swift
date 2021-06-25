@@ -103,12 +103,12 @@ class VolunteerSignup: UIViewController {
     
         
         if Locale.current.languageCode == "fr"{
-            descriptionLbl.text = "Aidez à livrer un repas chaud tout en souriant pour rendre la journée de nos clients meilleure!"
+            descriptionLbl.text = "Livrez des repas chauds et des sourires amicaux directement à nos clients bien-aimés!"
             typeLbl.text = "LIVRAISON"
         }
         else{
           
-            descriptionLbl.text = "Help deliver a warm meal and a smiling greeting that can help make our client's day!"
+            descriptionLbl.text = "Deliver warm meals and friendly smiles directly to our beloved clients!"
             typeLbl.text = "MEAL DELIVERY"
         }
         
@@ -134,11 +134,11 @@ class VolunteerSignup: UIViewController {
         
         if Locale.current.languageCode == "fr"{
             
-            descriptionLbl.text = "Travaillez avec un chef pour réunir tous les éléments nécessaires à la préparation du repas de la journée!"
+            descriptionLbl.text = "Travaillez avec nos cuisiniers communautaires et d'autres bénévoles pour aider à préparer le repas du jour!"
             typeLbl.text = "CUISINE"
         }
         else{
-            descriptionLbl.text = "Work with a chef to bring together all of the elements to prepare the meal of the day!"
+            descriptionLbl.text = "Work with our community cooks and other volunteers to help prepare the meal of the day!"
             typeLbl.text = "KITCHEN"
         }
              
@@ -440,7 +440,7 @@ class DeliveryChoice: UIViewController {
             informationDriverLbl.text = "Choisissez cette option si vous souhaitez desservir l’itinéraire Outremont, Mile End, Centre Sud, McGill, Centre-ville ou Westmount."
         }
         else{
-             informationDriverLbl.text = "Pick this option if you want to serve the route Outremont, Mile End, Centre Sud, McGill, Downtown or Westmount."
+             informationDriverLbl.text = "Pick this option if you want to serve Mile End, Center Sud, McGill, Downtown or Westmount."
         }
 
         driverSelected = false
