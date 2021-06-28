@@ -12,7 +12,7 @@ struct Colors {
     static var current = hexStringToUIColor(hex: "#448D45")
     static var darkGray = #colorLiteral(red: 0.699896574, green: 0.699896574, blue: 0.699896574, alpha: 1)
     static var backgroundImportant = #colorLiteral(red: 0.585967958, green: 0, blue: 0.5691017509, alpha: 1)
-    static var backgroundNotFull = hexStringToUIColor(hex: "#BA7FAB")
+    static var backgroundNotFull = hexStringToUIColor(hex: "#F6E5F2")
 }
 
 struct Style {
@@ -163,7 +163,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             } else if !CalenderVC.fullSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
                 cell.backgroundColor = Colors.backgroundNotFull
                 cell.isUserInteractionEnabled=true
-                cell.dateLbl.textColor = UIColor.white
+                cell.dateLbl.textColor = UIColor.black
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor
@@ -239,7 +239,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell?.backgroundColor=UIColor.clear
             if cell!.subviews.count >=  2 {
             let lbl = cell?.subviews[1] as! UILabel
-                lbl.textColor=UIColor.white
+                lbl.textColor=UIColor.black
             }
             cell?.backgroundColor = Colors.backgroundImportant
         } else if !CalenderVC.fullSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
