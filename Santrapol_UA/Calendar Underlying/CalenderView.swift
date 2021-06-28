@@ -9,10 +9,10 @@
 import UIKit
 
 struct Colors {
-    static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
-    static var current = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+    static var current = hexStringToUIColor(hex: "#448D45")
+    static var darkGray = #colorLiteral(red: 0.699896574, green: 0.699896574, blue: 0.699896574, alpha: 1)
     static var backgroundImportant = #colorLiteral(red: 0.585967958, green: 0, blue: 0.5691017509, alpha: 1)
-    static var backgroundNotFull = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+    static var backgroundNotFull = hexStringToUIColor(hex: "#BA7FAB")
 }
 
 struct Style {
@@ -428,6 +428,27 @@ extension String {
     }
 }
 
+func hexStringToUIColor (hex:String) -> UIColor {
+    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+    if (cString.hasPrefix("#")) {
+        cString.remove(at: cString.startIndex)
+    }
+
+    if ((cString.count) != 6) {
+        return UIColor.gray
+    }
+
+    var rgbValue:UInt64 = 0
+    Scanner(string: cString).scanHexInt64(&rgbValue)
+
+    return UIColor(
+        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+        alpha: CGFloat(1.0)
+    )
+}
 
 
 

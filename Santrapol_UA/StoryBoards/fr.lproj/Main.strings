@@ -512,7 +512,7 @@
 "zxf-bk-TLi.text" = "Est-ce la première fois que vous faites cette activité?";
 
 /* Class = "UILabel"; text = "We would love extra help on the days highlighted in purple!"; ObjectID = "nID-SN-dJA"; */
-"nID-SN-dJA.text" = "Nous aimerions de l'aide pour les jours surlignés en violet!";
+"nID-SN-dJA.text" = "Nous aimerions de l'aide pour les jours surlignés en violet foncé!";
 
 /* Class = "UILabel"; text = "spots available"; ObjectID = "uFF-ch-egW"; */
 "uFF-ch-egW.text" = "places disponibles";\
