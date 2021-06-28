@@ -26,20 +26,21 @@ class CalenderVC: UIViewController, CalenderDelegate  {
     var stringy: String? = "5"
     var registered: String! = ""
     var typecontroller: String! = ""
+    var cap: Int! = 0
     var currentYear = Calendar.current.component(.year, from: Date())
     var currentMonthIndex = Calendar.current.component(.month, from: Date())
     var firstWeekDayOfMonth = 0
     
-    //static var fullSlotDate = [Int]()
-    static var noSlotDate = [20210615]
     static var bookedSlotDate = [Int]()
+    static var fullSlotDate = [Int]()
+    static var typecontrollerStatic = ""
     var location_start_query: String = ""
     var location_end_query: String = ""
     var datesImportant = [Model]()
+    var fullSlotDate = [Int?]()
     
     
-     let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
-    
+    let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
     
     @objc func didTapEditButton(sender: AnyObject) {
         
@@ -193,19 +194,22 @@ class CalenderVC: UIViewController, CalenderDelegate  {
         if typecontroller == "Meal Delivery Driver" {
             location_start_query = "deldr"
             location_end_query = "deldr"
+            cap = 4
         } else if typecontroller == "Meal Delivery Non-Driver" {
             location_start_query = "deliv"
             location_end_query = "deliv"
+            cap = 10
         } else if typecontroller == "Kitchen AM" {
-            
             location_start_query = "kitam"
             location_end_query = "kitas"
-            
+            cap = 5
         } else {
-            
             location_start_query = "kitpm"
             location_end_query = "kitps"
+            cap = 5
         }
+        
+        CalenderVC.typecontrollerStatic = typecontroller
         
         // Load stuff from the firebase and append to the bookedSlotDate array
         
@@ -228,27 +232,39 @@ class CalenderVC: UIViewController, CalenderDelegate  {
                 
                 self.datesImportant.append(intEvent)
                 
+                
                 // Check registered
-                //let first_name = dict?["first_name"] as? String
-                //let last_name = dict?["last_name"] as? String
-    
-
-                // Remove duplicates (optional step)
-               // self.verificationArray = self.verificationArray.unique()
+                let event_key = dict?["key"] as? String
+                if event_key != "nan" {
+                    self.fullSlotDate.append(eventint)
+                }
             }
             
             
             let interest = self.datesImportant.filter({$0.is_important_event! == true})
             
+            // Group to count full spots
+            let grouped = Dictionary(grouping: self.fullSlotDate, by: { $0 }).mapValues { items in items.count}
+            
+            var full = [Int]()
+            
+            for (date, count) in grouped {
+                if count >= self.cap {
+                    full.append(date!)
+                }
+            }
+            
             // BUG FOR KITCHEN AM UNWRAPPING AS NIL -- UPDATE: FIXED
             CalenderVC.bookedSlotDate = interest.map {($0.event_date ?? 0)}
+            CalenderVC.fullSlotDate = full.map{($0)}
             
             CalenderVC.bookedSlotDate = CalenderVC.bookedSlotDate.unique()
+            CalenderVC.fullSlotDate = CalenderVC.fullSlotDate.unique()
+            print("Booked slots:")
             print(CalenderVC.bookedSlotDate)
-            
-            
-            
-            
+            print("Full slots:")
+            print( CalenderVC.fullSlotDate)
+        
             // Number registered
             // let vc2 = self.vc
             // let numberSpots = self.vc.numberSpotsLbl.text

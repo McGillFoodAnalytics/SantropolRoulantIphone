@@ -9,9 +9,10 @@
 import UIKit
 
 struct Colors {
-    static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
-    static var darkRed = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-    static var backgroundImportant = #colorLiteral(red: 0.3966054916, green: 0, blue: 0.3837408721, alpha: 1)
+    static var current = hexStringToUIColor(hex: "#448D45")
+    static var darkGray = #colorLiteral(red: 0.699896574, green: 0.699896574, blue: 0.699896574, alpha: 1)
+    static var backgroundImportant = #colorLiteral(red: 0.585967958, green: 0, blue: 0.5691017509, alpha: 1)
+    static var backgroundNotFull = hexStringToUIColor(hex: "#BA7FAB")
 }
 
 struct Style {
@@ -105,7 +106,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //for leap years, make february month of 29 days
         if currentMonthIndex == 2 && currentYear % 4 == 0 {
             numOfDaysInMonth[currentMonthIndex-1] = 29
-            
         }
         //end
         
@@ -126,7 +126,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
-
+        
         cell.backgroundColor=UIColor.clear
         if indexPath.item <= firstWeekDayOfMonth - 2 {
             cell.isHidden=true
@@ -135,13 +135,24 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             let maxDaysInAdvance = 24
             cell.isHidden=false
             cell.dateLbl.text="\(calcDate)"
-            // Past
+            
+            // Sundays/Thursdays should be blocked off
+            // Compute the corresponding weekday for the selected date
+            print(currentMonthIndex)
+            let dateComponents = DateComponents(year: currentYear, month: currentMonthIndex, day: calcDate, hour: nil, minute: nil, second: nil)
+            
+            let test = Calendar.current.date(from: dateComponents)
+            let weekday = Calendar.current.component(.weekday, from: test!)
+            print(weekday)
             
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex  {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             // Too far in the future
-            } else if (calcDate > todaysDate + maxDaysInAdvance && currentMonthIndex == presentMonthIndex) || (calcDate > (maxDaysInAdvance-(numOfDaysInMonth[currentMonthIndex]-todaysDate)) && currentMonthIndex > presentMonthIndex) && currentYear == presentYear  {
+            } else if (currentYear != presentYear && currentMonthIndex != 12) || (calcDate > todaysDate + maxDaysInAdvance && currentMonthIndex == presentMonthIndex) || (calcDate > (maxDaysInAdvance-(numOfDaysInMonth[currentMonthIndex-1]-todaysDate)) && currentMonthIndex > presentMonthIndex)  || (currentMonthIndex > presentMonthIndex + 1) {
+                cell.isUserInteractionEnabled=false
+                cell.dateLbl.textColor = UIColor.lightGray
+            } else if (weekday == 5 && CalenderVC.typecontrollerStatic != "Kitchen PM") || weekday == 1 {
                 cell.isUserInteractionEnabled=false
                 cell.dateLbl.textColor = UIColor.lightGray
             } else if CalenderVC.bookedSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
@@ -149,9 +160,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.backgroundColor = Colors.backgroundImportant
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = UIColor.white
-            //} else if CalenderVC.noSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!){
-            //   cell.isUserInteractionEnabled=false
-            // cell.dateLbl.textColor = UIColor.lightGray
+            } else if !CalenderVC.fullSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
+                cell.backgroundColor = Colors.backgroundNotFull
+                cell.isUserInteractionEnabled=true
+                cell.dateLbl.textColor = UIColor.white
             } else {
                 cell.isUserInteractionEnabled=true
                 cell.dateLbl.textColor = Style.activeCellLblColor
@@ -164,7 +176,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let cell=collectionView.cellForItem(at: indexPath)
         let calcDate = indexPath.row-firstWeekDayOfMonth+2
         
-        cell?.backgroundColor=Colors.darkRed
+        cell?.backgroundColor=Colors.current
         
         if cell != nil {
             if cell!.subviews.count >=  2 {
@@ -230,6 +242,14 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 lbl.textColor=UIColor.white
             }
             cell?.backgroundColor = Colors.backgroundImportant
+        } else if !CalenderVC.fullSlotDate.contains(Int("\(String(currentYear).suffix(2))\(String(format: "%02d", currentMonthIndex))\(String(format: "%02d", calcDate))")!) {
+            cell?.backgroundColor=UIColor.clear
+            if cell!.subviews.count >=  2 {
+            let lbl = cell?.subviews[1] as! UILabel
+                lbl.textColor=UIColor.black
+            }
+            cell?.backgroundColor = Colors.backgroundNotFull
+        
         } else {
             cell?.backgroundColor=UIColor.clear
             if cell!.subviews.count >=  2 {
@@ -408,6 +428,27 @@ extension String {
     }
 }
 
+func hexStringToUIColor (hex:String) -> UIColor {
+    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+    if (cString.hasPrefix("#")) {
+        cString.remove(at: cString.startIndex)
+    }
+
+    if ((cString.count) != 6) {
+        return UIColor.gray
+    }
+
+    var rgbValue:UInt64 = 0
+    Scanner(string: cString).scanHexInt64(&rgbValue)
+
+    return UIColor(
+        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+        alpha: CGFloat(1.0)
+    )
+}
 
 
 

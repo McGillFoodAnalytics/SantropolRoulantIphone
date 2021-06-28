@@ -161,7 +161,6 @@ class PersonalInformation: UIViewController {
     @objc func datePickerChanged(_ sender: UIDatePicker) {
         
         dobField.text = dateFormatter.string(from: sender.date)
-        print(dobField.text)
         
     }
     
