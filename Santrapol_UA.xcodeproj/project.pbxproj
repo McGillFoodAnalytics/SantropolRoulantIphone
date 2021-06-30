@@ -569,7 +569,7 @@
 				CODE_SIGN_ENTITLEMENTS = Santrapol_UA/Santrapol_UA.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4ZH6Q543XM;
 				INFOPLIST_FILE = Santrapol_UA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -595,7 +595,7 @@
 				CODE_SIGN_ENTITLEMENTS = Santrapol_UA/Santrapol_UA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4ZH6Q543XM;
 				INFOPLIST_FILE = Santrapol_UA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

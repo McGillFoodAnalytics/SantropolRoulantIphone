@@ -323,8 +323,12 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         */
             cell.backgroundColor = UIColor.white
             
+        if indexPath.row > namesRegistered.count - 1 && indexPath.row != 0 && indexPath.row != 1 {
+            cell.isUserInteractionEnabled = false
+        }
+        
+            
             if indexPath.row > namesRegistered.count - 1 {
-                
                 cell._titleLabel.textColor = UIColor.white
                 
             } else {
@@ -381,14 +385,13 @@ class BottomSheetViewController: BottomSheetController, UITableViewDelegate, UIT
         
         
         let number = indexPath.row
-        
-        
         let namesRegisteredArray = namesRegistered.map {$0.uid}
+        
         
         // The following block of code prevents a user from registering twice to the same event (disabled for now for development purposes)
         
         if namesRegisteredArray .contains(userid)  {
-         
+            
         // Create an alert blocking the user to register for this event
         
             var alert = UIAlertController(title: "", message: "", preferredStyle: .alert);
