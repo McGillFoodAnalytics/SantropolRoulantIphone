@@ -17,7 +17,7 @@ class HomeViewController: UIViewController,  UITableViewDelegate, UITableViewDat
     @IBOutlet weak var PageHeader: UINavigationItem!
     @IBOutlet weak var Slot: UILabel!
     var EventList = [Model]()
-     let userid = Auth.auth().currentUser!.uid
+     let userid = Auth.auth().currentUser?.uid
     
     var useref = Database.database().reference().child("users");
     var events = Database.database().reference().child("EventRegister")

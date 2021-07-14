@@ -50,7 +50,6 @@ class UnlockCode: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
     @IBAction func enterCodeTapped(_ sender: UIButton) {
         
         if codeField.text ?? ""  == self.code {
